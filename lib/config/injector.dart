@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:inteliteacher/data/repositories/auth/auth_repository.dart';
 import 'package:inteliteacher/ui/home/view_models/home_viewmodel.dart';
 
 /// Abstract class to be implemented by the injector
@@ -28,4 +29,5 @@ final Injector injector = InjectorImpl();
 /// Setup the dependencies
 void setupDependencies() {
   injector.registerSingleton(HomeViewModel());
+  injector.registerSingleton<AuthRepository>(AuthRepositoryRemote());
 }

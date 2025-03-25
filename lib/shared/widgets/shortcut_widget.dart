@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inteliteacher/config/theme.dart';
 
 class ShortcutWidget extends StatelessWidget {
   const ShortcutWidget(
@@ -17,12 +18,13 @@ class ShortcutWidget extends StatelessWidget {
     return InkWell(
       onTap: () => context.go(route),
       child: Card(
+        color: AppColors.periwinkle,
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              Icon(icon),
-              Text(title),
+              Icon(icon, color: AppColors.ghostWhite),
+              Text(title, style: TextStyle(color: AppColors.ghostWhite)),
             ],
           ),
         ),
