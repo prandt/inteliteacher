@@ -18,7 +18,6 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _navigateToHome() {
-    // AFTER 2 SECONDS, NAVIGATE TO HOME PAGE
     Future.delayed(const Duration(seconds: 1), () {
       if (!mounted) return;
       context.go(Routes.home);

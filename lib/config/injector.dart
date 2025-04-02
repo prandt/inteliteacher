@@ -1,11 +1,13 @@
 import 'package:get_it/get_it.dart';
 import 'package:inteliteacher/data/repositories/auth/auth_repository.dart';
+import 'package:inteliteacher/ui/auth/view_models/login_viewmodel.dart';
 import 'package:inteliteacher/ui/home/view_models/home_viewmodel.dart';
+import 'package:inteliteacher/ui/user/view_models/profile_viewmodel.dart';
 
 /// Abstract class to be implemented by the injector
 abstract class Injector {
   T get<T extends Object>();
-  void registerSingleton<T extends Object>(T instance);
+  void setupDependencies();
 }
 
 /// Implementation of the injector
@@ -18,16 +20,13 @@ class InjectorImpl implements Injector {
   }
 
   @override
-  void registerSingleton<T extends Object>(T instance) {
-    getIt.registerSingleton<T>(instance);
+  void setupDependencies() {
+    getIt.registerSingleton(HomeViewModel());
+    getIt.registerSingleton<AuthRepository>(AuthRepositoryRemote());
+    getIt.registerSingleton(LoginViewModel(get()));
+    getIt.registerSingleton(ProfileViewmodel(get()));
   }
 }
 
 /// Global instance of the injector
 final Injector injector = InjectorImpl();
-
-/// Setup the dependencies
-void setupDependencies() {
-  injector.registerSingleton(HomeViewModel());
-  injector.registerSingleton<AuthRepository>(AuthRepositoryRemote());
-}

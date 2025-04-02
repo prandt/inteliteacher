@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final themeData = ThemeData(
   colorScheme: ColorScheme.fromSeed(seedColor: AppColors.tropicalIndigo),
+  textTheme: GoogleFonts.poppinsTextTheme(),
+  fontFamily: GoogleFonts.poppins().fontFamily,
   scaffoldBackgroundColor: AppColors.ghostWhite,
   iconTheme: IconThemeData(
     color: AppColors.tropicalIndigo,

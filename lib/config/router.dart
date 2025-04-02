@@ -10,16 +10,19 @@ import '../ui/user/widgets/profile_page.dart';
 import 'injector.dart';
 
 final _routes = <RouteBase>[
-  GoRoute(path: Routes.splash, builder: (context, state) => SplashPage()),
-  GoRoute(path: Routes.login, builder: (context, state) => LoginPage()),
-  GoRoute(path: Routes.register, builder: (context, state) => RegisterPage()),
+  GoRoute(path: Routes.splash, builder: (context, state) => const SplashPage()),
+  GoRoute(
+      path: Routes.login,
+      builder: (context, state) => LoginPage(viewModel: injector.get())),
+  GoRoute(
+      path: Routes.register, builder: (context, state) => const RegisterPage()),
   GoRoute(
       path: Routes.home,
       builder: (context, state) => HomePage(viewModel: injector.get()),
       redirect: guard),
   GoRoute(
       path: Routes.profile,
-      builder: (context, state) => ProfilePage(),
+      builder: (context, state) => ProfilePage(viewModel: injector.get()),
       redirect: guard),
 ];
 
@@ -37,9 +40,14 @@ abstract final class Routes {
 
 Future<String?> guard(BuildContext context, GoRouterState state) async {
   final actualRoute = state.matchedLocation;
+
   final isLoggedIn = await injector.get<AuthRepository>().isSignedIn();
-  if (actualRoute != Routes.login && !isLoggedIn) {
-    return Routes.login;
+
+  final loggedValue = isLoggedIn.getOrNull();
+
+  if (loggedValue == true && actualRoute != Routes.login) {
+    return null;
   }
-  return null;
+
+  return Routes.login;
 }
