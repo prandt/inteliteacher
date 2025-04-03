@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return ScreenLayout(
+        canPop: false,
         scaffoldKey: scaffoldKey,
         title: "Inicio",
         padding: const EdgeInsets.all(16),

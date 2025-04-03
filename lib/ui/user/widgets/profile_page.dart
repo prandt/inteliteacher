@@ -4,10 +4,10 @@ import 'package:inteliteacher/config/injector.dart';
 import 'package:inteliteacher/config/theme.dart';
 import 'package:inteliteacher/shared/widgets/custom_back_button.dart';
 import 'package:inteliteacher/shared/widgets/screen_layout.dart';
+import 'package:inteliteacher/ui/auth/widgets/logout_button.dart';
 import 'package:inteliteacher/ui/user/view_models/profile_viewmodel.dart';
 
 import '../../../config/router.dart';
-import '../../../shared/widgets/custom_dialog.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({
@@ -22,27 +22,13 @@ class _ProfilePageState extends State<ProfilePage> {
   final ProfileViewmodel viewModel = injector.get();
 
   @override
-  void initState() {
-    super.initState();
-    viewModel.logout.addListener(_listenLogout);
-  }
-
-  void _listenLogout() {
-    if (viewModel.logout.isSuccess) {
-      context.go(Routes.login);
-    }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    viewModel.logout.removeListener(_listenLogout);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ScreenLayout(
+        canPop: false,
         title: "Minha conta",
+        onPopInvokedWithResult: (didPop, result) {
+          context.go(Routes.home);
+        },
         padding: AppPadding.allMedium,
         child: Center(
           child: Column(
@@ -67,14 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
               //   title: 'Alterar senha',
               //   icon: Icons.password,
               // ),
-              TextButton.icon(
-                  onPressed: _logout,
-                  icon: const Icon(Icons.logout, color: AppColors.redAlert),
-                  label: Text("Sair",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(color: AppColors.redAlert))),
+              LogoutButton(),
               const Spacer(),
               CustomBackButton(
                 isInfinite: true,
@@ -85,19 +64,6 @@ class _ProfilePageState extends State<ProfilePage> {
         ));
   }
 
-  void _logout() {
-    CustomDialog.showCustomDialog<bool>(context,
-        title: "Sair",
-        content: "Você tem certeza que deseja sair?",
-        okResult: true,
-        cancelResult: false,
-        okText: "Sim", onResult: (result) {
-      if (result) {
-        viewModel.logout.execute();
-      }
-      context.pop();
-    });
-  }
 }
 
 class UserActionButton extends StatelessWidget {

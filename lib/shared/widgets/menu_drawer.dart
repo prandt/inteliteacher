@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inteliteacher/ui/auth/widgets/logout_button.dart';
 
 import '../../config/router.dart';
 import '../../config/theme.dart';
@@ -70,14 +71,7 @@ class MenuDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            TextButton.icon(
-                onPressed: () {},
-                icon: const Icon(Icons.logout, color: AppColors.redAlert),
-                label: Text("Sair",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(color: AppColors.redAlert))),
+            LogoutButton()
           ],
         ),
       ),
