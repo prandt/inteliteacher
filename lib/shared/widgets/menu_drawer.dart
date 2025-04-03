@@ -2,7 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../config/router.dart';
+import '../../config/theme.dart';
 
+class MenuDrawerItem {
+  final String title;
+  final IconData icon;
+  final String route;
+
+  MenuDrawerItem({
+    required this.title,
+    required this.icon,
+    required this.route,
+  });
+}
+
+final _menuDrawerItems = [
+  MenuDrawerItem(
+    title: "Perfil",
+    icon: Icons.person,
+    route: Routes.profile,
+  ),
+  MenuDrawerItem(
+    title: "Inicio",
+    icon: Icons.home,
+    route: Routes.home,
+  ),
+  MenuDrawerItem(
+    title: "Plano de aula",
+    icon: Icons.book,
+    route: Routes.classPlans,
+  ),
+];
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({super.key});
@@ -10,25 +40,46 @@ class MenuDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        children: [
-          ListTile(
-            leading: CircleAvatar(
-              child: const Icon(Icons.person),
+      child: SafeArea(
+        child: Column(
+          spacing: 20,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
+              child: Text("InteliTeacher",
+                  style: Theme.of(context).textTheme.headlineSmall),
             ),
-            title: const Text("Minha conta"),
-            onTap: () => context.go(Routes.profile),
-          ),
-          const Divider(),
-          ListTile(
-              title: const Text("Inicio"),
-              onTap: () => context.go(Routes.home)
-          ),
-          ListTile(
-            title: const Text("Plano de aula"),
-            onTap: () => context.go(Routes.classPlans),
-          ),
-        ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: ListView.separated(
+                  itemCount: _menuDrawerItems.length,
+                  separatorBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: const Divider(),
+                  ),
+                  itemBuilder: (context, index) {
+                    final item = _menuDrawerItems[index];
+                    return ListTile(
+                      leading: Icon(item.icon, color: AppColors.tropicalIndigo),
+                      title: Text(item.title,
+                          style: Theme.of(context).textTheme.titleSmall),
+                      onTap: () => context.go(item.route),
+                    );
+                  },
+                ),
+              ),
+            ),
+            TextButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.logout, color: AppColors.redAlert),
+                label: Text("Sair",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(color: AppColors.redAlert))),
+          ],
+        ),
       ),
     );
   }

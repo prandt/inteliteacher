@@ -43,8 +43,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       decoration: InputDecoration(
         labelText: widget.label,
         hintText: widget.hint,
-        suffix: widget.isPassword
+        suffixIcon: widget.isPassword
             ? IconButton(
+                padding: const EdgeInsets.all(0),
                 onPressed: () {
                   setState(() {
                     _isPasswordVisible = !_isPasswordVisible;

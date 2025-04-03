@@ -27,18 +27,31 @@ class ScreenLayout extends StatelessWidget {
       drawerEnableOpenDragGesture: true,
       appBar: enableAppbar
           ? AppBar(
-              title: Text(title),
+              title:
+                  Text(title, style: Theme.of(context).textTheme.titleMedium),
+              scrolledUnderElevation: 0,
               centerTitle: true,
             )
           : null,
-      body: Padding(
-        padding: padding ?? const EdgeInsets.all(0),
-        child: child,
+      body: SafeArea(
+        child: Padding(
+          padding: padding ?? const EdgeInsets.all(0),
+          child: child,
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      ),
+      persistentFooterButtons: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SizedBox(),
+            Text(
+              "Versão 1.0.0",
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            const SizedBox(),
+          ],
+        ),
+      ],
     );
   }
 }

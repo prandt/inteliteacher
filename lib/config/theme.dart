@@ -3,7 +3,32 @@ import 'package:google_fonts/google_fonts.dart';
 
 final themeData = ThemeData(
   colorScheme: ColorScheme.fromSeed(seedColor: AppColors.tropicalIndigo),
-  textTheme: GoogleFonts.poppinsTextTheme(),
+  textTheme: GoogleFonts.poppinsTextTheme().copyWith(
+      titleMedium: TextStyle(
+        color: AppColors.tropicalIndigo,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+      ),
+      headlineSmall: TextStyle(
+        color: AppColors.coolGray,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+      ),
+      titleSmall: TextStyle(
+        color: AppColors.tropicalIndigo,
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+      ),
+      labelMedium: TextStyle(
+        color: AppColors.tropicalIndigo,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+      ),
+      bodySmall: TextStyle(
+        color: AppColors.coolGray,
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+      )),
   fontFamily: GoogleFonts.poppins().fontFamily,
   scaffoldBackgroundColor: AppColors.ghostWhite,
   iconTheme: IconThemeData(
@@ -29,6 +54,10 @@ final themeData = ThemeData(
     color: AppColors.periwinkle,
     linearMinHeight: 4,
   ),
+  dividerTheme: DividerThemeData(
+    color: AppColors.tropicalIndigo.withAlpha(50),
+    thickness: 1,
+  ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: AppColors.tropicalIndigo,
@@ -39,8 +68,46 @@ final themeData = ThemeData(
       ),
     ),
   ),
+  inputDecorationTheme: InputDecorationTheme(
+    enabledBorder: UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: AppColors.tropicalIndigo.withAlpha(50),
+        width: 1,
+      ),
+    ),
+    focusedBorder: UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: AppColors.tropicalIndigo,
+        width: 1,
+      ),
+    ),
+    hintStyle: TextStyle(
+      color: AppColors.coolGray,
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+    ),
+    border: UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: AppColors.tropicalIndigo.withAlpha(50),
+        width: 1,
+      ),
+    ),
+  ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      backgroundColor: AppColors.ghostWhite,
+      foregroundColor: AppColors.tropicalIndigo,
+      padding: AppPadding.allMedium,
+      side: BorderSide(
+        color: AppColors.tropicalIndigo,
+        width: 1,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+    ),
+  ),
 );
-
 
 abstract final class AppColors {
   // Primary

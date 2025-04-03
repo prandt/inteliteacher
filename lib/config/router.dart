@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:inteliteacher/data/repositories/auth/auth_repository.dart';
 import 'package:inteliteacher/ui/auth/widgets/login_page.dart';
 import 'package:inteliteacher/ui/auth/widgets/register_page.dart';
+import 'package:inteliteacher/ui/class_plans/widgets/class_plans_page.dart';
 
 import '../ui/home/widgets/home_page.dart';
 import '../ui/splash/splash_page.dart';
@@ -23,6 +24,10 @@ final _routes = <RouteBase>[
   GoRoute(
       path: Routes.profile,
       builder: (context, state) => ProfilePage(viewModel: injector.get()),
+      redirect: guard),
+  GoRoute(
+      path: Routes.classPlans,
+      builder: (context, state) => const ClassPlansPage(),
       redirect: guard),
 ];
 
