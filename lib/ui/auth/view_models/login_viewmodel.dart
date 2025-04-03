@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:inteliteacher/data/repositories/auth/auth_repository.dart';
-import 'package:inteliteacher/data/services/dtos/login_dto.dart';
+import 'package:inteliteacher/model/auth/validators/login_validator.dart';
 import 'package:result_command/result_command.dart';
 import 'package:result_dart/result_dart.dart';
 
@@ -11,9 +11,9 @@ class LoginViewModel extends ChangeNotifier {
 
   LoginViewModel(this._authRepository);
 
-  late final Command1 login = Command1<AuthUserModel, LoginDTO>(_login);
+  late final Command1 login = Command1<AuthUserModel, LoginValidator>(_login);
 
-  AsyncResult<AuthUserModel> _login(LoginDTO request) => _authRepository
-      .signInWithEmailAndPassword(request.email, request.password);
+  AsyncResult<AuthUserModel> _login(LoginValidator validator) => _authRepository
+      .signInWithEmailAndPassword(validator.email, validator.password);
 
 }

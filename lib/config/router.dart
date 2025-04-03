@@ -12,18 +12,16 @@ import 'injector.dart';
 
 final _routes = <RouteBase>[
   GoRoute(path: Routes.splash, builder: (context, state) => const SplashPage()),
-  GoRoute(
-      path: Routes.login,
-      builder: (context, state) => LoginPage(viewModel: injector.get())),
+  GoRoute(path: Routes.login, builder: (context, state) => const LoginPage()),
   GoRoute(
       path: Routes.register, builder: (context, state) => const RegisterPage()),
   GoRoute(
       path: Routes.home,
-      builder: (context, state) => HomePage(viewModel: injector.get()),
+      builder: (context, state) => const HomePage(),
       redirect: guard),
   GoRoute(
       path: Routes.profile,
-      builder: (context, state) => ProfilePage(viewModel: injector.get()),
+      builder: (context, state) => const ProfilePage(),
       redirect: guard),
   GoRoute(
       path: Routes.classPlans,

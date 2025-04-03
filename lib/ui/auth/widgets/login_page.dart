@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inteliteacher/config/injector.dart';
 import 'package:inteliteacher/config/theme.dart';
 import 'package:inteliteacher/shared/loading_overlay.dart';
 import 'package:inteliteacher/shared/widgets/custom_text_field.dart';
@@ -7,23 +8,22 @@ import 'package:inteliteacher/ui/auth/view_models/login_viewmodel.dart';
 import 'package:result_command/result_command.dart';
 import '../../../config/router.dart';
 import '../../../data/execptions/app_exceptions.dart';
-import '../../../data/services/dtos/login_dto.dart';
+import '../../../model/auth/validators/login_validator.dart';
 import '../../../shared/widgets/app_logo.dart';
 import 'create_account_card.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key, required this.viewModel});
-
-  final LoginViewModel viewModel;
+  const LoginPage({
+    super.key,
+  });
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  LoginViewModel get viewModel => widget.viewModel;
+  final LoginViewModel viewModel = injector.get();
   final formKey = GlobalKey<FormState>();
-  final loginDto = LoginDTO();
   final loginValidator = LoginValidator();
 
   @override
@@ -42,13 +42,13 @@ class _LoginPageState extends State<LoginPage> {
       final exception = failure.error;
       debugPrint("Login error: ${exception.runtimeType}");
       if (exception is AuthException) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(exception.message, textAlign: TextAlign.center),
-              backgroundColor: AppColors.redAlert,
-            ),
-          );
-          return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(exception.message, textAlign: TextAlign.center),
+            backgroundColor: AppColors.redAlert,
+          ),
+        );
+        return;
       }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -89,30 +89,28 @@ class _LoginPageState extends State<LoginPage> {
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                           color: AppColors.periwinkle)),
+                  Text("Entre com sua conta"),
                   CustomTextField(
                     label: "E-mail",
                     hint: "Digite seu e-mail",
                     keyboardType: TextInputType.emailAddress,
-                    onChanged: loginDto.setEmail,
-                    validator: loginValidator.byField(loginDto, 'email'),
+                    onChanged: loginValidator.setEmail,
+                    validator: loginValidator.field('email'),
                   ),
                   CustomTextField(
                       label: "Senha",
                       hint: "Digite sua senha",
                       isPassword: true,
                       keyboardType: TextInputType.visiblePassword,
-                      onChanged: loginDto.setPassword,
-                      validator: loginValidator.byField(loginDto, 'password')),
+                      onChanged: loginValidator.setPassword,
+                      validator: loginValidator.field('password')),
                   ListenableBuilder(
-                      listenable: loginDto,
+                      listenable: loginValidator,
                       builder: (context, _) {
                         return SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                              onPressed:
-                                  loginValidator.validate(loginDto).isValid
-                                      ? login
-                                      : null,
+                              onPressed: loginValidator.isValid ? login : null,
                               child: Text("Entrar")),
                         );
                       }),
@@ -132,6 +130,6 @@ class _LoginPageState extends State<LoginPage> {
     if (!formKey.currentState!.validate()) {
       return;
     }
-    viewModel.login.execute(loginDto);
+    viewModel.login.execute(loginValidator);
   }
 }

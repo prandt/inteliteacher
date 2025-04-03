@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inteliteacher/config/injector.dart';
 import 'package:inteliteacher/config/theme.dart';
 import 'package:inteliteacher/shared/widgets/custom_back_button.dart';
 import 'package:inteliteacher/shared/widgets/screen_layout.dart';
@@ -9,23 +10,25 @@ import '../../../config/router.dart';
 import '../../../shared/widgets/custom_dialog.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key, required this.viewModel});
-
-  final ProfileViewmodel viewModel;
+  const ProfilePage({
+    super.key,
+  });
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final ProfileViewmodel viewModel = injector.get();
+
   @override
   void initState() {
     super.initState();
-    widget.viewModel.logout.addListener(_listenLogout);
+    viewModel.logout.addListener(_listenLogout);
   }
 
   void _listenLogout() {
-    if (widget.viewModel.logout.isSuccess) {
+    if (viewModel.logout.isSuccess) {
       context.go(Routes.login);
     }
   }
@@ -33,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void dispose() {
     super.dispose();
-    widget.viewModel.logout.removeListener(_listenLogout);
+    viewModel.logout.removeListener(_listenLogout);
   }
 
   @override
@@ -90,7 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
         cancelResult: false,
         okText: "Sim", onResult: (result) {
       if (result) {
-        widget.viewModel.logout.execute();
+        viewModel.logout.execute();
       }
       context.pop();
     });

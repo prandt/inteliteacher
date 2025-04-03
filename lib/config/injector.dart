@@ -21,10 +21,15 @@ class InjectorImpl implements Injector {
 
   @override
   void setupDependencies() {
-    getIt.registerSingleton(HomeViewModel());
+    // Repositories
+    // Registering repositories as singletons to ensure a single instance is used throughout the app
     getIt.registerSingleton<AuthRepository>(AuthRepositoryRemote());
-    getIt.registerSingleton(LoginViewModel(get()));
-    getIt.registerSingleton(ProfileViewmodel(get()));
+
+    // ViewModels
+    // Registering view models as factories to ensure a new instance is created each time
+    getIt.registerFactory(() => HomeViewModel());
+    getIt.registerFactory(() => LoginViewModel(get()));
+    getIt.registerFactory(() => ProfileViewmodel(get()));
   }
 }
 
