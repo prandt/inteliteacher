@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inteliteacher/config/theme.dart';
-import 'package:inteliteacher/shared/widgets/custom_text_button.dart';
+import 'package:inteliteacher/shared/loading_overlay.dart';
 import 'package:inteliteacher/shared/widgets/custom_text_field.dart';
 import 'package:inteliteacher/ui/auth/view_models/login_viewmodel.dart';
-
+import 'package:result_command/result_command.dart';
 import '../../../config/router.dart';
+import '../../../data/execptions/app_exceptions.dart';
 import '../../../data/services/dtos/login_dto.dart';
 import '../../../shared/widgets/app_logo.dart';
 import 'create_account_card.dart';
@@ -32,11 +33,28 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _listenLogin() {
+    LoadingOverlay.instance().hide();
     if (viewModel.login.isRunning) {
-      // TODO: Show loading indicator
+      LoadingOverlay.instance().show(context, text: "Entrando...");
     }
     if (viewModel.login.isFailure) {
-      // TODO: Show error message
+      final failure = viewModel.login.value as FailureCommand;
+      final exception = failure.error;
+      debugPrint("Login error: ${exception.runtimeType}");
+      if (exception is AuthException) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(exception.message, textAlign: TextAlign.center),
+              backgroundColor: AppColors.redAlert,
+            ),
+          );
+          return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Erro ao fazer login"),
+        ),
+      );
     }
     if (viewModel.login.isSuccess) {
       context.go(Routes.home);
@@ -88,17 +106,16 @@ class _LoginPageState extends State<LoginPage> {
                   ListenableBuilder(
                       listenable: loginDto,
                       builder: (context, _) {
-                        return IconButton.outlined(
-                            color: AppColors.tropicalIndigo,
-                            onPressed: loginValidator.validate(loginDto).isValid
-                                ? login
-                                : null,
-                            icon: Icon(Icons.arrow_forward));
+                        return SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                              onPressed:
+                                  loginValidator.validate(loginDto).isValid
+                                      ? login
+                                      : null,
+                              child: Text("Entrar")),
+                        );
                       }),
-                  CustomTextButton(
-                    label: "Esqueci minha senha",
-                    onPressed: () {},
-                  ),
                 ],
               ),
             ),

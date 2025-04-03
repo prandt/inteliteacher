@@ -15,18 +15,14 @@ class AuthException extends AppExceptions {
 }
 
 AppExceptions fromFirebaseAuthException(FirebaseAuthException e) {
-  switch (e.code) {
-    case 'user-not-found':
-      return AuthException('Usuário não encontrado');
-    case 'wrong-password':
-      return AuthException('Senha incorreta');
-    case 'email-already-in-use':
-      return AuthException('Email já em uso');
-    case 'invalid-email':
-      return AuthException('Email inválido');
-    case 'weak-password':
-      return AuthException('Senha fraca');
-    default:
-      return AuthException('Erro desconhecido');
-  }
+  final message = switch (e.code) {
+    'user-not-found' => 'Usuário não encontrado',
+    'wrong-password' => 'Senha incorreta',
+    'email-already-in-use' => 'Email já em uso',
+    'invalid-email' => 'Email inválido',
+    'weak-password' => 'Senha fraca',
+    'invalid-credential' => 'Credenciais inválidas',
+    _ => 'Erro desconhecido',
+  };
+  return AuthException(message);
 }

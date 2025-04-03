@@ -11,15 +11,9 @@ class LoginViewModel extends ChangeNotifier {
 
   LoginViewModel(this._authRepository);
 
-  late final Command1 login = Command1<Unit, LoginDTO>(_login);
+  late final Command1 login = Command1<AuthUserModel, LoginDTO>(_login);
 
-  AsyncResult<Unit> _login(LoginDTO request) => _authRepository
-      .signInWithEmailAndPassword(request.email, request.password)
-      .onSuccess(_onSuccessLogin)
-      .pure(unit);
+  AsyncResult<AuthUserModel> _login(LoginDTO request) => _authRepository
+      .signInWithEmailAndPassword(request.email, request.password);
 
-  void _onSuccessLogin(AuthUserModel user) {
-    debugPrint('Login successful: ${user.toJson()}');
-    notifyListeners();
-  }
 }
