@@ -40,7 +40,6 @@ class _LoginPageState extends State<LoginPage> {
     if (viewModel.login.isFailure) {
       final failure = viewModel.login.value as FailureCommand;
       final exception = failure.error;
-      debugPrint("Login error: ${exception.runtimeType}");
       if (exception is AuthException) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

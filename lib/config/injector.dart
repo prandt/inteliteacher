@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:inteliteacher/data/repositories/auth/auth_repository.dart';
 import 'package:inteliteacher/ui/auth/view_models/login_viewmodel.dart';
 import 'package:inteliteacher/ui/auth/view_models/logout_viewmodel.dart';
+import 'package:inteliteacher/ui/auth/view_models/register_viewmodel.dart';
 import 'package:inteliteacher/ui/home/view_models/home_viewmodel.dart';
 import 'package:inteliteacher/ui/user/view_models/profile_viewmodel.dart';
 
@@ -32,6 +33,7 @@ class InjectorImpl implements Injector {
     getIt.registerFactory(() => LoginViewModel(get()));
     getIt.registerFactory(() => ProfileViewmodel());
     getIt.registerFactory(() => LogoutViewmodel(get()));
+    getIt.registerFactory(() => RegisterViewModel(get()));
   }
 }
 
