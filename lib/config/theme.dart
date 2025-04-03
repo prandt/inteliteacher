@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final themeData = ThemeData(
-  colorScheme: ColorScheme.fromSeed(seedColor: AppColors.tropicalIndigo),
+  colorScheme: ColorScheme.fromSeed(
+      seedColor: AppColors.tropicalIndigo, surface: AppColors.ghostWhite),
   textTheme: GoogleFonts.poppinsTextTheme().copyWith(
       titleMedium: TextStyle(
         color: AppColors.tropicalIndigo,
@@ -20,6 +21,11 @@ final themeData = ThemeData(
         fontWeight: FontWeight.w400,
       ),
       labelMedium: TextStyle(
+        color: AppColors.tropicalIndigo,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+      ),
+      bodyMedium: TextStyle(
         color: AppColors.tropicalIndigo,
         fontSize: 14,
         fontWeight: FontWeight.w400,

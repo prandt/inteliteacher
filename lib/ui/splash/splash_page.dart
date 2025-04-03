@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inteliteacher/shared/widgets/app_logo.dart';
 
 import '../../config/router.dart';
 
@@ -28,7 +29,15 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Material(
       child: Center(
-        child: CircularProgressIndicator(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            AppLogo(),
+            CircularProgressIndicator(),
+          ],
+        ),
       ),
     );
   }

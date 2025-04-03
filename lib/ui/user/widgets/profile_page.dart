@@ -6,6 +6,7 @@ import 'package:inteliteacher/shared/widgets/screen_layout.dart';
 import 'package:inteliteacher/ui/user/view_models/profile_viewmodel.dart';
 
 import '../../../config/router.dart';
+import '../../../shared/widgets/custom_dialog.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key, required this.viewModel});
@@ -64,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
               //   icon: Icons.password,
               // ),
               TextButton.icon(
-                  onPressed: widget.viewModel.logout.execute,
+                  onPressed: _logout,
                   icon: const Icon(Icons.logout, color: AppColors.redAlert),
                   label: Text("Sair",
                       style: Theme.of(context)
@@ -79,6 +80,20 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
         ));
+  }
+
+  void _logout() {
+    CustomDialog.showCustomDialog<bool>(context,
+        title: "Sair",
+        content: "Você tem certeza que deseja sair?",
+        okResult: true,
+        cancelResult: false,
+        okText: "Sim", onResult: (result) {
+      if (result) {
+        widget.viewModel.logout.execute();
+      }
+      context.pop();
+    });
   }
 }
 
