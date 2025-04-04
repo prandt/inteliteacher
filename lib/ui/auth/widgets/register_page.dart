@@ -121,7 +121,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       }),
                   CustomBackButton(
                     isInfinite: true,
-                    routeName: Routes.login,
                   )
                 ],
               ),

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:inteliteacher/config/injector.dart';
 import 'package:inteliteacher/config/theme.dart';
 import 'package:inteliteacher/shared/widgets/custom_back_button.dart';
 import 'package:inteliteacher/shared/widgets/screen_layout.dart';
 import 'package:inteliteacher/ui/auth/widgets/logout_button.dart';
 import 'package:inteliteacher/ui/user/view_models/profile_viewmodel.dart';
-
-import '../../../config/router.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({
@@ -24,11 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return ScreenLayout(
-        canPop: false,
         title: "Minha conta",
-        onPopInvokedWithResult: (didPop, result) {
-          context.go(Routes.home);
-        },
         padding: AppPadding.allMedium,
         child: Center(
           child: Column(
@@ -57,13 +50,11 @@ class _ProfilePageState extends State<ProfilePage> {
               const Spacer(),
               CustomBackButton(
                 isInfinite: true,
-                routeName: Routes.home,
               )
             ],
           ),
         ));
   }
-
 }
 
 class UserActionButton extends StatelessWidget {

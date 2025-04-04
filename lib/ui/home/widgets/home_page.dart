@@ -15,20 +15,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  final HomeViewModel viewModel = injector.get();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _viewModel = injector.get<HomeViewModel>();
+
+  @override
+  initState() {
+    super.initState();
+    _viewModel.loadCurrentUser();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ScreenLayout(
-        canPop: false,
-        scaffoldKey: scaffoldKey,
+        scaffoldKey: _scaffoldKey,
         title: "Inicio",
         padding: const EdgeInsets.all(16),
         enableAppbar: false,
         child: CustomScrollView(
           slivers: [
-            HomeAppBar(scaffoldKey: scaffoldKey),
+            HomeAppBar(scaffoldKey: _scaffoldKey, name: _viewModel.user?.name),
             SliverToBoxAdapter(
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

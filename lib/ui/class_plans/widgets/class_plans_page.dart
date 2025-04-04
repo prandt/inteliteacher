@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:inteliteacher/config/theme.dart';
 import 'package:inteliteacher/shared/widgets/custom_back_button.dart';
 
-import '../../../config/router.dart';
 import '../../../shared/widgets/screen_layout.dart';
 import 'create_class_plans.dart';
 
@@ -18,10 +16,6 @@ class _ClassPlansPageState extends State<ClassPlansPage> {
   @override
   Widget build(BuildContext context) {
     return ScreenLayout(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, result) {
-        context.go(Routes.home);
-      },
       title: 'Planos de aula',
       padding: const EdgeInsets.all(16),
       child: Center(
@@ -45,7 +39,6 @@ class _ClassPlansPageState extends State<ClassPlansPage> {
                   itemCount: 10),
             )),
             CustomBackButton(
-              routeName: Routes.home,
               isInfinite: true,
             )
           ],

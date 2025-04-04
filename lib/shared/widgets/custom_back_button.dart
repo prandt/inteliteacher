@@ -4,18 +4,14 @@ import 'package:go_router/go_router.dart';
 import '../../config/theme.dart';
 
 class CustomBackButton extends StatelessWidget {
-  const CustomBackButton({super.key, this.routeName, this.isInfinite = false});
+  const CustomBackButton({super.key, this.isInfinite = false});
 
-  final String? routeName;
   final bool isInfinite;
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton.icon(
         onPressed: () {
-          if (routeName != null) {
-            context.go(routeName!);
-          }
           context.pop();
         },
         label: Row(
