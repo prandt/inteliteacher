@@ -1,9 +1,12 @@
 import 'package:get_it/get_it.dart';
+import 'package:inteliteacher/data/repositories/ai/ai_repository.dart';
+import 'package:inteliteacher/data/repositories/ai/ai_repository_remote.dart';
 import 'package:inteliteacher/data/repositories/auth/auth_repository.dart';
 import 'package:inteliteacher/ui/auth/view_models/finalize_registration_viewmodel.dart';
 import 'package:inteliteacher/ui/auth/view_models/login_viewmodel.dart';
 import 'package:inteliteacher/ui/auth/view_models/logout_viewmodel.dart';
 import 'package:inteliteacher/ui/auth/view_models/register_viewmodel.dart';
+import 'package:inteliteacher/ui/class_plans/view_models/class_plans_viewmodel.dart';
 import 'package:inteliteacher/ui/home/view_models/home_viewmodel.dart';
 import 'package:inteliteacher/ui/user/view_models/profile_viewmodel.dart';
 
@@ -27,6 +30,7 @@ class InjectorImpl implements Injector {
     // Repositories
     // Registering repositories as singletons to ensure a single instance is used throughout the app
     getIt.registerSingleton<AuthRepository>(AuthRepositoryRemote());
+    getIt.registerSingleton<AiRepository>(AiRepositoryRemote());
 
     // ViewModels
     // Registering view models as factories to ensure a new instance is created each time
@@ -36,6 +40,7 @@ class InjectorImpl implements Injector {
     getIt.registerFactory(() => LogoutViewmodel(get()));
     getIt.registerFactory(() => RegisterViewModel(get()));
     getIt.registerFactory(() => FinalizeRegistrationViewmodel(get()));
+    getIt.registerSingleton(ClassPlansViewmodel(get()));
   }
 }
 

@@ -1,5 +1,5 @@
 import 'package:result_dart/result_dart.dart';
-import '../../../model/auth/auth_user_model.dart';
+import '../../../model/entities/auth/auth_user_model.dart';
 export 'auth_repository_remote.dart';
 
 abstract interface class AuthRepository {

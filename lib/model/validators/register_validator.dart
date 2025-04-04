@@ -1,4 +1,4 @@
-import '../../../shared/cusomt_validator.dart';
+import '../../shared/custom_validator.dart';
 
 class RegisterValidator extends CustomValidator<RegisterValidator> {
   String email = '';

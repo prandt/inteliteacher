@@ -1,4 +1,4 @@
-import 'package:inteliteacher/shared/cusomt_validator.dart';
+import 'package:inteliteacher/shared/custom_validator.dart';
 
 class LoginValidator extends CustomValidator<LoginValidator> {
   String email = "";

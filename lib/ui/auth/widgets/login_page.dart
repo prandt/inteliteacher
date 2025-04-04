@@ -8,7 +8,7 @@ import 'package:inteliteacher/ui/auth/view_models/login_viewmodel.dart';
 import 'package:result_command/result_command.dart';
 import '../../../config/router.dart';
 import '../../../data/execptions/app_exceptions.dart';
-import '../../../model/auth/validators/login_validator.dart';
+import '../../../model/validators/login_validator.dart';
 import '../../../shared/widgets/app_logo.dart';
 import 'create_account_card.dart';
 

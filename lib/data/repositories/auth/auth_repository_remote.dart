@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:inteliteacher/data/repositories/auth/auth_repository.dart';
-import 'package:inteliteacher/model/auth/auth_user_model.dart';
 import 'package:result_dart/result_dart.dart';
 
+import '../../../model/entities/auth/auth_user_model.dart';
 import '../../execptions/app_exceptions.dart';
 
 class AuthRepositoryRemote implements AuthRepository {

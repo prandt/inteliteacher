@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inteliteacher/config/injector.dart';
 import 'package:inteliteacher/config/router.dart';
-import 'package:inteliteacher/model/auth/validators/register_validator.dart';
 import 'package:inteliteacher/shared/loading_overlay.dart';
 import 'package:inteliteacher/shared/widgets/custom_back_button.dart';
 import 'package:inteliteacher/ui/auth/view_models/register_viewmodel.dart';
@@ -10,6 +9,7 @@ import 'package:result_command/result_command.dart';
 
 import '../../../config/theme.dart';
 import '../../../data/execptions/app_exceptions.dart';
+import '../../../model/validators/register_validator.dart';
 import '../../../shared/widgets/app_logo.dart';
 import '../../../shared/widgets/custom_text_field.dart';
 

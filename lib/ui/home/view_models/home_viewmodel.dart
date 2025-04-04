@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inteliteacher/data/repositories/auth/auth_repository.dart';
-import 'package:inteliteacher/model/auth/auth_user_model.dart';
+
+import '../../../model/entities/auth/auth_user_model.dart';
 
 class HomeViewModel extends ChangeNotifier {
   HomeViewModel(this._authRepository);

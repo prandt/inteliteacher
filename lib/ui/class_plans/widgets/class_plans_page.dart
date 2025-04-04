@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:inteliteacher/config/injector.dart';
 import 'package:inteliteacher/config/theme.dart';
 import 'package:inteliteacher/shared/widgets/custom_back_button.dart';
+import 'package:inteliteacher/ui/class_plans/view_models/class_plans_viewmodel.dart';
 
 import '../../../shared/widgets/screen_layout.dart';
 import 'create_class_plans.dart';
@@ -13,6 +15,10 @@ class ClassPlansPage extends StatefulWidget {
 }
 
 class _ClassPlansPageState extends State<ClassPlansPage> {
+
+  final _viewmodel = injector.get<ClassPlansViewmodel>();
+
+
   @override
   Widget build(BuildContext context) {
     return ScreenLayout(
