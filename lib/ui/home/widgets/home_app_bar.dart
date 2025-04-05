@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:inteliteacher/ui/auth/widgets/logout_button.dart';
 
 import '../../../config/router.dart';
 import '../../../config/theme.dart';
@@ -12,8 +13,7 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-
-      actions: [InkWell(
+      leading: InkWell(
         borderRadius: BorderRadius.circular(50),
         onTap: () => context.go(Routes.profile),
         child: Padding(
@@ -28,7 +28,8 @@ class HomeAppBar extends StatelessWidget {
             ),
           ),
         ),
-      )],
+      ),
+      actions: [const LogoutButton(withText: false)],
       centerTitle: false,
       title: Text("$_getGreeting, ${name ?? "Professor"}",
           textAlign: TextAlign.start,
@@ -37,7 +38,6 @@ class HomeAppBar extends StatelessWidget {
       pinned: true,
     );
   }
-
 
   String get _getGreeting {
     final hour = DateTime.now().hour;

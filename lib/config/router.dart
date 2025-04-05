@@ -9,6 +9,7 @@ import 'package:inteliteacher/ui/class_plans/widgets/class_plans_page.dart';
 import 'package:inteliteacher/ui/courses/widgets/courses_page.dart';
 import 'package:result_dart/result_dart.dart';
 
+import '../ui/courses/widgets/view_course_page.dart';
 import '../ui/home/widgets/home_page.dart';
 import '../ui/splash/splash_page.dart';
 import '../ui/user/widgets/profile_page.dart';
@@ -27,16 +28,22 @@ final _routes = <RouteBase>[
             path: Routes.profileRelative,
             builder: (context, state) => const ProfilePage()),
         GoRoute(
-            path: Routes.classPlansRelative,
-            builder: (context, state) => const ClassPlansPage(),
-            ),
-        GoRoute(
-          path: Routes.coursesRelative,
-          builder: (context, state) => const CoursesPage(),
+          path: Routes.classPlansRelative,
+          builder: (context, state) => const ClassPlansPage(),
         ),
+        GoRoute(
+            path: Routes.coursesRelative,
+            builder: (context, state) => const CoursesPage(),
+            routes: [
+              GoRoute(
+                  path: ':id',
+                  builder: (context, state) {
+                    final id = state.pathParameters['id']!;
+                    return ViewCoursePage(id: id);
+                  })
+            ]),
       ],
-      redirect: guard
-  ),
+      redirect: guard),
   GoRoute(
       path: Routes.finalizeRegistration,
       builder: (context, state) => const FinalizeRegistrationPage(),
@@ -60,6 +67,7 @@ abstract final class Routes {
   static const profileRelative = 'profile';
   static const courses = '/$coursesRelative';
   static const coursesRelative = 'courses';
+  static String courseWithId(String id) => '/$coursesRelative/$id';
 
   // Finalize registration
   static const finalizeRegistration = '/finalize-registration';

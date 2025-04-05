@@ -8,7 +8,9 @@ import '../../../shared/widgets/custom_dialog.dart';
 import '../view_models/logout_viewmodel.dart';
 
 class LogoutButton extends StatefulWidget {
-  const LogoutButton({super.key});
+  const LogoutButton({super.key, this.withText = true});
+
+  final bool withText;
 
   @override
   State<LogoutButton> createState() => _LogoutButtonState();
@@ -37,14 +39,21 @@ class _LogoutButtonState extends State<LogoutButton> {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton.icon(
-        onPressed: _logout,
-        icon: const Icon(Icons.logout, color: AppColors.redAlert),
-        label: Text("Sair",
-            style: Theme.of(context)
-                .textTheme
-                .titleSmall!
-                .copyWith(color: AppColors.redAlert)));
+    return widget.withText
+        ? TextButton.icon(
+            onPressed: _logout,
+            iconAlignment: IconAlignment.start,
+            icon: const Icon(Icons.logout, color: AppColors.redAlert),
+            label: Text("Sair",
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall!
+                    .copyWith(color: AppColors.redAlert)))
+        : TextButton(
+            onPressed: _logout,
+            iconAlignment: IconAlignment.start,
+            child: const Icon(Icons.logout, color: AppColors.redAlert),
+          );
   }
 
   void _logout() {
