@@ -1,29 +1,30 @@
 import 'dart:convert';
 
 import 'package:firebase_vertexai/firebase_vertexai.dart';
+import 'package:inteliteacher/data/execptions/app_exceptions.dart';
 import 'package:inteliteacher/data/repositories/ai/ai_repository.dart';
-import 'package:inteliteacher/model/entities/class_plans/class_plan_model.dart';
 import 'package:result_dart/result_dart.dart';
 
+import '../../../model/entities/class_plans/class_plan_model.dart';
 import '../../../shared/system_instructions.dart';
 
 class AiRepositoryRemote implements AiRepository {
   final _vertex = FirebaseVertexAI.instance;
 
   @override
-  AsyncResult<ClassPlanModel> generateClassPlan(
+  AsyncResult<CreateClassPlanRequest> generateClassPlan(
       {required String prompt}) async {
     final model = _getModelClassPlan();
     try {
       final response = await model.generateContent([Content.text(prompt)]);
       if (response.text?.isNotEmpty ?? false) {
         final json = jsonDecode(response.text!);
-        final classPlan = ClassPlanModel.fromJson(json);
+        final classPlan = CreateClassPlanRequest.fromJson(json);
         return Success(classPlan);
       }
-      return Failure(Exception('Error generating class plan'));
-    } catch (e) {
-      return Failure(Exception('Error generating class plan: $e'));
+      return Failure(AiException('Falha ao gerar o plano de aula'));
+    } catch (e, s) {
+      return Failure(AiException('Falha ao gerar o plano de aula', s));
     }
   }
 

@@ -26,3 +26,11 @@ AppExceptions fromFirebaseAuthException(FirebaseAuthException e) {
   };
   return AuthException(message);
 }
+
+class AiException extends AppExceptions {
+  AiException(super.message, [super.stackTrace]);
+}
+
+class ClassPlansException extends AppExceptions {
+  ClassPlansException(super.message, [super.stackTrace]);
+}

@@ -19,14 +19,14 @@ class MenuDrawerItem {
 
 final _menuDrawerItems = [
   MenuDrawerItem(
-    title: "Perfil",
-    icon: Icons.person,
-    route: Routes.profile,
-  ),
-  MenuDrawerItem(
     title: "Inicio",
     icon: Icons.home,
     route: Routes.home,
+  ),
+  MenuDrawerItem(
+    title: "Perfil",
+    icon: Icons.person,
+    route: Routes.profile,
   ),
   MenuDrawerItem(
     title: "Plano de aula",

@@ -10,6 +10,9 @@ import 'package:inteliteacher/ui/class_plans/view_models/class_plans_viewmodel.d
 import 'package:inteliteacher/ui/home/view_models/home_viewmodel.dart';
 import 'package:inteliteacher/ui/user/view_models/profile_viewmodel.dart';
 
+import '../data/repositories/class_plans/class_plans_repository.dart';
+import '../data/repositories/class_plans/class_plans_repository_remote.dart';
+
 /// Abstract class to be implemented by the injector
 abstract class Injector {
   T get<T extends Object>();
@@ -31,6 +34,7 @@ class InjectorImpl implements Injector {
     // Registering repositories as singletons to ensure a single instance is used throughout the app
     getIt.registerSingleton<AuthRepository>(AuthRepositoryRemote());
     getIt.registerSingleton<AiRepository>(AiRepositoryRemote());
+    getIt.registerSingleton<ClassPlansRepository>(ClassPlansRepositoryRemote());
 
     // ViewModels
     // Registering view models as factories to ensure a new instance is created each time
@@ -40,7 +44,7 @@ class InjectorImpl implements Injector {
     getIt.registerFactory(() => LogoutViewmodel(get()));
     getIt.registerFactory(() => RegisterViewModel(get()));
     getIt.registerFactory(() => FinalizeRegistrationViewmodel(get()));
-    getIt.registerSingleton(ClassPlansViewmodel(get()));
+    getIt.registerSingleton(ClassPlansViewmodel(get(), get()));
   }
 }
 

@@ -8,17 +8,44 @@ abstract class ClassPlanModel with _$ClassPlanModel {
   const factory ClassPlanModel({
     required String id,
     required String title,
-    required String objective,
-    required String targetAudience,
+    required String? objective,
+    required String? targetAudience,
     required String duration,
-    required List<String> resources,
-    required String methodology,
-    required List<String> content,
-    required List<String> activities,
-    required String evaluation,
-    required String notes,
+    required List<String?>? resources,
+    required String? methodology,
+  required List<String>? content,
+    required List<String>? activities,
+    required String? evaluation,
+    required String? notes,
   }) = _ClassPlanModel;
 
   factory ClassPlanModel.fromJson(Map<String, dynamic> json) =>
       _$ClassPlanModelFromJson(json);
+}
+
+@freezed
+abstract class SimpleClassPlanResponse with _$SimpleClassPlanResponse {
+  const factory SimpleClassPlanResponse({
+    required String id,
+    required String title,
+  }) = _SimpleClassPlanResponse;
+}
+
+@freezed
+abstract class CreateClassPlanRequest with _$CreateClassPlanRequest {
+  const factory CreateClassPlanRequest({
+    required String title,
+    required String? objective,
+    required String? targetAudience,
+    required String duration,
+    required List<String?>? resources,
+    required String? methodology,
+    required List<String>? content,
+    required List<String>? activities,
+    required String? evaluation,
+    required String? notes,
+  }) = _CreateClassPlanRequest;
+
+  factory CreateClassPlanRequest.fromJson(Map<String, dynamic> json) =>
+      _$CreateClassPlanRequestFromJson(json);
 }
