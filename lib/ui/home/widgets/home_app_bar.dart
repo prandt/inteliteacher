@@ -1,31 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../config/router.dart';
 import '../../../config/theme.dart';
 
 class HomeAppBar extends StatelessWidget {
-  const HomeAppBar({super.key, this.scaffoldKey, this.name});
+  const HomeAppBar({super.key, this.name});
 
-  final GlobalKey<ScaffoldState>? scaffoldKey;
   final String? name;
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      leading: IconButton(
-        icon: Icon(Icons.menu, color: AppColors.periwinkle),
-        onPressed: () => scaffoldKey?.currentState?.openDrawer(),
-      ),
-      expandedHeight: 100,
+
+      actions: [InkWell(
+        borderRadius: BorderRadius.circular(50),
+        onTap: () => context.go(Routes.profile),
+        child: Padding(
+          padding: const EdgeInsets.all(4),
+          child: CircleAvatar(
+            backgroundColor: AppColors.tropicalIndigo,
+            radius: 20,
+            child: Icon(
+              Icons.person,
+              color: AppColors.ghostWhite,
+              size: 30,
+            ),
+          ),
+        ),
+      )],
+      centerTitle: false,
+      title: Text("$_getGreeting, ${name ?? "Professor"}",
+          textAlign: TextAlign.start,
+          style: TextStyle(color: AppColors.tropicalIndigo)),
       scrolledUnderElevation: 0,
-      flexibleSpace: FlexibleSpaceBar(
-        title: Text("$_getGreeting, ${name ?? "Professor"}",
-            textAlign: TextAlign.start,
-            style: TextStyle(color: AppColors.tropicalIndigo)),
-        collapseMode: CollapseMode.pin,
-      ),
       pinned: true,
     );
   }
+
 
   String get _getGreeting {
     final hour = DateTime.now().hour;

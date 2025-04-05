@@ -6,6 +6,7 @@ import 'package:inteliteacher/ui/auth/widgets/finalize_registration_page.dart';
 import 'package:inteliteacher/ui/auth/widgets/login_page.dart';
 import 'package:inteliteacher/ui/auth/widgets/register_page.dart';
 import 'package:inteliteacher/ui/class_plans/widgets/class_plans_page.dart';
+import 'package:inteliteacher/ui/courses/widgets/courses_page.dart';
 import 'package:result_dart/result_dart.dart';
 
 import '../ui/home/widgets/home_page.dart';
@@ -29,6 +30,10 @@ final _routes = <RouteBase>[
             path: Routes.classPlansRelative,
             builder: (context, state) => const ClassPlansPage(),
             ),
+        GoRoute(
+          path: Routes.coursesRelative,
+          builder: (context, state) => const CoursesPage(),
+        ),
       ],
       redirect: guard
   ),
@@ -53,6 +58,8 @@ abstract final class Routes {
   static const classPlansRelative = 'class-plans';
   static const profile = '/$profileRelative';
   static const profileRelative = 'profile';
+  static const courses = '/$coursesRelative';
+  static const coursesRelative = 'courses';
 
   // Finalize registration
   static const finalizeRegistration = '/finalize-registration';

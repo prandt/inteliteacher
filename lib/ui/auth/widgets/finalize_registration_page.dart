@@ -45,7 +45,6 @@ class _FinalizeRegistrationPageState extends State<FinalizeRegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return ScreenLayout(
-        hasDrawer: false,
         padding: const EdgeInsets.all(16),
         title: 'Finalizar cadastro',
         child: ListenableBuilder(

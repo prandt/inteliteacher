@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../config/theme.dart';
-import 'menu_drawer.dart';
+
 
 class ScreenLayout extends StatelessWidget {
   const ScreenLayout({
@@ -10,23 +10,17 @@ class ScreenLayout extends StatelessWidget {
     required this.child,
     this.padding,
     this.enableAppbar = true,
-    this.scaffoldKey,
-    this.hasDrawer = true,
   });
 
   final String title;
   final Widget child;
   final EdgeInsets? padding;
   final bool enableAppbar;
-  final GlobalKey<ScaffoldState>? scaffoldKey;
-  final bool hasDrawer;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
       backgroundColor: AppColors.ghostWhite,
-      drawer: hasDrawer ? const MenuDrawer() : null,
       drawerEnableOpenDragGesture: true,
       appBar: enableAppbar
           ? AppBar(
