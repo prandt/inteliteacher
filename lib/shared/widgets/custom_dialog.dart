@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 typedef CustomDialogCallback<T> = void Function(T result);
 
 class CustomDialog {
-  static Future<void> showCustomDialog<T>(
+  static Future<T?> showCustomDialog<T>(
     BuildContext context, {
     required String title,
     required String content,
@@ -32,7 +32,7 @@ class CustomDialog {
         'cancelResult cannot be null if onResult is provided',
       );
     }
-    return showDialog(
+    return await showDialog<T>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(

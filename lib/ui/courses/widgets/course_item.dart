@@ -6,6 +6,7 @@ import 'package:inteliteacher/ui/courses/view_models/courses_viewmodel.dart';
 
 import '../../../config/router.dart';
 import '../../../config/theme.dart';
+import '../../../shared/widgets/custom_dialog.dart';
 
 class CourseItem extends StatefulWidget {
   const CourseItem({super.key, required this.course});
@@ -36,28 +37,19 @@ class _CourseItemState extends State<CourseItem> {
         ),
       ),
       confirmDismiss: (confirm) async {
-        return await showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              backgroundColor: AppColors.ghostWhite,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              title: const Text('Excluir turma'),
-              content:
-                  const Text('Você tem certeza que deseja excluir esta turma?'),
-              actions: [
-                TextButton(
-                  onPressed: () => context.pop(false),
-                  child: const Text('Cancelar'),
-                ),
-                TextButton(
-                  onPressed: _deleteCourse,
-                  child: const Text('Excluir'),
-                ),
-              ],
-            );
+        return await CustomDialog.showCustomDialog<bool>(
+          context,
+          title: 'Excluir turma',
+          content: 'Você tem certeza que deseja excluir esta turma?',
+          okResult: true,
+          cancelResult: false,
+          cancelText: 'Cancelar',
+          okText: 'Excluir',
+          onResult: (result) {
+            if (result == true) {
+              _deleteCourse();
+            }
+            context.pop();
           },
         );
       },
@@ -76,6 +68,5 @@ class _CourseItemState extends State<CourseItem> {
 
   void _deleteCourse() {
     _viewModel.deleteCommand.execute(widget.course.id);
-    context.pop(true);
   }
 }
