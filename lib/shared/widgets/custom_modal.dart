@@ -8,8 +8,10 @@ class CustomModal extends StatelessWidget {
       {super.key,
       required this.children,
       this.onConfirm,
-      this.confirmText = 'Salvar'});
+      this.confirmText = 'Salvar',
+      required this.title});
 
+  final String title;
   final List<Widget> children;
   final String confirmText;
   final void Function()? onConfirm;
@@ -24,6 +26,10 @@ class CustomModal extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(mainAxisSize: MainAxisSize.min, spacing: 16, children: [
+          Text(
+            title,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           ...children,
           Row(
             spacing: 8,

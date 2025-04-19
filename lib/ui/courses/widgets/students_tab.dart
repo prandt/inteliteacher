@@ -84,11 +84,8 @@ class _StudentsTabState extends State<StudentsTab> {
             builder: (context, _) {
               return CustomModal(
                   onConfirm: validator.isValid ? addStudent : null,
+                  title: 'Adicionar aluno',
                   children: [
-                    Text(
-                      'Adicionar aluno',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
                     CustomTextField(
                         label: 'Nome',
                         hint: 'Digite o nome',

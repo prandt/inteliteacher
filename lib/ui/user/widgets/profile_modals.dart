@@ -19,7 +19,8 @@ void showUpdateDisplayNameModal(
 
   showDialog(
       context: context,
-      builder: (context) => CustomModal(onConfirm: saveName, children: [
+      builder: (context) =>
+          CustomModal(title: 'Atualizar nome', onConfirm: saveName, children: [
             CustomTextField(
               controller: nameController,
               label: 'Nome',
@@ -29,8 +30,10 @@ void showUpdateDisplayNameModal(
 }
 
 void showUpdatePasswordModal(BuildContext context, ProfileViewmodel viewmodel) {
-
   final validator = NewPasswordValidator();
 
-  showDialog(context: context, builder: (context) => CustomModal(children: []));
+  showDialog(
+      context: context,
+      builder: (context) =>
+          CustomModal(title: 'Atualizar senha', children: []));
 }

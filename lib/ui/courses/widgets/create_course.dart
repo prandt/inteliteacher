@@ -20,12 +20,9 @@ void openCreateCourseModal(BuildContext context) {
           builder: (context, _) {
             return CustomModal(
               onConfirm: viewModel.isCourseNameValid ? create : null,
+              title: 'Criar turma',
               confirmText: 'Criar turma',
               children: [
-                Text(
-                  'Criar turma',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
                 CustomTextField(
                   label: 'Nome da turma',
                   hint: 'Digite o nome da turma',
