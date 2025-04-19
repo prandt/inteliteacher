@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inteliteacher/config/injector.dart';
 import 'package:inteliteacher/model/entities/course/course_model.dart';
+import 'package:inteliteacher/shared/extensions.dart';
 import 'package:inteliteacher/ui/courses/view_models/courses_viewmodel.dart';
 
 import '../../../config/router.dart';
@@ -54,14 +55,21 @@ class _CourseItemState extends State<CourseItem> {
         );
       },
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+        leading: CircleAvatar(
+          backgroundColor: AppColors.periwinkle,
+          child: Text(widget.course.name.toAvatarAcronyms(),
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    color: AppColors.ghostWhite,
+                  )),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8),
         title: Text(widget.course.name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.bodyMedium),
+            style: Theme.of(context).textTheme.titleMedium),
         onTap: () => context.go(Routes.courseWithId(widget.course.id)),
         trailing: Icon(Icons.arrow_forward_ios,
-            size: 16, color: AppColors.tropicalIndigo),
+            size: 18, color: AppColors.tropicalIndigo),
       ),
     );
   }

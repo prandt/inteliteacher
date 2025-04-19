@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inteliteacher/model/validators/create_student_validator.dart';
+import 'package:inteliteacher/shared/extensions.dart';
 import 'package:inteliteacher/shared/widgets/custom_modal.dart';
 import 'package:inteliteacher/shared/widgets/custom_text_field.dart';
 
@@ -46,7 +47,7 @@ class _StudentsTabState extends State<StudentsTab> {
                   contentPadding: EdgeInsets.zero,
                   leading: CircleAvatar(
                     backgroundColor: AppColors.periwinkle,
-                    child: Text(item.name[0].toUpperCase(),
+                    child: Text(item.name.toAvatarAcronyms(),
                         style:
                             Theme.of(context).textTheme.headlineSmall?.copyWith(
                                   color: AppColors.ghostWhite,
