@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:inteliteacher/model/entities/course/course_model.dart';
 import 'package:inteliteacher/model/entities/student/student_model.dart';
 import 'package:result_dart/result_dart.dart';
-import 'package:uuid/v4.dart';
 
 import '../../execptions/app_exceptions.dart';
 import 'course_repository.dart';
@@ -15,14 +14,8 @@ class CourseRepositoryRemote implements CourseRepository {
   @override
   AsyncResult<CourseModel> create(CreateCourseRequest request) async {
     try {
-      final id = UuidV4().generate();
-      final model = CourseModel(
-        id: id,
-        name: request.name,
-        logo: request.logo,
-        tags: request.tags,
-      );
-      await _courseCollection.doc(id).set(model.toJson());
+      final model = request.toModel();
+      await _courseCollection.doc(model.id).set(model.toJson());
       return Success(model);
     } catch (_) {
       return Failure(CourseException('Falha ao criar turma'));

@@ -19,7 +19,9 @@ mixin _$StudentModel {
   String get name;
   String get courseId;
   String get email;
+  @JsonTimestamp()
   DateTime get createdAt;
+  @JsonTimestamp()
   DateTime get updatedAt;
 
   /// Create a copy of StudentModel
@@ -71,8 +73,8 @@ abstract mixin class $StudentModelCopyWith<$Res> {
       String name,
       String courseId,
       String email,
-      DateTime createdAt,
-      DateTime updatedAt});
+      @JsonTimestamp() DateTime createdAt,
+      @JsonTimestamp() DateTime updatedAt});
 }
 
 /// @nodoc
@@ -131,8 +133,8 @@ class _StudentModel implements StudentModel {
       required this.name,
       required this.courseId,
       required this.email,
-      required this.createdAt,
-      required this.updatedAt});
+      @JsonTimestamp() required this.createdAt,
+      @JsonTimestamp() required this.updatedAt});
   factory _StudentModel.fromJson(Map<String, dynamic> json) =>
       _$StudentModelFromJson(json);
 
@@ -145,8 +147,10 @@ class _StudentModel implements StudentModel {
   @override
   final String email;
   @override
+  @JsonTimestamp()
   final DateTime createdAt;
   @override
+  @JsonTimestamp()
   final DateTime updatedAt;
 
   /// Create a copy of StudentModel
@@ -204,8 +208,8 @@ abstract mixin class _$StudentModelCopyWith<$Res>
       String name,
       String courseId,
       String email,
-      DateTime createdAt,
-      DateTime updatedAt});
+      @JsonTimestamp() DateTime createdAt,
+      @JsonTimestamp() DateTime updatedAt});
 }
 
 /// @nodoc

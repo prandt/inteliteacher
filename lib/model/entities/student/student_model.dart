@@ -2,6 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/v4.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../shared/json_timestamp.dart';
+
 part 'student_model.freezed.dart';
 part 'student_model.g.dart';
 
@@ -12,8 +14,8 @@ abstract class StudentModel with _$StudentModel {
     required String name,
     required String courseId,
     required String email,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+    @JsonTimestamp() required DateTime createdAt,
+    @JsonTimestamp() required DateTime updatedAt,
   }) = _StudentModel;
 
   factory StudentModel.fromJson(Map<String, dynamic> json) =>

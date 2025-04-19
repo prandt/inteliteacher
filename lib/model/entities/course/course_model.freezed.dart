@@ -19,6 +19,10 @@ mixin _$CourseModel {
   String get name;
   String? get logo;
   List<String>? get tags;
+  @JsonTimestamp()
+  DateTime get createdAt;
+  @JsonTimestamp()
+  DateTime get updatedAt;
 
   /// Create a copy of CourseModel
   /// with the given fields replaced by the non-null parameter values.
@@ -38,17 +42,21 @@ mixin _$CourseModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.logo, logo) || other.logo == logo) &&
-            const DeepCollectionEquality().equals(other.tags, tags));
+            const DeepCollectionEquality().equals(other.tags, tags) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, logo, const DeepCollectionEquality().hash(tags));
+  int get hashCode => Object.hash(runtimeType, id, name, logo,
+      const DeepCollectionEquality().hash(tags), createdAt, updatedAt);
 
   @override
   String toString() {
-    return 'CourseModel(id: $id, name: $name, logo: $logo, tags: $tags)';
+    return 'CourseModel(id: $id, name: $name, logo: $logo, tags: $tags, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -58,7 +66,13 @@ abstract mixin class $CourseModelCopyWith<$Res> {
           CourseModel value, $Res Function(CourseModel) _then) =
       _$CourseModelCopyWithImpl;
   @useResult
-  $Res call({String id, String name, String? logo, List<String>? tags});
+  $Res call(
+      {String id,
+      String name,
+      String? logo,
+      List<String>? tags,
+      @JsonTimestamp() DateTime createdAt,
+      @JsonTimestamp() DateTime updatedAt});
 }
 
 /// @nodoc
@@ -77,6 +91,8 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
     Object? name = null,
     Object? logo = freezed,
     Object? tags = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -95,6 +111,14 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
           ? _self.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _self.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -106,7 +130,9 @@ class _CourseModel implements CourseModel {
       {required this.id,
       required this.name,
       required this.logo,
-      required final List<String>? tags})
+      required final List<String>? tags,
+      @JsonTimestamp() required this.createdAt,
+      @JsonTimestamp() required this.updatedAt})
       : _tags = tags;
   factory _CourseModel.fromJson(Map<String, dynamic> json) =>
       _$CourseModelFromJson(json);
@@ -126,6 +152,13 @@ class _CourseModel implements CourseModel {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
+
+  @override
+  @JsonTimestamp()
+  final DateTime createdAt;
+  @override
+  @JsonTimestamp()
+  final DateTime updatedAt;
 
   /// Create a copy of CourseModel
   /// with the given fields replaced by the non-null parameter values.
@@ -150,17 +183,21 @@ class _CourseModel implements CourseModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.logo, logo) || other.logo == logo) &&
-            const DeepCollectionEquality().equals(other._tags, _tags));
+            const DeepCollectionEquality().equals(other._tags, _tags) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, logo, const DeepCollectionEquality().hash(_tags));
+  int get hashCode => Object.hash(runtimeType, id, name, logo,
+      const DeepCollectionEquality().hash(_tags), createdAt, updatedAt);
 
   @override
   String toString() {
-    return 'CourseModel(id: $id, name: $name, logo: $logo, tags: $tags)';
+    return 'CourseModel(id: $id, name: $name, logo: $logo, tags: $tags, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -172,7 +209,13 @@ abstract mixin class _$CourseModelCopyWith<$Res>
       __$CourseModelCopyWithImpl;
   @override
   @useResult
-  $Res call({String id, String name, String? logo, List<String>? tags});
+  $Res call(
+      {String id,
+      String name,
+      String? logo,
+      List<String>? tags,
+      @JsonTimestamp() DateTime createdAt,
+      @JsonTimestamp() DateTime updatedAt});
 }
 
 /// @nodoc
@@ -191,6 +234,8 @@ class __$CourseModelCopyWithImpl<$Res> implements _$CourseModelCopyWith<$Res> {
     Object? name = null,
     Object? logo = freezed,
     Object? tags = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
   }) {
     return _then(_CourseModel(
       id: null == id
@@ -209,6 +254,14 @@ class __$CourseModelCopyWithImpl<$Res> implements _$CourseModelCopyWith<$Res> {
           ? _self._tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _self.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
