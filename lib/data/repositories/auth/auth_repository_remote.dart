@@ -108,7 +108,7 @@ class AuthRepositoryRemote implements AuthRepository {
           toFirestore: (user, _) => user.toJson());
 
   @override
-  AsyncResult<Unit> updateDisplayName(String name) async {
+  AsyncResult<String> updateDisplayName(String name) async {
     if (name.isEmpty) {
       return Failure(AuthException("Nome não pode ser vazio"));
     }
@@ -122,7 +122,7 @@ class AuthRepositoryRemote implements AuthRepository {
           name: name);
       await userRef.set(user);
       await _auth.currentUser?.updateDisplayName(user.name);
-      return const Success(unit);
+      return Success(name);
     } catch (_) {
       return Failure(AuthException("Erro desconhecido ao atualizar usuário"));
     }

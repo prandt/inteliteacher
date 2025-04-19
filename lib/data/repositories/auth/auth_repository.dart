@@ -13,5 +13,5 @@ abstract interface class AuthRepository {
   // Always returns Success but true if the user is already registered
   // and false if the user is not registered
   AsyncResult<bool> hasCompletedRegistration();
-  AsyncResult<Unit> updateDisplayName(String name);
+  AsyncResult<String> updateDisplayName(String name);
 }

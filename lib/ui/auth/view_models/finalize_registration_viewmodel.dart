@@ -14,7 +14,8 @@ class FinalizeRegistrationViewmodel extends ChangeNotifier {
 
   late final Command0 updateNameCommand = Command0(_action);
 
-  AsyncResult<Unit> _action() => _authRepository.updateDisplayName(name);
+  AsyncResult<Unit> _action() =>
+      _authRepository.updateDisplayName(name).pure(unit);
 
   void updateName(String newName) {
     name = newName;

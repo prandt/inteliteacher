@@ -43,7 +43,7 @@ class InjectorImpl implements Injector {
     // ViewModels
     // Registering view models as factories to ensure a new instance is created each time
     getIt.registerFactory(() => LoginViewModel(get()));
-    getIt.registerFactory(() => ProfileViewmodel());
+    getIt.registerFactory(() => ProfileViewmodel(get()));
     getIt.registerFactory(() => LogoutViewmodel(get()));
     getIt.registerFactory(() => RegisterViewModel(get()));
     getIt.registerFactory(() => FinalizeRegistrationViewmodel(get()));
