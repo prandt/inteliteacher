@@ -8,6 +8,6 @@ abstract interface class CourseRepository {
   AsyncResult<CourseModel> get(String id);
   AsyncResult<CourseModel> create(CreateCourseRequest request);
   AsyncResult<String> delete(String id);
-  AsyncResult<StudentModel> addStudent(
-      {required String courseId, required CreateStudentRequest request});
+  AsyncResult<List<StudentModel>> listStudents(String courseId);
+  AsyncResult<StudentModel> addStudent(CreateStudentRequest request);
 }

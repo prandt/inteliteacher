@@ -11,6 +11,7 @@ abstract class StudentModel with _$StudentModel {
     required String id,
     required String name,
     required String courseId,
+    required String email,
     required DateTime createdAt,
     required DateTime updatedAt,
   }) = _StudentModel;
@@ -24,6 +25,7 @@ abstract class CreateStudentRequest with _$CreateStudentRequest {
   const factory CreateStudentRequest({
     required String name,
     required String courseId,
+    required String email,
   }) = _CreateStudentRequest;
 }
 
@@ -34,6 +36,7 @@ extension CreateStudentFactory on CreateStudentRequest {
       id: UuidV4().generate(),
       name: name,
       courseId: courseId,
+      email: email,
       createdAt: Timestamp.now().toDate(),
       updatedAt: Timestamp.now().toDate(),
     );

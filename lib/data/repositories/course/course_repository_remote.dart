@@ -73,20 +73,48 @@ class CourseRepositoryRemote implements CourseRepository {
     }
   }
 
-
   @override
-  AsyncResult<StudentModel> addStudent(
-      {required String courseId, required CreateStudentRequest request}) async  {
+  AsyncResult<StudentModel> addStudent(CreateStudentRequest request) async {
     try {
+      if (await _studentAlreadyExists(request.courseId, request.email)) {
+        return Failure(CourseException('Aluno já cadastrado na turma'));
+      }
       final student = request.toModel();
       await _courseCollection
-          .doc(courseId)
+          .doc(request.courseId)
           .collection('students')
           .doc(student.id)
           .set(student.toJson());
       return Success(student);
     } catch (_) {
       return Failure(CourseException('Falha ao adicionar aluno'));
+    }
+  }
+
+  Future<bool> _studentAlreadyExists(String courseId, String email) async {
+    final doc = await _courseCollection
+        .doc(courseId)
+        .collection('students')
+        .where('email', isEqualTo: email)
+        .limit(1)
+        .get();
+    return doc.docs.isNotEmpty;
+  }
+
+  @override
+  AsyncResult<List<StudentModel>> listStudents(String courseId) async {
+    try {
+      final querySnapshot = await _courseCollection
+          .doc(courseId)
+          .collection('students')
+          .withConverter<StudentModel>(
+              fromFirestore: (s, _) => StudentModel.fromJson(s.data()!),
+              toFirestore: (student, _) => student.toJson())
+          .get();
+      final students = querySnapshot.docs.map((e) => e.data()).toList();
+      return Success(students);
+    } catch (_) {
+      return Failure(CourseException('Falha ao listar alunos'));
     }
   }
 

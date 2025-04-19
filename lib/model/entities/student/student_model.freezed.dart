@@ -18,6 +18,7 @@ mixin _$StudentModel {
   String get id;
   String get name;
   String get courseId;
+  String get email;
   DateTime get createdAt;
   DateTime get updatedAt;
 
@@ -41,6 +42,7 @@ mixin _$StudentModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.courseId, courseId) ||
                 other.courseId == courseId) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -50,11 +52,11 @@ mixin _$StudentModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, name, courseId, createdAt, updatedAt);
+      Object.hash(runtimeType, id, name, courseId, email, createdAt, updatedAt);
 
   @override
   String toString() {
-    return 'StudentModel(id: $id, name: $name, courseId: $courseId, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'StudentModel(id: $id, name: $name, courseId: $courseId, email: $email, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -68,6 +70,7 @@ abstract mixin class $StudentModelCopyWith<$Res> {
       {String id,
       String name,
       String courseId,
+      String email,
       DateTime createdAt,
       DateTime updatedAt});
 }
@@ -87,6 +90,7 @@ class _$StudentModelCopyWithImpl<$Res> implements $StudentModelCopyWith<$Res> {
     Object? id = null,
     Object? name = null,
     Object? courseId = null,
+    Object? email = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -102,6 +106,10 @@ class _$StudentModelCopyWithImpl<$Res> implements $StudentModelCopyWith<$Res> {
       courseId: null == courseId
           ? _self.courseId
           : courseId // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: null == createdAt
           ? _self.createdAt
@@ -122,6 +130,7 @@ class _StudentModel implements StudentModel {
       {required this.id,
       required this.name,
       required this.courseId,
+      required this.email,
       required this.createdAt,
       required this.updatedAt});
   factory _StudentModel.fromJson(Map<String, dynamic> json) =>
@@ -133,6 +142,8 @@ class _StudentModel implements StudentModel {
   final String name;
   @override
   final String courseId;
+  @override
+  final String email;
   @override
   final DateTime createdAt;
   @override
@@ -162,6 +173,7 @@ class _StudentModel implements StudentModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.courseId, courseId) ||
                 other.courseId == courseId) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -171,11 +183,11 @@ class _StudentModel implements StudentModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, name, courseId, createdAt, updatedAt);
+      Object.hash(runtimeType, id, name, courseId, email, createdAt, updatedAt);
 
   @override
   String toString() {
-    return 'StudentModel(id: $id, name: $name, courseId: $courseId, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'StudentModel(id: $id, name: $name, courseId: $courseId, email: $email, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -191,6 +203,7 @@ abstract mixin class _$StudentModelCopyWith<$Res>
       {String id,
       String name,
       String courseId,
+      String email,
       DateTime createdAt,
       DateTime updatedAt});
 }
@@ -211,6 +224,7 @@ class __$StudentModelCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? courseId = null,
+    Object? email = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -226,6 +240,10 @@ class __$StudentModelCopyWithImpl<$Res>
       courseId: null == courseId
           ? _self.courseId
           : courseId // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: null == createdAt
           ? _self.createdAt
@@ -243,6 +261,7 @@ class __$StudentModelCopyWithImpl<$Res>
 mixin _$CreateStudentRequest {
   String get name;
   String get courseId;
+  String get email;
 
   /// Create a copy of CreateStudentRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -259,15 +278,16 @@ mixin _$CreateStudentRequest {
             other is CreateStudentRequest &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.courseId, courseId) ||
-                other.courseId == courseId));
+                other.courseId == courseId) &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, courseId);
+  int get hashCode => Object.hash(runtimeType, name, courseId, email);
 
   @override
   String toString() {
-    return 'CreateStudentRequest(name: $name, courseId: $courseId)';
+    return 'CreateStudentRequest(name: $name, courseId: $courseId, email: $email)';
   }
 }
 
@@ -277,7 +297,7 @@ abstract mixin class $CreateStudentRequestCopyWith<$Res> {
           $Res Function(CreateStudentRequest) _then) =
       _$CreateStudentRequestCopyWithImpl;
   @useResult
-  $Res call({String name, String courseId});
+  $Res call({String name, String courseId, String email});
 }
 
 /// @nodoc
@@ -295,6 +315,7 @@ class _$CreateStudentRequestCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? courseId = null,
+    Object? email = null,
   }) {
     return _then(_self.copyWith(
       name: null == name
@@ -305,6 +326,10 @@ class _$CreateStudentRequestCopyWithImpl<$Res>
           ? _self.courseId
           : courseId // ignore: cast_nullable_to_non_nullable
               as String,
+      email: null == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -312,12 +337,15 @@ class _$CreateStudentRequestCopyWithImpl<$Res>
 /// @nodoc
 
 class _CreateStudentRequest implements CreateStudentRequest {
-  const _CreateStudentRequest({required this.name, required this.courseId});
+  const _CreateStudentRequest(
+      {required this.name, required this.courseId, required this.email});
 
   @override
   final String name;
   @override
   final String courseId;
+  @override
+  final String email;
 
   /// Create a copy of CreateStudentRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -335,15 +363,16 @@ class _CreateStudentRequest implements CreateStudentRequest {
             other is _CreateStudentRequest &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.courseId, courseId) ||
-                other.courseId == courseId));
+                other.courseId == courseId) &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, courseId);
+  int get hashCode => Object.hash(runtimeType, name, courseId, email);
 
   @override
   String toString() {
-    return 'CreateStudentRequest(name: $name, courseId: $courseId)';
+    return 'CreateStudentRequest(name: $name, courseId: $courseId, email: $email)';
   }
 }
 
@@ -355,7 +384,7 @@ abstract mixin class _$CreateStudentRequestCopyWith<$Res>
       __$CreateStudentRequestCopyWithImpl;
   @override
   @useResult
-  $Res call({String name, String courseId});
+  $Res call({String name, String courseId, String email});
 }
 
 /// @nodoc
@@ -373,6 +402,7 @@ class __$CreateStudentRequestCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? courseId = null,
+    Object? email = null,
   }) {
     return _then(_CreateStudentRequest(
       name: null == name
@@ -382,6 +412,10 @@ class __$CreateStudentRequestCopyWithImpl<$Res>
       courseId: null == courseId
           ? _self.courseId
           : courseId // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _self.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }

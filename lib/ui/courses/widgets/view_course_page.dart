@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:inteliteacher/config/injector.dart';
 import 'package:inteliteacher/config/theme.dart';
+import 'package:inteliteacher/shared/loading_overlay.dart';
 import 'package:inteliteacher/shared/widgets/custom_page_checker.dart';
 import 'package:inteliteacher/shared/widgets/screen_layout.dart';
+import 'package:inteliteacher/ui/courses/widgets/students_tab.dart';
+import 'package:result_command/result_command.dart';
 
-import '../../../shared/widgets/custom_list_view.dart';
+import '../../../data/execptions/app_exceptions.dart';
 import '../view_models/course_page_viewmodel.dart';
 
 class ViewCoursePage extends StatefulWidget {
@@ -23,16 +26,54 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
   void initState() {
     super.initState();
     _viewmodel.loadCommand.execute(widget.id);
+    _viewmodel.addStudentCommand.addListener(_listenAddStudent);
+  }
+
+  void _listenAddStudent() {
+    LoadingOverlay.instance().hide();
+    if (_viewmodel.addStudentCommand.isRunning) {
+      LoadingOverlay.instance().show(context, text: 'Adicionando aluno');
+      return;
+    }
+    if (_viewmodel.addStudentCommand.isSuccess) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:
+              Text('Aluno adicionado com sucesso', textAlign: TextAlign.center),
+        ),
+      );
+      return;
+    }
+    if (_viewmodel.addStudentCommand.isFailure) {
+      final error = (_viewmodel.addStudentCommand.value as FailureCommand).error;
+      String message = 'Falha ao adicionar aluno';
+      if (error is CourseException) {
+        message = error.message;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: AppColors.redAlert,
+          content: Text(
+            message,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+      return;
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _viewmodel.addStudentCommand.removeListener(_listenAddStudent);
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListenableBuilder(
-      listenable: _viewmodel.loadCommand,
-      builder: (context, child) => CustomPageChecker(
-          command: _viewmodel.loadCommand,
-          text: "Falha ao carregar a turma",
-          child: child!),
+    return CustomPageChecker(
+      command: _viewmodel.loadCommand,
+      text: "Falha ao carregar a turma",
       child: ListenableBuilder(
           listenable: _viewmodel,
           builder: (context, _) {
@@ -45,8 +86,6 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
                       icon: Icon(Icons.assignment), label: 'Atividades'),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.people), label: 'Alunos'),
-                  // BottomNavigationBarItem(
-                  //     icon: Icon(Icons.school), label: 'Notas'),
                 ],
                 selectedItemColor: AppColors.tropicalIndigo,
                 onTap: _viewmodel.setTabIndex,
@@ -55,8 +94,7 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
                 index: _viewmodel.tabIndex,
                 children: [
                   ActivitiesTab(),
-                  StudentsTab(),
-                  GradeTab(),
+                  StudentsTab(_viewmodel),
                 ],
               ),
             );
@@ -75,56 +113,6 @@ class ActivitiesTab extends StatelessWidget {
       child: Column(
         children: [
           ElevatedButton(onPressed: () {}, child: Text('Adicionar atividade')),
-        ],
-      ),
-    );
-  }
-}
-
-class StudentsTab extends StatelessWidget {
-  const StudentsTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-              child: CustomListView<String>(
-            items: ['Lucas', 'João', 'Maria', 'Ana'],
-            itemBuilder: (context, item) {
-              return ListTile(
-                title: Text(item),
-                subtitle: Text(item),
-                trailing: Icon(Icons.arrow_forward_ios),
-              );
-            },
-          )),
-          ElevatedButton.icon(
-              onPressed: () {},
-              label: Text('Adicionar aluno'),
-              icon: Icon(Icons.person_add_alt_1,
-                  color: AppColors.ghostWhite, size: 16)),
-        ],
-      ),
-    );
-  }
-}
-
-class GradeTab extends StatelessWidget {
-  const GradeTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          // ElevatedButton(onPressed: () {}, child: Text('Adicionar atividade')),
         ],
       ),
     );
