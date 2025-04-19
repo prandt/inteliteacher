@@ -123,6 +123,11 @@ final themeData = ThemeData(
       ),
     ),
   ),
+  switchTheme: SwitchThemeData(
+    thumbColor: WidgetStateProperty.all(AppColors.ghostWhite),
+    trackColor: WidgetStateProperty.all(AppColors.tropicalIndigo),
+    trackOutlineColor: WidgetStateProperty.all(AppColors.tropicalIndigo),
+  ),
 );
 
 abstract final class AppColors {

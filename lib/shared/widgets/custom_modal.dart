@@ -6,10 +6,10 @@ import '../../config/theme.dart';
 class CustomModal extends StatelessWidget {
   const CustomModal(
       {super.key,
-      required this.children,
+      required this.title,
       this.onConfirm,
       this.confirmText = 'Salvar',
-      required this.title});
+      required this.children});
 
   final String title;
   final List<Widget> children;

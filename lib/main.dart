@@ -10,7 +10,6 @@ void main() async {
   // Initialize Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-
   // Initialize the dependency injector
   injector.setupDependencies();
 

@@ -10,9 +10,9 @@ import '../../../shared/widgets/custom_list_view.dart';
 import '../view_models/course_page_viewmodel.dart';
 
 class StudentsTab extends StatefulWidget {
-  const StudentsTab(this.viewmodel, {super.key});
+  const StudentsTab(this._viewmodel, {super.key});
 
-  final CoursePageViewmodel viewmodel;
+  final CoursePageViewmodel _viewmodel;
 
   @override
   State<StudentsTab> createState() => _StudentsTabState();
@@ -29,7 +29,13 @@ class _StudentsTabState extends State<StudentsTab> {
         mainAxisAlignment: MainAxisAlignment.start,
         spacing: 16,
         children: [
-          if (widget.viewmodel.students.isEmpty)
+          Center(
+            child: Text(
+              'Alunos',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+          ),
+          if (widget._viewmodel.students.isEmpty)
             Expanded(
               child: Center(
                 child: Text(
@@ -41,7 +47,7 @@ class _StudentsTabState extends State<StudentsTab> {
           else
             Expanded(
                 child: CustomListView(
-              items: widget.viewmodel.students,
+              items: widget._viewmodel.students,
               itemBuilder: (context, item) {
                 return ListTile(
                   contentPadding: EdgeInsets.zero,
@@ -74,7 +80,7 @@ class _StudentsTabState extends State<StudentsTab> {
     final validator = CreateStudentValidator();
 
     void addStudent() {
-      widget.viewmodel.addStudentCommand.execute(validator);
+      widget._viewmodel.addStudentCommand.execute(validator);
       context.pop();
     }
 

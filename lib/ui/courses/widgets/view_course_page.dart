@@ -9,6 +9,7 @@ import 'package:result_command/result_command.dart';
 
 import '../../../data/execptions/app_exceptions.dart';
 import '../view_models/course_page_viewmodel.dart';
+import 'activities_tab.dart';
 
 class ViewCoursePage extends StatefulWidget {
   const ViewCoursePage({super.key, required this.id});
@@ -27,6 +28,7 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
     super.initState();
     _viewmodel.loadCommand.execute(widget.id);
     _viewmodel.addStudentCommand.addListener(_listenAddStudent);
+    _viewmodel.addActivityCommand.addListener(_listenAddActivity);
   }
 
   void _listenAddStudent() {
@@ -63,10 +65,40 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
     }
   }
 
+  void _listenAddActivity() {
+    LoadingOverlay.instance().hide();
+    if (_viewmodel.addActivityCommand.isRunning) {
+      LoadingOverlay.instance().show(context, text: 'Criando atividade');
+      return;
+    }
+    if (_viewmodel.addActivityCommand.isSuccess) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:
+          Text('Atividade criada com sucesso', textAlign: TextAlign.center),
+        ),
+      );
+      return;
+    }
+    if (_viewmodel.addActivityCommand.isFailure) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: AppColors.redAlert,
+          content: Text(
+            'Falha ao criar atividade',
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+      return;
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
     _viewmodel.addStudentCommand.removeListener(_listenAddStudent);
+    _viewmodel.addActivityCommand.removeListener(_listenAddActivity);
   }
 
   @override
@@ -93,7 +125,7 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
               child: IndexedStack(
                 index: _viewmodel.tabIndex,
                 children: [
-                  ActivitiesTab(),
+                  ActivitiesTab(_viewmodel),
                   StudentsTab(_viewmodel),
                 ],
               ),
@@ -103,18 +135,3 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
   }
 }
 
-class ActivitiesTab extends StatelessWidget {
-  const ActivitiesTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          ElevatedButton(onPressed: () {}, child: Text('Adicionar atividade')),
-        ],
-      ),
-    );
-  }
-}
