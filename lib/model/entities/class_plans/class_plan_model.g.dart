@@ -24,6 +24,8 @@ _ClassPlanModel _$ClassPlanModelFromJson(Map<String, dynamic> json) =>
           .toList(),
       evaluation: json['evaluation'] as String?,
       notes: json['notes'] as String?,
+      createdAt: const JsonTimestamp().fromJson(json['createdAt'] as Timestamp),
+      updatedAt: const JsonTimestamp().fromJson(json['updatedAt'] as Timestamp),
     );
 
 Map<String, dynamic> _$ClassPlanModelToJson(_ClassPlanModel instance) =>
@@ -39,6 +41,8 @@ Map<String, dynamic> _$ClassPlanModelToJson(_ClassPlanModel instance) =>
       'activities': instance.activities,
       'evaluation': instance.evaluation,
       'notes': instance.notes,
+      'createdAt': const JsonTimestamp().toJson(instance.createdAt),
+      'updatedAt': const JsonTimestamp().toJson(instance.updatedAt),
     };
 
 _CreateClassPlanRequest _$CreateClassPlanRequestFromJson(

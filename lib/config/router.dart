@@ -10,7 +10,6 @@ import 'package:inteliteacher/ui/courses/widgets/courses_page.dart';
 import 'package:result_dart/result_dart.dart';
 
 import '../ui/courses/widgets/view_course_page.dart';
-import '../ui/home/widgets/home_page.dart';
 import '../ui/splash/splash_page.dart';
 import '../ui/user/widgets/profile_page.dart';
 import 'injector.dart';
@@ -21,8 +20,8 @@ final _routes = <RouteBase>[
   GoRoute(
       path: Routes.register, builder: (context, state) => const RegisterPage()),
   GoRoute(
-      path: Routes.home,
-      builder: (context, state) => const HomePage(),
+      path: Routes.course,
+      builder: (context, state) => const CoursesPage(),
       routes: [
         GoRoute(
             path: Routes.profileRelative,
@@ -32,16 +31,11 @@ final _routes = <RouteBase>[
           builder: (context, state) => const ClassPlansPage(),
         ),
         GoRoute(
-            path: Routes.coursesRelative,
-            builder: (context, state) => const CoursesPage(),
-            routes: [
-              GoRoute(
-                  path: ':id',
-                  builder: (context, state) {
-                    final id = state.pathParameters['id']!;
-                    return ViewCoursePage(id: id);
-                  })
-            ]),
+            path: '/course/:id',
+            builder: (context, state) {
+              final id = state.pathParameters['id']!;
+              return ViewCoursePage(id: id);
+            })
       ],
       redirect: guard),
   GoRoute(
@@ -60,14 +54,12 @@ abstract final class Routes {
   static const register = '/register';
 
   // Home and sub-routes
-  static const home = '/';
+  static const course = '/';
   static const classPlans = '/$classPlansRelative';
   static const classPlansRelative = 'class-plans';
   static const profile = '/$profileRelative';
   static const profileRelative = 'profile';
-  static const courses = '/$coursesRelative';
-  static const coursesRelative = 'courses';
-  static String courseWithId(String id) => '/$coursesRelative/$id';
+  static String courseWithId(String id) => '/course/$id';
 
   // Finalize registration
   static const finalizeRegistration = '/finalize-registration';

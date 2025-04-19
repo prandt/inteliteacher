@@ -32,7 +32,7 @@ class _FinalizeRegistrationPageState extends State<FinalizeRegistrationPage> {
       LoadingOverlay.instance().show(context, text: 'Atualizando...');
     }
     if (_viewModel.updateNameCommand.isSuccess) {
-      context.go(Routes.home);
+      context.go(Routes.course);
     }
   }
 

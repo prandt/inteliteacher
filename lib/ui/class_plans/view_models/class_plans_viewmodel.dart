@@ -11,8 +11,8 @@ class ClassPlansViewmodel extends ChangeNotifier {
   String _prompt = '';
   String get prompt => _prompt;
   bool get isValid => _prompt.isNotEmpty;
-  List<SimpleClassPlanResponse> _classPlans = [];
-  List<SimpleClassPlanResponse> get classPlans => _classPlans;
+  List<ClassPlanModel> _classPlans = [];
+  List<ClassPlanModel> get classPlans => _classPlans;
 
   ClassPlansViewmodel(this._aiRepository, this._classPlansRepository);
 
@@ -31,7 +31,7 @@ class ClassPlansViewmodel extends ChangeNotifier {
       .onSuccess(_onClassPlanSaved)
       .pure(unit);
 
-  void _onClassPlanSaved(SimpleClassPlanResponse classPlan) {
+  void _onClassPlanSaved(ClassPlanModel classPlan) {
     _classPlans.insert(0, classPlan);
     notifyListeners();
   }
@@ -39,7 +39,7 @@ class ClassPlansViewmodel extends ChangeNotifier {
   AsyncResult<Unit> _list() =>
       _classPlansRepository.list().onSuccess(_onClassPlansLoaded).pure(unit);
 
-  void _onClassPlansLoaded(List<SimpleClassPlanResponse> classPlans) {
+  void _onClassPlansLoaded(List<ClassPlanModel> classPlans) {
     _classPlans = classPlans;
     notifyListeners();
   }

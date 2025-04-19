@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
     if (viewModel.login.isSuccess) {
-      context.go(Routes.home);
+      context.go(Routes.course);
     }
   }
 

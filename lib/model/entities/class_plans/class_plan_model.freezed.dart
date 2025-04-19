@@ -26,6 +26,10 @@ mixin _$ClassPlanModel {
   List<String>? get activities;
   String? get evaluation;
   String? get notes;
+  @JsonTimestamp()
+  DateTime get createdAt;
+  @JsonTimestamp()
+  DateTime get updatedAt;
 
   /// Create a copy of ClassPlanModel
   /// with the given fields replaced by the non-null parameter values.
@@ -59,7 +63,11 @@ mixin _$ClassPlanModel {
                 .equals(other.activities, activities) &&
             (identical(other.evaluation, evaluation) ||
                 other.evaluation == evaluation) &&
-            (identical(other.notes, notes) || other.notes == notes));
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -76,11 +84,13 @@ mixin _$ClassPlanModel {
       const DeepCollectionEquality().hash(content),
       const DeepCollectionEquality().hash(activities),
       evaluation,
-      notes);
+      notes,
+      createdAt,
+      updatedAt);
 
   @override
   String toString() {
-    return 'ClassPlanModel(id: $id, title: $title, objective: $objective, targetAudience: $targetAudience, duration: $duration, resources: $resources, methodology: $methodology, content: $content, activities: $activities, evaluation: $evaluation, notes: $notes)';
+    return 'ClassPlanModel(id: $id, title: $title, objective: $objective, targetAudience: $targetAudience, duration: $duration, resources: $resources, methodology: $methodology, content: $content, activities: $activities, evaluation: $evaluation, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -101,7 +111,9 @@ abstract mixin class $ClassPlanModelCopyWith<$Res> {
       List<String>? content,
       List<String>? activities,
       String? evaluation,
-      String? notes});
+      String? notes,
+      @JsonTimestamp() DateTime createdAt,
+      @JsonTimestamp() DateTime updatedAt});
 }
 
 /// @nodoc
@@ -128,6 +140,8 @@ class _$ClassPlanModelCopyWithImpl<$Res>
     Object? activities = freezed,
     Object? evaluation = freezed,
     Object? notes = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -174,6 +188,14 @@ class _$ClassPlanModelCopyWithImpl<$Res>
           ? _self.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _self.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -192,7 +214,9 @@ class _ClassPlanModel implements ClassPlanModel {
       required final List<String>? content,
       required final List<String>? activities,
       required this.evaluation,
-      required this.notes})
+      required this.notes,
+      @JsonTimestamp() required this.createdAt,
+      @JsonTimestamp() required this.updatedAt})
       : _resources = resources,
         _content = content,
         _activities = activities;
@@ -245,6 +269,12 @@ class _ClassPlanModel implements ClassPlanModel {
   final String? evaluation;
   @override
   final String? notes;
+  @override
+  @JsonTimestamp()
+  final DateTime createdAt;
+  @override
+  @JsonTimestamp()
+  final DateTime updatedAt;
 
   /// Create a copy of ClassPlanModel
   /// with the given fields replaced by the non-null parameter values.
@@ -283,7 +313,11 @@ class _ClassPlanModel implements ClassPlanModel {
                 .equals(other._activities, _activities) &&
             (identical(other.evaluation, evaluation) ||
                 other.evaluation == evaluation) &&
-            (identical(other.notes, notes) || other.notes == notes));
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -300,11 +334,13 @@ class _ClassPlanModel implements ClassPlanModel {
       const DeepCollectionEquality().hash(_content),
       const DeepCollectionEquality().hash(_activities),
       evaluation,
-      notes);
+      notes,
+      createdAt,
+      updatedAt);
 
   @override
   String toString() {
-    return 'ClassPlanModel(id: $id, title: $title, objective: $objective, targetAudience: $targetAudience, duration: $duration, resources: $resources, methodology: $methodology, content: $content, activities: $activities, evaluation: $evaluation, notes: $notes)';
+    return 'ClassPlanModel(id: $id, title: $title, objective: $objective, targetAudience: $targetAudience, duration: $duration, resources: $resources, methodology: $methodology, content: $content, activities: $activities, evaluation: $evaluation, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -327,7 +363,9 @@ abstract mixin class _$ClassPlanModelCopyWith<$Res>
       List<String>? content,
       List<String>? activities,
       String? evaluation,
-      String? notes});
+      String? notes,
+      @JsonTimestamp() DateTime createdAt,
+      @JsonTimestamp() DateTime updatedAt});
 }
 
 /// @nodoc
@@ -354,6 +392,8 @@ class __$ClassPlanModelCopyWithImpl<$Res>
     Object? activities = freezed,
     Object? evaluation = freezed,
     Object? notes = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
   }) {
     return _then(_ClassPlanModel(
       id: null == id
@@ -400,152 +440,14 @@ class __$ClassPlanModelCopyWithImpl<$Res>
           ? _self.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
-  }
-}
-
-/// @nodoc
-mixin _$SimpleClassPlanResponse {
-  String get id;
-  String get title;
-
-  /// Create a copy of SimpleClassPlanResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $SimpleClassPlanResponseCopyWith<SimpleClassPlanResponse> get copyWith =>
-      _$SimpleClassPlanResponseCopyWithImpl<SimpleClassPlanResponse>(
-          this as SimpleClassPlanResponse, _$identity);
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is SimpleClassPlanResponse &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.title, title) || other.title == title));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, id, title);
-
-  @override
-  String toString() {
-    return 'SimpleClassPlanResponse(id: $id, title: $title)';
-  }
-}
-
-/// @nodoc
-abstract mixin class $SimpleClassPlanResponseCopyWith<$Res> {
-  factory $SimpleClassPlanResponseCopyWith(SimpleClassPlanResponse value,
-          $Res Function(SimpleClassPlanResponse) _then) =
-      _$SimpleClassPlanResponseCopyWithImpl;
-  @useResult
-  $Res call({String id, String title});
-}
-
-/// @nodoc
-class _$SimpleClassPlanResponseCopyWithImpl<$Res>
-    implements $SimpleClassPlanResponseCopyWith<$Res> {
-  _$SimpleClassPlanResponseCopyWithImpl(this._self, this._then);
-
-  final SimpleClassPlanResponse _self;
-  final $Res Function(SimpleClassPlanResponse) _then;
-
-  /// Create a copy of SimpleClassPlanResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? title = null,
-  }) {
-    return _then(_self.copyWith(
-      id: null == id
-          ? _self.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _self.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _SimpleClassPlanResponse implements SimpleClassPlanResponse {
-  const _SimpleClassPlanResponse({required this.id, required this.title});
-
-  @override
-  final String id;
-  @override
-  final String title;
-
-  /// Create a copy of SimpleClassPlanResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$SimpleClassPlanResponseCopyWith<_SimpleClassPlanResponse> get copyWith =>
-      __$SimpleClassPlanResponseCopyWithImpl<_SimpleClassPlanResponse>(
-          this, _$identity);
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _SimpleClassPlanResponse &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.title, title) || other.title == title));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, id, title);
-
-  @override
-  String toString() {
-    return 'SimpleClassPlanResponse(id: $id, title: $title)';
-  }
-}
-
-/// @nodoc
-abstract mixin class _$SimpleClassPlanResponseCopyWith<$Res>
-    implements $SimpleClassPlanResponseCopyWith<$Res> {
-  factory _$SimpleClassPlanResponseCopyWith(_SimpleClassPlanResponse value,
-          $Res Function(_SimpleClassPlanResponse) _then) =
-      __$SimpleClassPlanResponseCopyWithImpl;
-  @override
-  @useResult
-  $Res call({String id, String title});
-}
-
-/// @nodoc
-class __$SimpleClassPlanResponseCopyWithImpl<$Res>
-    implements _$SimpleClassPlanResponseCopyWith<$Res> {
-  __$SimpleClassPlanResponseCopyWithImpl(this._self, this._then);
-
-  final _SimpleClassPlanResponse _self;
-  final $Res Function(_SimpleClassPlanResponse) _then;
-
-  /// Create a copy of SimpleClassPlanResponse
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? id = null,
-    Object? title = null,
-  }) {
-    return _then(_SimpleClassPlanResponse(
-      id: null == id
-          ? _self.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _self.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _self.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }

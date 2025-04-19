@@ -46,6 +46,16 @@ final themeData = ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: AppColors.ghostWhite,
     centerTitle: true,
+    iconTheme: IconThemeData(
+      color: AppColors.tropicalIndigo,
+    ),
+  ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: AppColors.tropicalIndigo,
+    foregroundColor: AppColors.ghostWhite,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
   ),
   snackBarTheme: SnackBarThemeData(
     behavior: SnackBarBehavior.fixed,

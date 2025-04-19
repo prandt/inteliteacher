@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:inteliteacher/model/entities/course/course_model.dart';
+import 'package:inteliteacher/model/entities/student/student_model.dart';
 import 'package:result_dart/result_dart.dart';
 import 'package:uuid/v4.dart';
 
@@ -29,9 +30,22 @@ class CourseRepositoryRemote implements CourseRepository {
   }
 
   @override
-  AsyncResult<CourseModel> get(String id) {
-    // TODO: implement get
-    throw UnimplementedError();
+  AsyncResult<CourseModel> get(String id) async {
+    try {
+      final doc = await _courseCollection
+          .withConverter<CourseModel>(
+              fromFirestore: (s, _) => CourseModel.fromJson(s.data()!),
+              toFirestore: (course, _) => course.toJson())
+          .doc(id)
+          .get();
+      if (doc.exists) {
+        return Success(doc.data()!);
+      } else {
+        return Failure(CourseException('Turma não encontrada'));
+      }
+    } catch (_) {
+      return Failure(CourseException('Falha ao buscar turma'));
+    }
   }
 
   @override
@@ -56,6 +70,23 @@ class CourseRepositoryRemote implements CourseRepository {
       return Success(id);
     } catch (_) {
       return Failure(CourseException('Falha ao excluir turma'));
+    }
+  }
+
+
+  @override
+  AsyncResult<StudentModel> addStudent(
+      {required String courseId, required CreateStudentRequest request}) async  {
+    try {
+      final student = request.toModel();
+      await _courseCollection
+          .doc(courseId)
+          .collection('students')
+          .doc(student.id)
+          .set(student.toJson());
+      return Success(student);
+    } catch (_) {
+      return Failure(CourseException('Falha ao adicionar aluno'));
     }
   }
 

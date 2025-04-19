@@ -37,7 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
       LoadingOverlay.instance().show(context, text: "Registrando...");
     }
     if (viewModel.registerCommand.isSuccess) {
-      context.go(Routes.home);
+      context.go(Routes.course);
     }
     if (viewModel.registerCommand.isFailure) {
       final failure = viewModel.registerCommand.value as FailureCommand;

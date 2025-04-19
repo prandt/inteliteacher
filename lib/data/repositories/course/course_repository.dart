@@ -1,3 +1,4 @@
+import 'package:inteliteacher/model/entities/student/student_model.dart';
 import 'package:result_dart/result_dart.dart';
 
 import '../../../model/entities/course/course_model.dart';
@@ -7,4 +8,6 @@ abstract interface class CourseRepository {
   AsyncResult<CourseModel> get(String id);
   AsyncResult<CourseModel> create(CreateCourseRequest request);
   AsyncResult<String> delete(String id);
+  AsyncResult<StudentModel> addStudent(
+      {required String courseId, required CreateStudentRequest request});
 }

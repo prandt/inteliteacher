@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:inteliteacher/config/injector.dart';
 import 'package:inteliteacher/config/theme.dart';
+import 'package:inteliteacher/model/entities/class_plans/class_plan_model.dart';
 import 'package:inteliteacher/shared/loading_overlay.dart';
 import 'package:inteliteacher/shared/widgets/custom_back_button.dart';
+import 'package:inteliteacher/shared/widgets/custom_list_view.dart';
+import 'package:inteliteacher/shared/widgets/custom_page_checker.dart';
 import 'package:inteliteacher/ui/class_plans/view_models/class_plans_viewmodel.dart';
 import 'package:result_command/result_command.dart';
 
@@ -57,32 +59,10 @@ class _ClassPlansPageState extends State<ClassPlansPage> {
   Widget build(BuildContext context) {
     return ListenableBuilder(
       listenable: _viewmodel.listCommand,
-      builder: (context, child) {
-        if (_viewmodel.listCommand.isFailure) {
-          return Material(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                spacing: 16,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Falha ao carregar planos de aula",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  CustomBackButton(isInfinite: true)
-                ],
-              ),
-            ),
-          );
-        }
-        if (_viewmodel.listCommand.isSuccess) {
-          return child!;
-        }
-        return Material(
-            child: const Center(child: CircularProgressIndicator()));
-      },
+      builder: (context, child) => CustomPageChecker(
+          command: _viewmodel.listCommand,
+          text: "Falha ao carregar planos de aula",
+          child: child!),
       child: ListenableBuilder(
           listenable: _viewmodel,
           builder: (context, _) {
@@ -104,11 +84,10 @@ class _ClassPlansPageState extends State<ClassPlansPage> {
                       Expanded(
                           child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        child: ListView.separated(
-                            itemBuilder: (context, index) => ClassPlanItem(
-                                classPlan: _viewmodel.classPlans[index]),
-                            separatorBuilder: (_, __) => const Divider(),
-                            itemCount: _viewmodel.classPlans.length),
+                        child: CustomListView<ClassPlanModel>(
+                            itemBuilder: (context, classPlan) =>
+                                ClassPlanItem(classPlan: classPlan),
+                            items: _viewmodel.classPlans),
                       ))
                     else
                       Expanded(
