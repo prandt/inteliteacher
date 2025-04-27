@@ -21,6 +21,8 @@ mixin _$ActivityModel {
   String? get description;
   int? get points;
   @JsonTimestamp()
+  DateTime get startAt;
+  @JsonTimestamp()
   DateTime get createdAt;
   @JsonTimestamp()
   DateTime get updatedAt;
@@ -48,6 +50,7 @@ mixin _$ActivityModel {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.points, points) || other.points == points) &&
+            (identical(other.startAt, startAt) || other.startAt == startAt) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -57,11 +60,11 @@ mixin _$ActivityModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, courseId, title, description,
-      points, createdAt, updatedAt);
+      points, startAt, createdAt, updatedAt);
 
   @override
   String toString() {
-    return 'ActivityModel(id: $id, courseId: $courseId, title: $title, description: $description, points: $points, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ActivityModel(id: $id, courseId: $courseId, title: $title, description: $description, points: $points, startAt: $startAt, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -77,6 +80,7 @@ abstract mixin class $ActivityModelCopyWith<$Res> {
       String title,
       String? description,
       int? points,
+      @JsonTimestamp() DateTime startAt,
       @JsonTimestamp() DateTime createdAt,
       @JsonTimestamp() DateTime updatedAt});
 }
@@ -99,6 +103,7 @@ class _$ActivityModelCopyWithImpl<$Res>
     Object? title = null,
     Object? description = freezed,
     Object? points = freezed,
+    Object? startAt = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -123,6 +128,10 @@ class _$ActivityModelCopyWithImpl<$Res>
           ? _self.points
           : points // ignore: cast_nullable_to_non_nullable
               as int?,
+      startAt: null == startAt
+          ? _self.startAt
+          : startAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       createdAt: null == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -144,6 +153,7 @@ class _ActivityModel implements ActivityModel {
       required this.title,
       required this.description,
       required this.points,
+      @JsonTimestamp() required this.startAt,
       @JsonTimestamp() required this.createdAt,
       @JsonTimestamp() required this.updatedAt});
   factory _ActivityModel.fromJson(Map<String, dynamic> json) =>
@@ -159,6 +169,9 @@ class _ActivityModel implements ActivityModel {
   final String? description;
   @override
   final int? points;
+  @override
+  @JsonTimestamp()
+  final DateTime startAt;
   @override
   @JsonTimestamp()
   final DateTime createdAt;
@@ -193,6 +206,7 @@ class _ActivityModel implements ActivityModel {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.points, points) || other.points == points) &&
+            (identical(other.startAt, startAt) || other.startAt == startAt) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -202,11 +216,11 @@ class _ActivityModel implements ActivityModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, courseId, title, description,
-      points, createdAt, updatedAt);
+      points, startAt, createdAt, updatedAt);
 
   @override
   String toString() {
-    return 'ActivityModel(id: $id, courseId: $courseId, title: $title, description: $description, points: $points, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ActivityModel(id: $id, courseId: $courseId, title: $title, description: $description, points: $points, startAt: $startAt, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -224,6 +238,7 @@ abstract mixin class _$ActivityModelCopyWith<$Res>
       String title,
       String? description,
       int? points,
+      @JsonTimestamp() DateTime startAt,
       @JsonTimestamp() DateTime createdAt,
       @JsonTimestamp() DateTime updatedAt});
 }
@@ -246,6 +261,7 @@ class __$ActivityModelCopyWithImpl<$Res>
     Object? title = null,
     Object? description = freezed,
     Object? points = freezed,
+    Object? startAt = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -270,6 +286,10 @@ class __$ActivityModelCopyWithImpl<$Res>
           ? _self.points
           : points // ignore: cast_nullable_to_non_nullable
               as int?,
+      startAt: null == startAt
+          ? _self.startAt
+          : startAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       createdAt: null == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -288,6 +308,8 @@ mixin _$CreateActivityRequest {
   String? get description;
   int? get points;
   String get courseId;
+  @JsonTimestamp()
+  DateTime get startAt;
 
   /// Create a copy of CreateActivityRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -310,17 +332,18 @@ mixin _$CreateActivityRequest {
                 other.description == description) &&
             (identical(other.points, points) || other.points == points) &&
             (identical(other.courseId, courseId) ||
-                other.courseId == courseId));
+                other.courseId == courseId) &&
+            (identical(other.startAt, startAt) || other.startAt == startAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, title, description, points, courseId);
+      Object.hash(runtimeType, title, description, points, courseId, startAt);
 
   @override
   String toString() {
-    return 'CreateActivityRequest(title: $title, description: $description, points: $points, courseId: $courseId)';
+    return 'CreateActivityRequest(title: $title, description: $description, points: $points, courseId: $courseId, startAt: $startAt)';
   }
 }
 
@@ -330,7 +353,12 @@ abstract mixin class $CreateActivityRequestCopyWith<$Res> {
           $Res Function(CreateActivityRequest) _then) =
       _$CreateActivityRequestCopyWithImpl;
   @useResult
-  $Res call({String title, String? description, int? points, String courseId});
+  $Res call(
+      {String title,
+      String? description,
+      int? points,
+      String courseId,
+      @JsonTimestamp() DateTime startAt});
 }
 
 /// @nodoc
@@ -350,6 +378,7 @@ class _$CreateActivityRequestCopyWithImpl<$Res>
     Object? description = freezed,
     Object? points = freezed,
     Object? courseId = null,
+    Object? startAt = null,
   }) {
     return _then(_self.copyWith(
       title: null == title
@@ -368,6 +397,10 @@ class _$CreateActivityRequestCopyWithImpl<$Res>
           ? _self.courseId
           : courseId // ignore: cast_nullable_to_non_nullable
               as String,
+      startAt: null == startAt
+          ? _self.startAt
+          : startAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -379,7 +412,8 @@ class _CreateActivityRequest implements CreateActivityRequest {
       {required this.title,
       required this.description,
       required this.points,
-      required this.courseId});
+      required this.courseId,
+      @JsonTimestamp() required this.startAt});
   factory _CreateActivityRequest.fromJson(Map<String, dynamic> json) =>
       _$CreateActivityRequestFromJson(json);
 
@@ -391,6 +425,9 @@ class _CreateActivityRequest implements CreateActivityRequest {
   final int? points;
   @override
   final String courseId;
+  @override
+  @JsonTimestamp()
+  final DateTime startAt;
 
   /// Create a copy of CreateActivityRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -418,17 +455,18 @@ class _CreateActivityRequest implements CreateActivityRequest {
                 other.description == description) &&
             (identical(other.points, points) || other.points == points) &&
             (identical(other.courseId, courseId) ||
-                other.courseId == courseId));
+                other.courseId == courseId) &&
+            (identical(other.startAt, startAt) || other.startAt == startAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, title, description, points, courseId);
+      Object.hash(runtimeType, title, description, points, courseId, startAt);
 
   @override
   String toString() {
-    return 'CreateActivityRequest(title: $title, description: $description, points: $points, courseId: $courseId)';
+    return 'CreateActivityRequest(title: $title, description: $description, points: $points, courseId: $courseId, startAt: $startAt)';
   }
 }
 
@@ -440,7 +478,12 @@ abstract mixin class _$CreateActivityRequestCopyWith<$Res>
       __$CreateActivityRequestCopyWithImpl;
   @override
   @useResult
-  $Res call({String title, String? description, int? points, String courseId});
+  $Res call(
+      {String title,
+      String? description,
+      int? points,
+      String courseId,
+      @JsonTimestamp() DateTime startAt});
 }
 
 /// @nodoc
@@ -460,6 +503,7 @@ class __$CreateActivityRequestCopyWithImpl<$Res>
     Object? description = freezed,
     Object? points = freezed,
     Object? courseId = null,
+    Object? startAt = null,
   }) {
     return _then(_CreateActivityRequest(
       title: null == title
@@ -478,6 +522,10 @@ class __$CreateActivityRequestCopyWithImpl<$Res>
           ? _self.courseId
           : courseId // ignore: cast_nullable_to_non_nullable
               as String,
+      startAt: null == startAt
+          ? _self.startAt
+          : startAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }

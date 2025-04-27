@@ -13,6 +13,7 @@ _ActivityModel _$ActivityModelFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       description: json['description'] as String?,
       points: (json['points'] as num?)?.toInt(),
+      startAt: const JsonTimestamp().fromJson(json['startAt'] as Timestamp),
       createdAt: const JsonTimestamp().fromJson(json['createdAt'] as Timestamp),
       updatedAt: const JsonTimestamp().fromJson(json['updatedAt'] as Timestamp),
     );
@@ -24,6 +25,7 @@ Map<String, dynamic> _$ActivityModelToJson(_ActivityModel instance) =>
       'title': instance.title,
       'description': instance.description,
       'points': instance.points,
+      'startAt': const JsonTimestamp().toJson(instance.startAt),
       'createdAt': const JsonTimestamp().toJson(instance.createdAt),
       'updatedAt': const JsonTimestamp().toJson(instance.updatedAt),
     };
@@ -35,6 +37,7 @@ _CreateActivityRequest _$CreateActivityRequestFromJson(
       description: json['description'] as String?,
       points: (json['points'] as num?)?.toInt(),
       courseId: json['courseId'] as String,
+      startAt: const JsonTimestamp().fromJson(json['startAt'] as Timestamp),
     );
 
 Map<String, dynamic> _$CreateActivityRequestToJson(
@@ -44,4 +47,5 @@ Map<String, dynamic> _$CreateActivityRequestToJson(
       'description': instance.description,
       'points': instance.points,
       'courseId': instance.courseId,
+      'startAt': const JsonTimestamp().toJson(instance.startAt),
     };
