@@ -3,11 +3,12 @@ import 'package:inteliteacher/model/entities/activity/activity_model.dart';
 import '../../shared/custom_validator.dart';
 
 class NewActivityValidator extends CustomValidator<NewActivityValidator> {
+  final String courseId;
+  final String classId;
   String title = '';
   String description = '';
   bool hasPoints = false;
   int points = 0;
-  DateTime startAt = DateTime.now();
 
   void setTitle(String value) {
     title = value;
@@ -29,12 +30,10 @@ class NewActivityValidator extends CustomValidator<NewActivityValidator> {
     notifyListeners();
   }
 
-  void setStartAt(DateTime value) {
-    startAt = value;
-    notifyListeners();
-  }
-
-  NewActivityValidator() {
+  NewActivityValidator({
+    required this.courseId,
+    required this.classId,
+  }) {
     ruleFor((c) => c.title, key: 'title')
         .notEmpty(message: 'Título não pode ser vazio');
 
@@ -42,20 +41,18 @@ class NewActivityValidator extends CustomValidator<NewActivityValidator> {
         .when((validator) => validator.hasPoints)
         .greaterThan(0, message: 'Pontos devem ser maiores que 0')
         .lessThan(101, message: 'Pontos devem ser menores que 100');
-
-    ruleFor((c) => c.startAt, key: 'startAt').greaterThan(DateTime.now(),
-        message: 'A data de início deve ser maior que a data atual');
   }
 
   @override
   NewActivityValidator get entity => this;
 
-  CreateActivityRequest toRequest(String courseId) {
+  CreateActivityRequest toRequest() {
     return CreateActivityRequest(
-        title: title,
-        description: description,
-        points: hasPoints ? points : null,
-        courseId: courseId,
-        startAt: startAt);
+      title: title,
+      description: description,
+      points: hasPoints ? points : null,
+      courseId: courseId,
+      classId: classId,
+    );
   }
 }

@@ -6,15 +6,17 @@ import 'package:inteliteacher/shared/widgets/custom_modal.dart';
 import 'package:inteliteacher/shared/widgets/custom_text_field.dart';
 import 'package:inteliteacher/ui/courses/view_models/course_page_viewmodel.dart';
 
+import '../../../config/router.dart';
 import '../../../config/theme.dart';
-import '../../../model/validators/new_activity_validator.dart';
+import '../../../model/validators/new_class_validator.dart';
 import '../../../shared/widgets/custom_select_date.dart';
-import '../../../shared/widgets/custom_switch.dart';
+import 'classes_filter.dart';
 
-class ActivitiesTab extends StatelessWidget {
-  const ActivitiesTab(this._viewmodel, {super.key});
+class ClassesTab extends StatelessWidget {
+  const ClassesTab(this._viewmodel, {super.key, required this.courseId});
 
   final CoursePageViewmodel _viewmodel;
+  final String courseId;
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +30,16 @@ class ActivitiesTab extends StatelessWidget {
         children: [
           Center(
             child: Text(
-              'Atividades',
+              'Aulas',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
-          if (_viewmodel.activities.isEmpty)
+          ClassesFilter(_viewmodel),
+          if (_viewmodel.classes.isEmpty)
             Expanded(
               child: Center(
                 child: Text(
-                  'Nenhum atividade cadastrada',
+                  'Nenhum aula cadastrada',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ),
@@ -44,7 +47,7 @@ class ActivitiesTab extends StatelessWidget {
           else
             Expanded(
               child: CustomListView(
-                  items: _viewmodel.activities,
+                  items: _viewmodel.classes,
                   itemBuilder: (context, item) => ListTile(
                         titleAlignment: ListTileTitleAlignment.top,
                         contentPadding: const EdgeInsets.all(0),
@@ -52,26 +55,25 @@ class ActivitiesTab extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleMedium),
                         subtitle: Text(item.startAt.toFancyDate(),
                             style: Theme.of(context).textTheme.bodyMedium),
-                        trailing: Text('${item.points ?? 'Sem'} pontos',
-                            style: Theme.of(context).textTheme.bodySmall),
+                        onTap: () => context.go(Routes.classWithId(courseId, item.id)),
                       )),
             ),
           ElevatedButton.icon(
-              onPressed: () => _openNewActivityModal(context),
-              label: Text('Adicionar atividade'),
+              onPressed: () => _openNewClassModal(context),
+              label: Text('Adicionar aula'),
               icon: Icon(Icons.add, color: AppColors.ghostWhite, size: 16)),
         ],
       ),
     );
   }
 
-  void _openNewActivityModal(BuildContext context) {
-    final validator = NewActivityValidator();
+  void _openNewClassModal(BuildContext context) {
+    final validator = NewClassValidator();
     final formKey = GlobalKey<FormState>();
 
-    void newActivity() {
+    void newClass() {
       if (!formKey.currentState!.validate()) return;
-      _viewmodel.addActivityCommand.execute(validator);
+      _viewmodel.addClassCommand.execute(validator);
       context.pop();
     }
 
@@ -83,29 +85,18 @@ class ActivitiesTab extends StatelessWidget {
             listenable: validator,
             builder: (context, _) {
               return CustomModal(
-                  title: 'Adicionar atividade',
-                  onConfirm: validator.isValid ? newActivity : null,
+                  title: 'Adicionar aula',
+                  onConfirm: validator.isValid ? newClass : null,
                   children: [
                     CustomTextField(
                         label: 'Nome',
-                        hint: 'Nome da atividade',
+                        hint: 'Nome da aula',
                         validator: validator.field('title'),
                         onChanged: validator.setTitle),
                     CustomTextField(
                         label: 'Descrição',
-                        hint: 'Descrição da atividade',
+                        hint: 'Descrição da aula',
                         onChanged: validator.setDescription),
-                    CustomSwitch(
-                      label: 'Atividade com pontos',
-                      value: validator.hasPoints,
-                      onChanged: validator.setHasPoints,
-                    ),
-                    if (validator.hasPoints)
-                      CustomTextField(
-                          label: 'Pontos',
-                          hint: 'Pontos da atividade',
-                          validator: validator.field('points'),
-                          onChanged: validator.setPoints),
                     CustomSelectDate(
                       date: validator.startAt,
                       validator: validator.field('startAt'),

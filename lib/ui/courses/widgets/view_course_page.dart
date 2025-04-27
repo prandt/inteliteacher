@@ -9,7 +9,7 @@ import 'package:result_command/result_command.dart';
 
 import '../../../data/execptions/app_exceptions.dart';
 import '../view_models/course_page_viewmodel.dart';
-import 'activities_tab.dart';
+import 'classes_tab.dart';
 
 class ViewCoursePage extends StatefulWidget {
   const ViewCoursePage({super.key, required this.id});
@@ -28,7 +28,7 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
     super.initState();
     _viewmodel.loadCommand.execute(widget.id);
     _viewmodel.addStudentCommand.addListener(_listenAddStudent);
-    _viewmodel.addActivityCommand.addListener(_listenAddActivity);
+    _viewmodel.addClassCommand.addListener(_listenAddActivity);
   }
 
   void _listenAddStudent() {
@@ -67,11 +67,11 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
 
   void _listenAddActivity() {
     LoadingOverlay.instance().hide();
-    if (_viewmodel.addActivityCommand.isRunning) {
+    if (_viewmodel.addClassCommand.isRunning) {
       LoadingOverlay.instance().show(context, text: 'Criando atividade');
       return;
     }
-    if (_viewmodel.addActivityCommand.isSuccess) {
+    if (_viewmodel.addClassCommand.isSuccess) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content:
@@ -80,7 +80,7 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
       );
       return;
     }
-    if (_viewmodel.addActivityCommand.isFailure) {
+    if (_viewmodel.addClassCommand.isFailure) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: AppColors.redAlert,
@@ -98,7 +98,7 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
   void dispose() {
     super.dispose();
     _viewmodel.addStudentCommand.removeListener(_listenAddStudent);
-    _viewmodel.addActivityCommand.removeListener(_listenAddActivity);
+    _viewmodel.addClassCommand.removeListener(_listenAddActivity);
   }
 
   @override
@@ -115,7 +115,7 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
                 currentIndex: _viewmodel.tabIndex,
                 items: [
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.assignment), label: 'Atividades'),
+                      icon: Icon(Icons.assignment), label: 'Aulas'),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.people), label: 'Alunos'),
                 ],
@@ -125,7 +125,7 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
               child: IndexedStack(
                 index: _viewmodel.tabIndex,
                 children: [
-                  ActivitiesTab(_viewmodel),
+                  ClassesTab(_viewmodel, courseId: widget.id),
                   StudentsTab(_viewmodel),
                 ],
               ),

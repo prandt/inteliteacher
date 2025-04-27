@@ -9,6 +9,17 @@ extension DateTimeExtensions on DateTime {
       throw Exception(e);
     }
   }
+
+  DateTime zero() {
+    return DateTime.now().copyWith(
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+      microsecond: 0,
+    );
+  }
+
 }
 
 extension StringExtensions on String {

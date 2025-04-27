@@ -15,9 +15,13 @@ class CustomChipSelectable<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChoiceChip(
-        label: Text(label, style: Theme.of(context).textTheme.labelMedium?.copyWith(
-          color: selected ? AppColors.ghostWhite : AppColors.tropicalIndigo,
-        )),
+        label: Text(label,
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                  color: selected
+                      ? AppColors.ghostWhite
+                      : AppColors.tropicalIndigo,
+                )),
+        checkmarkColor: AppColors.ghostWhite,
         selected: selected,
         onSelected: onSelected,
         selectedColor: AppColors.tropicalIndigo,

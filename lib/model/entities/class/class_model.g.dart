@@ -1,51 +1,48 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'activity_model.dart';
+part of 'class_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_ActivityModel _$ActivityModelFromJson(Map<String, dynamic> json) =>
-    _ActivityModel(
+_ClassModel _$ClassModelFromJson(Map<String, dynamic> json) => _ClassModel(
       id: json['id'] as String,
       courseId: json['courseId'] as String,
-      classId: json['classId'] as String,
       title: json['title'] as String,
       description: json['description'] as String?,
-      points: (json['points'] as num?)?.toInt(),
+      classPlan: json['classPlan'] == null
+          ? null
+          : ClassPlanModel.fromJson(json['classPlan'] as Map<String, dynamic>),
+      startAt: const JsonTimestamp().fromJson(json['startAt'] as Timestamp),
       createdAt: const JsonTimestamp().fromJson(json['createdAt'] as Timestamp),
       updatedAt: const JsonTimestamp().fromJson(json['updatedAt'] as Timestamp),
     );
 
-Map<String, dynamic> _$ActivityModelToJson(_ActivityModel instance) =>
+Map<String, dynamic> _$ClassModelToJson(_ClassModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'courseId': instance.courseId,
-      'classId': instance.classId,
       'title': instance.title,
       'description': instance.description,
-      'points': instance.points,
+      'classPlan': instance.classPlan,
+      'startAt': const JsonTimestamp().toJson(instance.startAt),
       'createdAt': const JsonTimestamp().toJson(instance.createdAt),
       'updatedAt': const JsonTimestamp().toJson(instance.updatedAt),
     };
 
-_CreateActivityRequest _$CreateActivityRequestFromJson(
-        Map<String, dynamic> json) =>
-    _CreateActivityRequest(
+_CreateClassRequest _$CreateClassRequestFromJson(Map<String, dynamic> json) =>
+    _CreateClassRequest(
+      courseId: json['courseId'] as String,
       title: json['title'] as String,
       description: json['description'] as String?,
-      points: (json['points'] as num?)?.toInt(),
-      courseId: json['courseId'] as String,
-      classId: json['classId'] as String,
+      startAt: const JsonTimestamp().fromJson(json['startAt'] as Timestamp),
     );
 
-Map<String, dynamic> _$CreateActivityRequestToJson(
-        _CreateActivityRequest instance) =>
+Map<String, dynamic> _$CreateClassRequestToJson(_CreateClassRequest instance) =>
     <String, dynamic>{
+      'courseId': instance.courseId,
       'title': instance.title,
       'description': instance.description,
-      'points': instance.points,
-      'courseId': instance.courseId,
-      'classId': instance.classId,
+      'startAt': const JsonTimestamp().toJson(instance.startAt),
     };

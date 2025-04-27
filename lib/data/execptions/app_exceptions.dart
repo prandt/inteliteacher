@@ -38,3 +38,7 @@ class ClassPlansException extends AppExceptions {
 class CourseException extends AppExceptions {
   CourseException(super.message, [super.stackTrace]);
 }
+
+class ClassException extends AppExceptions {
+  ClassException(super.message, [super.stackTrace]);
+}

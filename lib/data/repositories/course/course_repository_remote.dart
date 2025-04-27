@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:inteliteacher/model/entities/activity/activity_model.dart';
 import 'package:inteliteacher/model/entities/course/course_model.dart';
 import 'package:inteliteacher/model/entities/student/student_model.dart';
 import 'package:result_dart/result_dart.dart';
@@ -112,39 +111,7 @@ class CourseRepositoryRemote implements CourseRepository {
     }
   }
 
-  @override
-  AsyncResult<ActivityModel> createActivity(
-      CreateActivityRequest request) async {
-    try {
-      final model = request.toModel();
-      await _activitiesCollection(model.courseId).doc(model.id).set(model);
-      return Success(model);
-    } catch (_) {
-      return Failure(CourseException('Falha ao criar atividade'));
-    }
-  }
-
-  @override
-  AsyncResult<List<ActivityModel>> listActivities(String courseId) async {
-    try {
-      final querySnapshot = await _activitiesCollection(courseId)
-          .orderBy('createdAt', descending: true)
-          .get();
-      final activities = querySnapshot.docs.map((e) => e.data()).toList();
-      return Success(activities);
-    } catch (_) {
-      return Failure(CourseException('Falha ao listar atividades'));
-    }
-  }
-
   CollectionReference get _courseCollection =>
       _db.collection('users').doc(_auth.currentUser?.uid).collection('courses');
 
-  CollectionReference<ActivityModel> _activitiesCollection(String id) =>
-      _courseCollection
-          .doc(id)
-          .collection('activities')
-          .withConverter<ActivityModel>(
-              fromFirestore: (s, _) => ActivityModel.fromJson(s.data()!),
-              toFirestore: (activity, _) => activity.toJson());
 }

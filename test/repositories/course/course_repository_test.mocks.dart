@@ -7,8 +7,6 @@ import 'dart:async' as _i3;
 
 import 'package:inteliteacher/data/repositories/course/course_repository.dart'
     as _i2;
-import 'package:inteliteacher/model/entities/activity/activity_model.dart'
-    as _i8;
 import 'package:inteliteacher/model/entities/course/course_model.dart' as _i5;
 import 'package:inteliteacher/model/entities/student/student_model.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
@@ -127,36 +125,4 @@ class MockCourseRepository extends _i1.Mock implements _i2.CourseRepository {
                 ),
           )
           as _i3.Future<_i4.ResultDart<_i7.StudentModel, Exception>>);
-
-  @override
-  _i3.Future<_i4.ResultDart<List<_i8.ActivityModel>, Exception>> listActivities(
-    String? courseId,
-  ) =>
-      (super.noSuchMethod(
-            Invocation.method(#listActivities, [courseId]),
-            returnValue: _i3.Future<
-              _i4.ResultDart<List<_i8.ActivityModel>, Exception>
-            >.value(
-              _i6.dummyValue<
-                _i4.ResultDart<List<_i8.ActivityModel>, Exception>
-              >(this, Invocation.method(#listActivities, [courseId])),
-            ),
-          )
-          as _i3.Future<_i4.ResultDart<List<_i8.ActivityModel>, Exception>>);
-
-  @override
-  _i3.Future<_i4.ResultDart<_i8.ActivityModel, Exception>> createActivity(
-    _i8.CreateActivityRequest? request,
-  ) =>
-      (super.noSuchMethod(
-            Invocation.method(#createActivity, [request]),
-            returnValue:
-                _i3.Future<_i4.ResultDart<_i8.ActivityModel, Exception>>.value(
-                  _i6.dummyValue<_i4.ResultDart<_i8.ActivityModel, Exception>>(
-                    this,
-                    Invocation.method(#createActivity, [request]),
-                  ),
-                ),
-          )
-          as _i3.Future<_i4.ResultDart<_i8.ActivityModel, Exception>>);
 }

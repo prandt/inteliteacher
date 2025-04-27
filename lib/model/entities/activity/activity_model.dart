@@ -12,10 +12,10 @@ abstract class ActivityModel with _$ActivityModel {
   const factory ActivityModel({
     required String id,
     required String courseId,
+    required String classId,
     required String title,
     required String? description,
     required int? points,
-    @JsonTimestamp() required DateTime startAt,
     @JsonTimestamp() required DateTime createdAt,
     @JsonTimestamp() required DateTime updatedAt,
   }) = _ActivityModel;
@@ -31,7 +31,7 @@ abstract class CreateActivityRequest with _$CreateActivityRequest {
     required String? description,
     required int? points,
     required String courseId,
-    @JsonTimestamp() required DateTime startAt
+    required String classId,
   }) = _CreateActivityRequest;
 
   factory CreateActivityRequest.fromJson(Map<String, dynamic> json) =>
@@ -45,7 +45,7 @@ extension CreateActivityFactory on CreateActivityRequest {
         description: description,
         points: points,
         courseId: courseId,
-        startAt: startAt,
+        classId: classId,
         createdAt: Timestamp.now().toDate(),
         updatedAt: Timestamp.now().toDate(),
       );

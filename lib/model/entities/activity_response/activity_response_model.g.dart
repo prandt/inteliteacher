@@ -1,51 +1,49 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'activity_model.dart';
+part of 'activity_response_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_ActivityModel _$ActivityModelFromJson(Map<String, dynamic> json) =>
-    _ActivityModel(
+_ActivityResponseModel _$ActivityResponseModelFromJson(
+        Map<String, dynamic> json) =>
+    _ActivityResponseModel(
       id: json['id'] as String,
+      student: StudentModel.fromJson(json['student'] as Map<String, dynamic>),
       courseId: json['courseId'] as String,
       classId: json['classId'] as String,
-      title: json['title'] as String,
-      description: json['description'] as String?,
       points: (json['points'] as num?)?.toInt(),
       createdAt: const JsonTimestamp().fromJson(json['createdAt'] as Timestamp),
       updatedAt: const JsonTimestamp().fromJson(json['updatedAt'] as Timestamp),
     );
 
-Map<String, dynamic> _$ActivityModelToJson(_ActivityModel instance) =>
+Map<String, dynamic> _$ActivityResponseModelToJson(
+        _ActivityResponseModel instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'student': instance.student,
       'courseId': instance.courseId,
       'classId': instance.classId,
-      'title': instance.title,
-      'description': instance.description,
       'points': instance.points,
       'createdAt': const JsonTimestamp().toJson(instance.createdAt),
       'updatedAt': const JsonTimestamp().toJson(instance.updatedAt),
     };
 
-_CreateActivityRequest _$CreateActivityRequestFromJson(
+_CreateActivityResponseRequest _$CreateActivityResponseRequestFromJson(
         Map<String, dynamic> json) =>
-    _CreateActivityRequest(
-      title: json['title'] as String,
-      description: json['description'] as String?,
-      points: (json['points'] as num?)?.toInt(),
+    _CreateActivityResponseRequest(
+      student: StudentModel.fromJson(json['student'] as Map<String, dynamic>),
       courseId: json['courseId'] as String,
       classId: json['classId'] as String,
+      points: (json['points'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$CreateActivityRequestToJson(
-        _CreateActivityRequest instance) =>
+Map<String, dynamic> _$CreateActivityResponseRequestToJson(
+        _CreateActivityResponseRequest instance) =>
     <String, dynamic>{
-      'title': instance.title,
-      'description': instance.description,
-      'points': instance.points,
+      'student': instance.student,
       'courseId': instance.courseId,
       'classId': instance.classId,
+      'points': instance.points,
     };
