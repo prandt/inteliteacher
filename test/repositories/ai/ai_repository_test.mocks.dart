@@ -8,8 +8,10 @@ import 'dart:async' as _i3;
 import 'package:inteliteacher/data/repositories/ai/ai_repository.dart' as _i2;
 import 'package:inteliteacher/model/entities/class_plans/class_plan_model.dart'
     as _i5;
+import 'package:inteliteacher/model/validators/new_class_plan_validator.dart'
+    as _i6;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i6;
+import 'package:mockito/src/dummies.dart' as _i7;
 import 'package:result_dart/result_dart.dart' as _i4;
 
 // ignore_for_file: type=lint
@@ -36,18 +38,15 @@ class MockAiRepository extends _i1.Mock implements _i2.AiRepository {
 
   @override
   _i3.Future<_i4.ResultDart<_i5.CreateClassPlanRequest, Exception>>
-  generateClassPlan({required String? prompt}) =>
+  generateClassPlan(_i6.NewClassPlanValidator? validator) =>
       (super.noSuchMethod(
-            Invocation.method(#generateClassPlan, [], {#prompt: prompt}),
+            Invocation.method(#generateClassPlan, [validator]),
             returnValue: _i3.Future<
               _i4.ResultDart<_i5.CreateClassPlanRequest, Exception>
             >.value(
-              _i6.dummyValue<
+              _i7.dummyValue<
                 _i4.ResultDart<_i5.CreateClassPlanRequest, Exception>
-              >(
-                this,
-                Invocation.method(#generateClassPlan, [], {#prompt: prompt}),
-              ),
+              >(this, Invocation.method(#generateClassPlan, [validator])),
             ),
           )
           as _i3.Future<_i4.ResultDart<_i5.CreateClassPlanRequest, Exception>>);

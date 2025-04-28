@@ -28,7 +28,7 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
     super.initState();
     _viewmodel.loadCommand.execute(widget.id);
     _viewmodel.addStudentCommand.addListener(_listenAddStudent);
-    _viewmodel.addClassCommand.addListener(_listenAddActivity);
+    _viewmodel.addClassCommand.addListener(_listenAddClass);
   }
 
   void _listenAddStudent() {
@@ -65,17 +65,17 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
     }
   }
 
-  void _listenAddActivity() {
+  void _listenAddClass() {
     LoadingOverlay.instance().hide();
     if (_viewmodel.addClassCommand.isRunning) {
-      LoadingOverlay.instance().show(context, text: 'Criando atividade');
+      LoadingOverlay.instance().show(context, text: 'Criando aula');
       return;
     }
     if (_viewmodel.addClassCommand.isSuccess) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content:
-          Text('Atividade criada com sucesso', textAlign: TextAlign.center),
+          Text('Aula criada com sucesso', textAlign: TextAlign.center),
         ),
       );
       return;
@@ -85,7 +85,7 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
         SnackBar(
           backgroundColor: AppColors.redAlert,
           content: Text(
-            'Falha ao criar atividade',
+            'Falha ao criar aula',
             textAlign: TextAlign.center,
           ),
         ),
@@ -98,7 +98,7 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
   void dispose() {
     super.dispose();
     _viewmodel.addStudentCommand.removeListener(_listenAddStudent);
-    _viewmodel.addClassCommand.removeListener(_listenAddActivity);
+    _viewmodel.addClassCommand.removeListener(_listenAddClass);
   }
 
   @override

@@ -60,7 +60,7 @@ class ClassesTab extends StatelessWidget {
             ),
           ElevatedButton.icon(
               onPressed: () => _openNewClassModal(context),
-              label: Text('Adicionar aula'),
+              label: Text('Criar aula'),
               icon: Icon(Icons.add, color: AppColors.ghostWhite, size: 16)),
         ],
       ),

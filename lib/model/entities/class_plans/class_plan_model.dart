@@ -42,6 +42,8 @@ abstract class CreateClassPlanRequest with _$CreateClassPlanRequest {
     required List<String>? activities,
     required String? evaluation,
     required String? notes,
+    @Default('') String courseId,
+    @Default('') String classId,
   }) = _CreateClassPlanRequest;
 
   factory CreateClassPlanRequest.fromJson(Map<String, dynamic> json) =>

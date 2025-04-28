@@ -464,6 +464,8 @@ mixin _$CreateClassPlanRequest {
   List<String>? get activities;
   String? get evaluation;
   String? get notes;
+  String get courseId;
+  String get classId;
 
   /// Create a copy of CreateClassPlanRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -496,7 +498,10 @@ mixin _$CreateClassPlanRequest {
                 .equals(other.activities, activities) &&
             (identical(other.evaluation, evaluation) ||
                 other.evaluation == evaluation) &&
-            (identical(other.notes, notes) || other.notes == notes));
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.courseId, courseId) ||
+                other.courseId == courseId) &&
+            (identical(other.classId, classId) || other.classId == classId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -512,11 +517,13 @@ mixin _$CreateClassPlanRequest {
       const DeepCollectionEquality().hash(content),
       const DeepCollectionEquality().hash(activities),
       evaluation,
-      notes);
+      notes,
+      courseId,
+      classId);
 
   @override
   String toString() {
-    return 'CreateClassPlanRequest(title: $title, objective: $objective, targetAudience: $targetAudience, duration: $duration, resources: $resources, methodology: $methodology, content: $content, activities: $activities, evaluation: $evaluation, notes: $notes)';
+    return 'CreateClassPlanRequest(title: $title, objective: $objective, targetAudience: $targetAudience, duration: $duration, resources: $resources, methodology: $methodology, content: $content, activities: $activities, evaluation: $evaluation, notes: $notes, courseId: $courseId, classId: $classId)';
   }
 }
 
@@ -536,7 +543,9 @@ abstract mixin class $CreateClassPlanRequestCopyWith<$Res> {
       List<String>? content,
       List<String>? activities,
       String? evaluation,
-      String? notes});
+      String? notes,
+      String courseId,
+      String classId});
 }
 
 /// @nodoc
@@ -562,6 +571,8 @@ class _$CreateClassPlanRequestCopyWithImpl<$Res>
     Object? activities = freezed,
     Object? evaluation = freezed,
     Object? notes = freezed,
+    Object? courseId = null,
+    Object? classId = null,
   }) {
     return _then(_self.copyWith(
       title: null == title
@@ -604,6 +615,14 @@ class _$CreateClassPlanRequestCopyWithImpl<$Res>
           ? _self.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
+      courseId: null == courseId
+          ? _self.courseId
+          : courseId // ignore: cast_nullable_to_non_nullable
+              as String,
+      classId: null == classId
+          ? _self.classId
+          : classId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -621,7 +640,9 @@ class _CreateClassPlanRequest implements CreateClassPlanRequest {
       required final List<String>? content,
       required final List<String>? activities,
       required this.evaluation,
-      required this.notes})
+      required this.notes,
+      this.courseId = '',
+      this.classId = ''})
       : _resources = resources,
         _content = content,
         _activities = activities;
@@ -672,6 +693,12 @@ class _CreateClassPlanRequest implements CreateClassPlanRequest {
   final String? evaluation;
   @override
   final String? notes;
+  @override
+  @JsonKey()
+  final String courseId;
+  @override
+  @JsonKey()
+  final String classId;
 
   /// Create a copy of CreateClassPlanRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -710,7 +737,10 @@ class _CreateClassPlanRequest implements CreateClassPlanRequest {
                 .equals(other._activities, _activities) &&
             (identical(other.evaluation, evaluation) ||
                 other.evaluation == evaluation) &&
-            (identical(other.notes, notes) || other.notes == notes));
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.courseId, courseId) ||
+                other.courseId == courseId) &&
+            (identical(other.classId, classId) || other.classId == classId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -726,11 +756,13 @@ class _CreateClassPlanRequest implements CreateClassPlanRequest {
       const DeepCollectionEquality().hash(_content),
       const DeepCollectionEquality().hash(_activities),
       evaluation,
-      notes);
+      notes,
+      courseId,
+      classId);
 
   @override
   String toString() {
-    return 'CreateClassPlanRequest(title: $title, objective: $objective, targetAudience: $targetAudience, duration: $duration, resources: $resources, methodology: $methodology, content: $content, activities: $activities, evaluation: $evaluation, notes: $notes)';
+    return 'CreateClassPlanRequest(title: $title, objective: $objective, targetAudience: $targetAudience, duration: $duration, resources: $resources, methodology: $methodology, content: $content, activities: $activities, evaluation: $evaluation, notes: $notes, courseId: $courseId, classId: $classId)';
   }
 }
 
@@ -752,7 +784,9 @@ abstract mixin class _$CreateClassPlanRequestCopyWith<$Res>
       List<String>? content,
       List<String>? activities,
       String? evaluation,
-      String? notes});
+      String? notes,
+      String courseId,
+      String classId});
 }
 
 /// @nodoc
@@ -778,6 +812,8 @@ class __$CreateClassPlanRequestCopyWithImpl<$Res>
     Object? activities = freezed,
     Object? evaluation = freezed,
     Object? notes = freezed,
+    Object? courseId = null,
+    Object? classId = null,
   }) {
     return _then(_CreateClassPlanRequest(
       title: null == title
@@ -820,6 +856,14 @@ class __$CreateClassPlanRequestCopyWithImpl<$Res>
           ? _self.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
+      courseId: null == courseId
+          ? _self.courseId
+          : courseId // ignore: cast_nullable_to_non_nullable
+              as String,
+      classId: null == classId
+          ? _self.classId
+          : classId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }

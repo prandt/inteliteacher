@@ -61,9 +61,29 @@ class ClassRepositoryRemote implements ClassRepository {
           toFirestore: (activity, _) => activity.toJson());
 
   @override
-  AsyncResult<ClassPlanModel> createClassPlan(CreateClassPlanRequest model) {
-    // TODO: implement createClassPlan
-    throw UnimplementedError();
+  AsyncResult<ClassPlanModel> updateClassPlan(
+      CreateClassPlanRequest classPlanRequest) async {
+    try {
+      final classRef = _courseClassesCollection(classPlanRequest.courseId)
+          .doc(classPlanRequest.classId);
+
+      final classSnapshot = await classRef.get();
+
+      if (!classSnapshot.exists) {
+        return Failure(ClassException('Aula não encontrada'));
+      }
+
+      final classPlan = classPlanRequest.toModel();
+
+      await classRef.update({
+        "classPlan": classPlan.toJson(),
+        "updatedAt": Timestamp.now().toDate(),
+      });
+
+      return Success(classPlan);
+    } catch (e) {
+      return Failure(ClassException('Falha ao criar plano de aula'));
+    }
   }
 
   @override

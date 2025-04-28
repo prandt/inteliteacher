@@ -11,13 +11,14 @@ import 'package:inteliteacher/ui/auth/view_models/login_viewmodel.dart';
 import 'package:inteliteacher/ui/auth/view_models/logout_viewmodel.dart';
 import 'package:inteliteacher/ui/auth/view_models/register_viewmodel.dart';
 import 'package:inteliteacher/ui/class/view_models/class_viewmodel.dart';
-import 'package:inteliteacher/ui/class_plans/view_models/class_plans_viewmodel.dart';
+import 'package:inteliteacher/ui/class/view_models/class_plans_viewmodel.dart';
 import 'package:inteliteacher/ui/courses/view_models/course_page_viewmodel.dart';
 import 'package:inteliteacher/ui/courses/view_models/courses_viewmodel.dart';
 import 'package:inteliteacher/ui/user/view_models/profile_viewmodel.dart';
 
 import '../data/repositories/class_plans/class_plans_repository.dart';
 import '../data/repositories/class_plans/class_plans_repository_remote.dart';
+import '../model/use_cases/class/create_classplan_usecase.dart';
 
 /// Abstract class to be implemented by the injector
 abstract class Injector {
@@ -44,6 +45,10 @@ class InjectorImpl implements Injector {
     getIt.registerSingleton<CourseRepository>(CourseRepositoryRemote());
     getIt.registerSingleton<ClassRepository>(ClassRepositoryRemote());
 
+    //UseCases
+    // Registering use cases as factories to ensure a new instance is created each time
+    getIt.registerFactory(() => CreateClassPlanUseCase(get(), get()));
+
     // ViewModels
     // Registering view models as factories to ensure a new instance is created each time
     getIt.registerFactory(() => LoginViewModel(get()));
@@ -51,7 +56,7 @@ class InjectorImpl implements Injector {
     getIt.registerFactory(() => LogoutViewmodel(get()));
     getIt.registerFactory(() => RegisterViewModel(get()));
     getIt.registerFactory(() => FinalizeRegistrationViewmodel(get()));
-    getIt.registerSingleton(ClassPlansViewmodel(get(), get()));
+    getIt.registerFactory(() => ClassPlansViewmodel(get()));
     getIt.registerSingleton(CoursesViewmodel(get()));
     getIt.registerFactory(() => CoursePageViewmodel(get(), get()));
     getIt.registerFactory(() => ClassViewmodel(get()));

@@ -65,8 +65,7 @@ class _ClassPageState extends State<ClassPage> {
                 child: Column(
                   spacing: 16,
                   children: [
-                    ClassPlanCard(
-                        classPlanModel: _viewmodel.classModel?.classPlan),
+                    ClassPlanCard(classModel: _viewmodel.classModel!),
                     Text(" Atividades",
                         style: Theme.of(context).textTheme.titleLarge),
                     ClassActivitiesList(_viewmodel.activities),

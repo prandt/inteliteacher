@@ -63,6 +63,8 @@ _CreateClassPlanRequest _$CreateClassPlanRequestFromJson(
           .toList(),
       evaluation: json['evaluation'] as String?,
       notes: json['notes'] as String?,
+      courseId: json['courseId'] as String? ?? '',
+      classId: json['classId'] as String? ?? '',
     );
 
 Map<String, dynamic> _$CreateClassPlanRequestToJson(
@@ -78,4 +80,6 @@ Map<String, dynamic> _$CreateClassPlanRequestToJson(
       'activities': instance.activities,
       'evaluation': instance.evaluation,
       'notes': instance.notes,
+      'courseId': instance.courseId,
+      'classId': instance.classId,
     };

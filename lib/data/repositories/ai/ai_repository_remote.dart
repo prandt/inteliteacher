@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_vertexai/firebase_vertexai.dart';
 import 'package:inteliteacher/data/execptions/app_exceptions.dart';
 import 'package:inteliteacher/data/repositories/ai/ai_repository.dart';
+import 'package:inteliteacher/model/validators/new_class_plan_validator.dart';
 import 'package:result_dart/result_dart.dart';
 
 import '../../../model/entities/class_plans/class_plan_model.dart';
@@ -13,14 +14,18 @@ class AiRepositoryRemote implements AiRepository {
 
   @override
   AsyncResult<CreateClassPlanRequest> generateClassPlan(
-      {required String prompt}) async {
+      NewClassPlanValidator validator) async {
     final model = _getModelClassPlan();
     try {
-      final response = await model.generateContent([Content.text(prompt)]);
+      final response =
+          await model.generateContent([Content.text(validator.prompt)]);
       if (response.text?.isNotEmpty ?? false) {
         final json = jsonDecode(response.text!);
         final classPlan = CreateClassPlanRequest.fromJson(json);
-        return Success(classPlan);
+        return Success(classPlan.copyWith(
+          classId: validator.classId,
+          courseId: validator.courseId,
+        ));
       }
       return Failure(AiException('Falha ao gerar o plano de aula'));
     } catch (e, s) {

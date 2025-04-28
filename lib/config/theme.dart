@@ -5,6 +5,11 @@ final themeData = ThemeData(
   colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.tropicalIndigo, surface: AppColors.ghostWhite),
   textTheme: GoogleFonts.poppinsTextTheme().copyWith(
+      titleLarge: TextStyle(
+        color: AppColors.tropicalIndigo,
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
+      ),
       titleMedium: TextStyle(
         color: AppColors.tropicalIndigo,
         fontSize: 20,
