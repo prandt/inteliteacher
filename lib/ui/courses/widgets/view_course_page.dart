@@ -10,6 +10,7 @@ import 'package:result_command/result_command.dart';
 import '../../../data/execptions/app_exceptions.dart';
 import '../view_models/course_page_viewmodel.dart';
 import 'classes_tab.dart';
+import 'leaderboard_tab.dart';
 
 class ViewCoursePage extends StatefulWidget {
   const ViewCoursePage({super.key, required this.id});
@@ -47,7 +48,8 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
       return;
     }
     if (_viewmodel.addStudentCommand.isFailure) {
-      final error = (_viewmodel.addStudentCommand.value as FailureCommand).error;
+      final error =
+          (_viewmodel.addStudentCommand.value as FailureCommand).error;
       String message = 'Falha ao adicionar aluno';
       if (error is CourseException) {
         message = error.message;
@@ -74,8 +76,7 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
     if (_viewmodel.addClassCommand.isSuccess) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content:
-          Text('Aula criada com sucesso', textAlign: TextAlign.center),
+          content: Text('Aula criada com sucesso', textAlign: TextAlign.center),
         ),
       );
       return;
@@ -115,6 +116,8 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
                 currentIndex: _viewmodel.tabIndex,
                 items: [
                   BottomNavigationBarItem(
+                      icon: Icon(Icons.leaderboard), label: 'Clasificação'),
+                  BottomNavigationBarItem(
                       icon: Icon(Icons.assignment), label: 'Aulas'),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.people), label: 'Alunos'),
@@ -125,6 +128,7 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
               child: IndexedStack(
                 index: _viewmodel.tabIndex,
                 children: [
+                  LeaderboardTab(_viewmodel),
                   ClassesTab(_viewmodel, courseId: widget.id),
                   StudentsTab(_viewmodel),
                 ],
@@ -134,4 +138,3 @@ class _ViewCoursePageState extends State<ViewCoursePage> {
     );
   }
 }
-
