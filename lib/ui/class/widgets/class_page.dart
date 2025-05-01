@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:inteliteacher/config/injector.dart';
-import 'package:inteliteacher/shared/loading_overlay.dart';
 import 'package:inteliteacher/shared/widgets/custom_page_checker.dart';
 import 'package:inteliteacher/ui/class/view_models/class_viewmodel.dart';
 import 'package:inteliteacher/ui/class/widgets/class_plan_card.dart';
@@ -27,20 +26,7 @@ class _ClassPageState extends State<ClassPage> {
       widget.courseId,
       widget.classId,
     );
-    _viewmodel.createActivityCommand.addListener(_listenCreateActivity);
-  }
 
-  void _listenCreateActivity() {
-    LoadingOverlay.instance().hide();
-    if (_viewmodel.createActivityCommand.isRunning) {
-      LoadingOverlay.instance().show(context, text: 'Criando atividade');
-    }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _viewmodel.createActivityCommand.removeListener(_listenCreateActivity);
   }
 
   @override
