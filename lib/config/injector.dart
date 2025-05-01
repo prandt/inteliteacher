@@ -52,7 +52,7 @@ class InjectorImpl implements Injector {
     getIt.registerFactory(() => LogoutViewmodel(get()));
     getIt.registerFactory(() => RegisterViewModel(get()));
     getIt.registerFactory(() => FinalizeRegistrationViewmodel(get()));
-    getIt.registerFactory(() => ClassPlansViewmodel(get()));
+    getIt.registerFactory(() => ClassPlansViewmodel(get(), get()));
     getIt.registerSingleton(CoursesViewmodel(get()));
     getIt.registerFactory(() => CoursePageViewmodel(get(), get()));
     getIt.registerFactory(() => ClassViewmodel(get()));

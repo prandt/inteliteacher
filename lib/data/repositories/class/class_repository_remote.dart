@@ -5,6 +5,7 @@ import 'package:inteliteacher/model/entities/activity/activity_model.dart';
 import 'package:inteliteacher/model/entities/class/class_model.dart';
 import 'package:inteliteacher/model/entities/class_plans/class_plan_model.dart';
 import 'package:result_dart/result_dart.dart';
+import 'package:uuid/v4.dart';
 
 import '../../execptions/app_exceptions.dart';
 
@@ -85,21 +86,6 @@ class ClassRepositoryRemote implements ClassRepository {
   }
 
   @override
-  AsyncResult<ActivityModel> createActivity(
-      CreateActivityRequest request) async {
-    try {
-      final model = request.toModel();
-      await _courseClassesCollection(model.courseId)
-          .getActivitiesCollection(request.classId)
-          .doc(model.id)
-          .set(model);
-      return Success(model);
-    } catch (_) {
-      return Failure(ClassException('Falha ao criar atividade'));
-    }
-  }
-
-  @override
   AsyncResult<List<ActivityModel>> listActivities(ClassModel model) async {
     try {
       final querySnapshot = await _courseClassesCollection(model.courseId)
@@ -111,6 +97,41 @@ class ClassRepositoryRemote implements ClassRepository {
     } catch (_) {
       return Failure(ClassException('Falha ao listar atividades'));
     }
+  }
+
+  @override
+  AsyncResult<List<ActivityModel>> addActivities(
+      ClassModel model, List<SimpleActivityModel> request) async {
+    try {
+      final activitiesReference = _courseClassesCollection(model.courseId)
+          .getActivitiesCollection(model.id);
+      final activities = _buildActivities(request, model);
+      final batch = _db.batch();
+      for (var activity in activities) {
+        final docRef = activitiesReference.doc(activity.id);
+        batch.set(docRef, activity);
+      }
+      await batch.commit();
+      return Success(activities);
+    } catch (_) {
+      return Failure(ClassException('Falha ao adicionar atividades'));
+    }
+  }
+
+  List<ActivityModel> _buildActivities(
+      List<SimpleActivityModel> activities, ClassModel model) {
+    return activities
+        .map((e) => ActivityModel(
+              id: UuidV4().generate(),
+              title: e.title,
+              description: e.description,
+              classId: model.id,
+              courseId: model.courseId,
+              points: e.points,
+              createdAt: Timestamp.now().toDate(),
+              updatedAt: Timestamp.now().toDate(),
+            ))
+        .toList();
   }
 }
 

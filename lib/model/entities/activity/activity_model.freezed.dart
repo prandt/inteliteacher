@@ -19,8 +19,8 @@ mixin _$ActivityModel {
   String get courseId;
   String get classId;
   String get title;
-  String? get description;
-  int? get points;
+  String get description;
+  int get points;
   @JsonTimestamp()
   DateTime get createdAt;
   @JsonTimestamp()
@@ -78,8 +78,8 @@ abstract mixin class $ActivityModelCopyWith<$Res> {
       String courseId,
       String classId,
       String title,
-      String? description,
-      int? points,
+      String description,
+      int points,
       @JsonTimestamp() DateTime createdAt,
       @JsonTimestamp() DateTime updatedAt});
 }
@@ -101,8 +101,8 @@ class _$ActivityModelCopyWithImpl<$Res>
     Object? courseId = null,
     Object? classId = null,
     Object? title = null,
-    Object? description = freezed,
-    Object? points = freezed,
+    Object? description = null,
+    Object? points = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -123,14 +123,14 @@ class _$ActivityModelCopyWithImpl<$Res>
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: freezed == description
+      description: null == description
           ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      points: freezed == points
+              as String,
+      points: null == points
           ? _self.points
           : points // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       createdAt: null == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -167,9 +167,9 @@ class _ActivityModel implements ActivityModel {
   @override
   final String title;
   @override
-  final String? description;
+  final String description;
   @override
-  final int? points;
+  final int points;
   @override
   @JsonTimestamp()
   final DateTime createdAt;
@@ -235,8 +235,8 @@ abstract mixin class _$ActivityModelCopyWith<$Res>
       String courseId,
       String classId,
       String title,
-      String? description,
-      int? points,
+      String description,
+      int points,
       @JsonTimestamp() DateTime createdAt,
       @JsonTimestamp() DateTime updatedAt});
 }
@@ -258,8 +258,8 @@ class __$ActivityModelCopyWithImpl<$Res>
     Object? courseId = null,
     Object? classId = null,
     Object? title = null,
-    Object? description = freezed,
-    Object? points = freezed,
+    Object? description = null,
+    Object? points = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -280,14 +280,14 @@ class __$ActivityModelCopyWithImpl<$Res>
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: freezed == description
+      description: null == description
           ? _self.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      points: freezed == points
+              as String,
+      points: null == points
           ? _self.points
           : points // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       createdAt: null == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -296,232 +296,6 @@ class __$ActivityModelCopyWithImpl<$Res>
           ? _self.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-    ));
-  }
-}
-
-/// @nodoc
-mixin _$CreateActivityRequest {
-  String get title;
-  String? get description;
-  int? get points;
-  String get courseId;
-  String get classId;
-
-  /// Create a copy of CreateActivityRequest
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $CreateActivityRequestCopyWith<CreateActivityRequest> get copyWith =>
-      _$CreateActivityRequestCopyWithImpl<CreateActivityRequest>(
-          this as CreateActivityRequest, _$identity);
-
-  /// Serializes this CreateActivityRequest to a JSON map.
-  Map<String, dynamic> toJson();
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is CreateActivityRequest &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.points, points) || other.points == points) &&
-            (identical(other.courseId, courseId) ||
-                other.courseId == courseId) &&
-            (identical(other.classId, classId) || other.classId == classId));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, title, description, points, courseId, classId);
-
-  @override
-  String toString() {
-    return 'CreateActivityRequest(title: $title, description: $description, points: $points, courseId: $courseId, classId: $classId)';
-  }
-}
-
-/// @nodoc
-abstract mixin class $CreateActivityRequestCopyWith<$Res> {
-  factory $CreateActivityRequestCopyWith(CreateActivityRequest value,
-          $Res Function(CreateActivityRequest) _then) =
-      _$CreateActivityRequestCopyWithImpl;
-  @useResult
-  $Res call(
-      {String title,
-      String? description,
-      int? points,
-      String courseId,
-      String classId});
-}
-
-/// @nodoc
-class _$CreateActivityRequestCopyWithImpl<$Res>
-    implements $CreateActivityRequestCopyWith<$Res> {
-  _$CreateActivityRequestCopyWithImpl(this._self, this._then);
-
-  final CreateActivityRequest _self;
-  final $Res Function(CreateActivityRequest) _then;
-
-  /// Create a copy of CreateActivityRequest
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? title = null,
-    Object? description = freezed,
-    Object? points = freezed,
-    Object? courseId = null,
-    Object? classId = null,
-  }) {
-    return _then(_self.copyWith(
-      title: null == title
-          ? _self.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: freezed == description
-          ? _self.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      points: freezed == points
-          ? _self.points
-          : points // ignore: cast_nullable_to_non_nullable
-              as int?,
-      courseId: null == courseId
-          ? _self.courseId
-          : courseId // ignore: cast_nullable_to_non_nullable
-              as String,
-      classId: null == classId
-          ? _self.classId
-          : classId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _CreateActivityRequest implements CreateActivityRequest {
-  const _CreateActivityRequest(
-      {required this.title,
-      required this.description,
-      required this.points,
-      required this.courseId,
-      required this.classId});
-  factory _CreateActivityRequest.fromJson(Map<String, dynamic> json) =>
-      _$CreateActivityRequestFromJson(json);
-
-  @override
-  final String title;
-  @override
-  final String? description;
-  @override
-  final int? points;
-  @override
-  final String courseId;
-  @override
-  final String classId;
-
-  /// Create a copy of CreateActivityRequest
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$CreateActivityRequestCopyWith<_CreateActivityRequest> get copyWith =>
-      __$CreateActivityRequestCopyWithImpl<_CreateActivityRequest>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$CreateActivityRequestToJson(
-      this,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _CreateActivityRequest &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.points, points) || other.points == points) &&
-            (identical(other.courseId, courseId) ||
-                other.courseId == courseId) &&
-            (identical(other.classId, classId) || other.classId == classId));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, title, description, points, courseId, classId);
-
-  @override
-  String toString() {
-    return 'CreateActivityRequest(title: $title, description: $description, points: $points, courseId: $courseId, classId: $classId)';
-  }
-}
-
-/// @nodoc
-abstract mixin class _$CreateActivityRequestCopyWith<$Res>
-    implements $CreateActivityRequestCopyWith<$Res> {
-  factory _$CreateActivityRequestCopyWith(_CreateActivityRequest value,
-          $Res Function(_CreateActivityRequest) _then) =
-      __$CreateActivityRequestCopyWithImpl;
-  @override
-  @useResult
-  $Res call(
-      {String title,
-      String? description,
-      int? points,
-      String courseId,
-      String classId});
-}
-
-/// @nodoc
-class __$CreateActivityRequestCopyWithImpl<$Res>
-    implements _$CreateActivityRequestCopyWith<$Res> {
-  __$CreateActivityRequestCopyWithImpl(this._self, this._then);
-
-  final _CreateActivityRequest _self;
-  final $Res Function(_CreateActivityRequest) _then;
-
-  /// Create a copy of CreateActivityRequest
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? title = null,
-    Object? description = freezed,
-    Object? points = freezed,
-    Object? courseId = null,
-    Object? classId = null,
-  }) {
-    return _then(_CreateActivityRequest(
-      title: null == title
-          ? _self.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: freezed == description
-          ? _self.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      points: freezed == points
-          ? _self.points
-          : points // ignore: cast_nullable_to_non_nullable
-              as int?,
-      courseId: null == courseId
-          ? _self.courseId
-          : courseId // ignore: cast_nullable_to_non_nullable
-              as String,
-      classId: null == classId
-          ? _self.classId
-          : classId // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
