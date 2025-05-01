@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inteliteacher/config/theme.dart';
 import 'package:inteliteacher/model/entities/class/class_model.dart';
-import 'package:inteliteacher/shared/extensions.dart';
 import 'package:lottie/lottie.dart';
 import 'package:result_command/result_command.dart';
 
@@ -78,11 +77,7 @@ class _ClassPlanCardState extends State<ClassPlanCard> {
                       style: Theme.of(context).textTheme.titleSmall),
                   Text(viewModel.classPlan!.title,
                       style: Theme.of(context).textTheme.bodySmall),
-
                   ElevatedButton(onPressed: () {}, child: Text("Visualizar")),
-                  Text(
-                      "Criado em ${viewModel.classPlan!.createdAt.toFancyDate()}",
-                      style: Theme.of(context).textTheme.bodySmall),
                 ],
               );
             }
@@ -107,7 +102,7 @@ class _ClassPlanCardState extends State<ClassPlanCard> {
         courseId: widget.classModel.courseId, classId: widget.classModel.id);
 
     void create() {
-      viewModel.generateCommand.execute(validator);
+      viewModel.generateCommand.execute(widget.classModel, validator);
       context.pop();
     }
 

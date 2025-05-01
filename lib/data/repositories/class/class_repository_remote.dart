@@ -62,10 +62,10 @@ class ClassRepositoryRemote implements ClassRepository {
 
   @override
   AsyncResult<ClassPlanModel> updateClassPlan(
-      CreateClassPlanRequest classPlanRequest) async {
+      ClassModel classModel, ClassPlanModel classPlan) async {
     try {
-      final classRef = _courseClassesCollection(classPlanRequest.courseId)
-          .doc(classPlanRequest.classId);
+      final classRef =
+          _courseClassesCollection(classModel.courseId).doc(classModel.id);
 
       final classSnapshot = await classRef.get();
 
@@ -73,11 +73,9 @@ class ClassRepositoryRemote implements ClassRepository {
         return Failure(ClassException('Aula não encontrada'));
       }
 
-      final classPlan = classPlanRequest.toModel();
-
       await classRef.update({
         "classPlan": classPlan.toJson(),
-        "updatedAt": Timestamp.now().toDate(),
+        "createdAt": Timestamp.now().toDate(),
       });
 
       return Success(classPlan);

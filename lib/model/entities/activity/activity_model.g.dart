@@ -49,3 +49,18 @@ Map<String, dynamic> _$CreateActivityRequestToJson(
       'courseId': instance.courseId,
       'classId': instance.classId,
     };
+
+_SimpleActivityModel _$SimpleActivityModelFromJson(Map<String, dynamic> json) =>
+    _SimpleActivityModel(
+      title: json['title'] as String,
+      description: json['description'] as String,
+      points: (json['points'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$SimpleActivityModelToJson(
+        _SimpleActivityModel instance) =>
+    <String, dynamic>{
+      'title': instance.title,
+      'description': instance.description,
+      'points': instance.points,
+    };

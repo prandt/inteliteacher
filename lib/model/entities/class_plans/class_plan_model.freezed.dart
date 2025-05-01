@@ -15,21 +15,15 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$ClassPlanModel {
-  String get id;
   String get title;
   String? get objective;
   String? get targetAudience;
-  String get duration;
+  int? get duration;
   List<String?>? get resources;
   String? get methodology;
   List<String>? get content;
-  List<String>? get activities;
-  String? get evaluation;
-  String? get notes;
-  @JsonTimestamp()
-  DateTime get createdAt;
-  @JsonTimestamp()
-  DateTime get updatedAt;
+  @JsonKey(includeToJson: false)
+  List<SimpleActivityModel>? get activities;
 
   /// Create a copy of ClassPlanModel
   /// with the given fields replaced by the non-null parameter values.
@@ -47,7 +41,6 @@ mixin _$ClassPlanModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ClassPlanModel &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.objective, objective) ||
                 other.objective == objective) &&
@@ -60,21 +53,13 @@ mixin _$ClassPlanModel {
                 other.methodology == methodology) &&
             const DeepCollectionEquality().equals(other.content, content) &&
             const DeepCollectionEquality()
-                .equals(other.activities, activities) &&
-            (identical(other.evaluation, evaluation) ||
-                other.evaluation == evaluation) &&
-            (identical(other.notes, notes) || other.notes == notes) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                .equals(other.activities, activities));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      id,
       title,
       objective,
       targetAudience,
@@ -82,15 +67,11 @@ mixin _$ClassPlanModel {
       const DeepCollectionEquality().hash(resources),
       methodology,
       const DeepCollectionEquality().hash(content),
-      const DeepCollectionEquality().hash(activities),
-      evaluation,
-      notes,
-      createdAt,
-      updatedAt);
+      const DeepCollectionEquality().hash(activities));
 
   @override
   String toString() {
-    return 'ClassPlanModel(id: $id, title: $title, objective: $objective, targetAudience: $targetAudience, duration: $duration, resources: $resources, methodology: $methodology, content: $content, activities: $activities, evaluation: $evaluation, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ClassPlanModel(title: $title, objective: $objective, targetAudience: $targetAudience, duration: $duration, resources: $resources, methodology: $methodology, content: $content, activities: $activities)';
   }
 }
 
@@ -101,19 +82,14 @@ abstract mixin class $ClassPlanModelCopyWith<$Res> {
       _$ClassPlanModelCopyWithImpl;
   @useResult
   $Res call(
-      {String id,
-      String title,
+      {String title,
       String? objective,
       String? targetAudience,
-      String duration,
+      int? duration,
       List<String?>? resources,
       String? methodology,
       List<String>? content,
-      List<String>? activities,
-      String? evaluation,
-      String? notes,
-      @JsonTimestamp() DateTime createdAt,
-      @JsonTimestamp() DateTime updatedAt});
+      @JsonKey(includeToJson: false) List<SimpleActivityModel>? activities});
 }
 
 /// @nodoc
@@ -129,25 +105,16 @@ class _$ClassPlanModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? title = null,
     Object? objective = freezed,
     Object? targetAudience = freezed,
-    Object? duration = null,
+    Object? duration = freezed,
     Object? resources = freezed,
     Object? methodology = freezed,
     Object? content = freezed,
     Object? activities = freezed,
-    Object? evaluation = freezed,
-    Object? notes = freezed,
-    Object? createdAt = null,
-    Object? updatedAt = null,
   }) {
     return _then(_self.copyWith(
-      id: null == id
-          ? _self.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       title: null == title
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -160,10 +127,10 @@ class _$ClassPlanModelCopyWithImpl<$Res>
           ? _self.targetAudience
           : targetAudience // ignore: cast_nullable_to_non_nullable
               as String?,
-      duration: null == duration
+      duration: freezed == duration
           ? _self.duration
           : duration // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int?,
       resources: freezed == resources
           ? _self.resources
           : resources // ignore: cast_nullable_to_non_nullable
@@ -179,23 +146,7 @@ class _$ClassPlanModelCopyWithImpl<$Res>
       activities: freezed == activities
           ? _self.activities
           : activities // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      evaluation: freezed == evaluation
-          ? _self.evaluation
-          : evaluation // ignore: cast_nullable_to_non_nullable
-              as String?,
-      notes: freezed == notes
-          ? _self.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: null == createdAt
-          ? _self.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _self.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as List<SimpleActivityModel>?,
     ));
   }
 }
@@ -204,19 +155,15 @@ class _$ClassPlanModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _ClassPlanModel implements ClassPlanModel {
   const _ClassPlanModel(
-      {required this.id,
-      required this.title,
+      {required this.title,
       required this.objective,
       required this.targetAudience,
-      required this.duration,
+      this.duration = 0,
       required final List<String?>? resources,
       required this.methodology,
       required final List<String>? content,
-      required final List<String>? activities,
-      required this.evaluation,
-      required this.notes,
-      @JsonTimestamp() required this.createdAt,
-      @JsonTimestamp() required this.updatedAt})
+      @JsonKey(includeToJson: false)
+      required final List<SimpleActivityModel>? activities})
       : _resources = resources,
         _content = content,
         _activities = activities;
@@ -224,15 +171,14 @@ class _ClassPlanModel implements ClassPlanModel {
       _$ClassPlanModelFromJson(json);
 
   @override
-  final String id;
-  @override
   final String title;
   @override
   final String? objective;
   @override
   final String? targetAudience;
   @override
-  final String duration;
+  @JsonKey()
+  final int? duration;
   final List<String?>? _resources;
   @override
   List<String?>? get resources {
@@ -255,26 +201,16 @@ class _ClassPlanModel implements ClassPlanModel {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<String>? _activities;
+  final List<SimpleActivityModel>? _activities;
   @override
-  List<String>? get activities {
+  @JsonKey(includeToJson: false)
+  List<SimpleActivityModel>? get activities {
     final value = _activities;
     if (value == null) return null;
     if (_activities is EqualUnmodifiableListView) return _activities;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
-
-  @override
-  final String? evaluation;
-  @override
-  final String? notes;
-  @override
-  @JsonTimestamp()
-  final DateTime createdAt;
-  @override
-  @JsonTimestamp()
-  final DateTime updatedAt;
 
   /// Create a copy of ClassPlanModel
   /// with the given fields replaced by the non-null parameter values.
@@ -296,7 +232,6 @@ class _ClassPlanModel implements ClassPlanModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ClassPlanModel &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.objective, objective) ||
                 other.objective == objective) &&
@@ -310,21 +245,13 @@ class _ClassPlanModel implements ClassPlanModel {
                 other.methodology == methodology) &&
             const DeepCollectionEquality().equals(other._content, _content) &&
             const DeepCollectionEquality()
-                .equals(other._activities, _activities) &&
-            (identical(other.evaluation, evaluation) ||
-                other.evaluation == evaluation) &&
-            (identical(other.notes, notes) || other.notes == notes) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                .equals(other._activities, _activities));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      id,
       title,
       objective,
       targetAudience,
@@ -332,15 +259,11 @@ class _ClassPlanModel implements ClassPlanModel {
       const DeepCollectionEquality().hash(_resources),
       methodology,
       const DeepCollectionEquality().hash(_content),
-      const DeepCollectionEquality().hash(_activities),
-      evaluation,
-      notes,
-      createdAt,
-      updatedAt);
+      const DeepCollectionEquality().hash(_activities));
 
   @override
   String toString() {
-    return 'ClassPlanModel(id: $id, title: $title, objective: $objective, targetAudience: $targetAudience, duration: $duration, resources: $resources, methodology: $methodology, content: $content, activities: $activities, evaluation: $evaluation, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ClassPlanModel(title: $title, objective: $objective, targetAudience: $targetAudience, duration: $duration, resources: $resources, methodology: $methodology, content: $content, activities: $activities)';
   }
 }
 
@@ -353,19 +276,14 @@ abstract mixin class _$ClassPlanModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      String title,
+      {String title,
       String? objective,
       String? targetAudience,
-      String duration,
+      int? duration,
       List<String?>? resources,
       String? methodology,
       List<String>? content,
-      List<String>? activities,
-      String? evaluation,
-      String? notes,
-      @JsonTimestamp() DateTime createdAt,
-      @JsonTimestamp() DateTime updatedAt});
+      @JsonKey(includeToJson: false) List<SimpleActivityModel>? activities});
 }
 
 /// @nodoc
@@ -381,25 +299,16 @@ class __$ClassPlanModelCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? id = null,
     Object? title = null,
     Object? objective = freezed,
     Object? targetAudience = freezed,
-    Object? duration = null,
+    Object? duration = freezed,
     Object? resources = freezed,
     Object? methodology = freezed,
     Object? content = freezed,
     Object? activities = freezed,
-    Object? evaluation = freezed,
-    Object? notes = freezed,
-    Object? createdAt = null,
-    Object? updatedAt = null,
   }) {
     return _then(_ClassPlanModel(
-      id: null == id
-          ? _self.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       title: null == title
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -412,10 +321,10 @@ class __$ClassPlanModelCopyWithImpl<$Res>
           ? _self.targetAudience
           : targetAudience // ignore: cast_nullable_to_non_nullable
               as String?,
-      duration: null == duration
+      duration: freezed == duration
           ? _self.duration
           : duration // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int?,
       resources: freezed == resources
           ? _self._resources
           : resources // ignore: cast_nullable_to_non_nullable
@@ -431,439 +340,7 @@ class __$ClassPlanModelCopyWithImpl<$Res>
       activities: freezed == activities
           ? _self._activities
           : activities // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      evaluation: freezed == evaluation
-          ? _self.evaluation
-          : evaluation // ignore: cast_nullable_to_non_nullable
-              as String?,
-      notes: freezed == notes
-          ? _self.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: null == createdAt
-          ? _self.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _self.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ));
-  }
-}
-
-/// @nodoc
-mixin _$CreateClassPlanRequest {
-  String get title;
-  String? get objective;
-  String? get targetAudience;
-  String get duration;
-  List<String?>? get resources;
-  String? get methodology;
-  List<String>? get content;
-  List<String>? get activities;
-  String? get evaluation;
-  String? get notes;
-  String get courseId;
-  String get classId;
-
-  /// Create a copy of CreateClassPlanRequest
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $CreateClassPlanRequestCopyWith<CreateClassPlanRequest> get copyWith =>
-      _$CreateClassPlanRequestCopyWithImpl<CreateClassPlanRequest>(
-          this as CreateClassPlanRequest, _$identity);
-
-  /// Serializes this CreateClassPlanRequest to a JSON map.
-  Map<String, dynamic> toJson();
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is CreateClassPlanRequest &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.objective, objective) ||
-                other.objective == objective) &&
-            (identical(other.targetAudience, targetAudience) ||
-                other.targetAudience == targetAudience) &&
-            (identical(other.duration, duration) ||
-                other.duration == duration) &&
-            const DeepCollectionEquality().equals(other.resources, resources) &&
-            (identical(other.methodology, methodology) ||
-                other.methodology == methodology) &&
-            const DeepCollectionEquality().equals(other.content, content) &&
-            const DeepCollectionEquality()
-                .equals(other.activities, activities) &&
-            (identical(other.evaluation, evaluation) ||
-                other.evaluation == evaluation) &&
-            (identical(other.notes, notes) || other.notes == notes) &&
-            (identical(other.courseId, courseId) ||
-                other.courseId == courseId) &&
-            (identical(other.classId, classId) || other.classId == classId));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      title,
-      objective,
-      targetAudience,
-      duration,
-      const DeepCollectionEquality().hash(resources),
-      methodology,
-      const DeepCollectionEquality().hash(content),
-      const DeepCollectionEquality().hash(activities),
-      evaluation,
-      notes,
-      courseId,
-      classId);
-
-  @override
-  String toString() {
-    return 'CreateClassPlanRequest(title: $title, objective: $objective, targetAudience: $targetAudience, duration: $duration, resources: $resources, methodology: $methodology, content: $content, activities: $activities, evaluation: $evaluation, notes: $notes, courseId: $courseId, classId: $classId)';
-  }
-}
-
-/// @nodoc
-abstract mixin class $CreateClassPlanRequestCopyWith<$Res> {
-  factory $CreateClassPlanRequestCopyWith(CreateClassPlanRequest value,
-          $Res Function(CreateClassPlanRequest) _then) =
-      _$CreateClassPlanRequestCopyWithImpl;
-  @useResult
-  $Res call(
-      {String title,
-      String? objective,
-      String? targetAudience,
-      String duration,
-      List<String?>? resources,
-      String? methodology,
-      List<String>? content,
-      List<String>? activities,
-      String? evaluation,
-      String? notes,
-      String courseId,
-      String classId});
-}
-
-/// @nodoc
-class _$CreateClassPlanRequestCopyWithImpl<$Res>
-    implements $CreateClassPlanRequestCopyWith<$Res> {
-  _$CreateClassPlanRequestCopyWithImpl(this._self, this._then);
-
-  final CreateClassPlanRequest _self;
-  final $Res Function(CreateClassPlanRequest) _then;
-
-  /// Create a copy of CreateClassPlanRequest
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? title = null,
-    Object? objective = freezed,
-    Object? targetAudience = freezed,
-    Object? duration = null,
-    Object? resources = freezed,
-    Object? methodology = freezed,
-    Object? content = freezed,
-    Object? activities = freezed,
-    Object? evaluation = freezed,
-    Object? notes = freezed,
-    Object? courseId = null,
-    Object? classId = null,
-  }) {
-    return _then(_self.copyWith(
-      title: null == title
-          ? _self.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      objective: freezed == objective
-          ? _self.objective
-          : objective // ignore: cast_nullable_to_non_nullable
-              as String?,
-      targetAudience: freezed == targetAudience
-          ? _self.targetAudience
-          : targetAudience // ignore: cast_nullable_to_non_nullable
-              as String?,
-      duration: null == duration
-          ? _self.duration
-          : duration // ignore: cast_nullable_to_non_nullable
-              as String,
-      resources: freezed == resources
-          ? _self.resources
-          : resources // ignore: cast_nullable_to_non_nullable
-              as List<String?>?,
-      methodology: freezed == methodology
-          ? _self.methodology
-          : methodology // ignore: cast_nullable_to_non_nullable
-              as String?,
-      content: freezed == content
-          ? _self.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      activities: freezed == activities
-          ? _self.activities
-          : activities // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      evaluation: freezed == evaluation
-          ? _self.evaluation
-          : evaluation // ignore: cast_nullable_to_non_nullable
-              as String?,
-      notes: freezed == notes
-          ? _self.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
-      courseId: null == courseId
-          ? _self.courseId
-          : courseId // ignore: cast_nullable_to_non_nullable
-              as String,
-      classId: null == classId
-          ? _self.classId
-          : classId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _CreateClassPlanRequest implements CreateClassPlanRequest {
-  const _CreateClassPlanRequest(
-      {required this.title,
-      required this.objective,
-      required this.targetAudience,
-      required this.duration,
-      required final List<String?>? resources,
-      required this.methodology,
-      required final List<String>? content,
-      required final List<String>? activities,
-      required this.evaluation,
-      required this.notes,
-      this.courseId = '',
-      this.classId = ''})
-      : _resources = resources,
-        _content = content,
-        _activities = activities;
-  factory _CreateClassPlanRequest.fromJson(Map<String, dynamic> json) =>
-      _$CreateClassPlanRequestFromJson(json);
-
-  @override
-  final String title;
-  @override
-  final String? objective;
-  @override
-  final String? targetAudience;
-  @override
-  final String duration;
-  final List<String?>? _resources;
-  @override
-  List<String?>? get resources {
-    final value = _resources;
-    if (value == null) return null;
-    if (_resources is EqualUnmodifiableListView) return _resources;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  final String? methodology;
-  final List<String>? _content;
-  @override
-  List<String>? get content {
-    final value = _content;
-    if (value == null) return null;
-    if (_content is EqualUnmodifiableListView) return _content;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<String>? _activities;
-  @override
-  List<String>? get activities {
-    final value = _activities;
-    if (value == null) return null;
-    if (_activities is EqualUnmodifiableListView) return _activities;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  final String? evaluation;
-  @override
-  final String? notes;
-  @override
-  @JsonKey()
-  final String courseId;
-  @override
-  @JsonKey()
-  final String classId;
-
-  /// Create a copy of CreateClassPlanRequest
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$CreateClassPlanRequestCopyWith<_CreateClassPlanRequest> get copyWith =>
-      __$CreateClassPlanRequestCopyWithImpl<_CreateClassPlanRequest>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$CreateClassPlanRequestToJson(
-      this,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _CreateClassPlanRequest &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.objective, objective) ||
-                other.objective == objective) &&
-            (identical(other.targetAudience, targetAudience) ||
-                other.targetAudience == targetAudience) &&
-            (identical(other.duration, duration) ||
-                other.duration == duration) &&
-            const DeepCollectionEquality()
-                .equals(other._resources, _resources) &&
-            (identical(other.methodology, methodology) ||
-                other.methodology == methodology) &&
-            const DeepCollectionEquality().equals(other._content, _content) &&
-            const DeepCollectionEquality()
-                .equals(other._activities, _activities) &&
-            (identical(other.evaluation, evaluation) ||
-                other.evaluation == evaluation) &&
-            (identical(other.notes, notes) || other.notes == notes) &&
-            (identical(other.courseId, courseId) ||
-                other.courseId == courseId) &&
-            (identical(other.classId, classId) || other.classId == classId));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      title,
-      objective,
-      targetAudience,
-      duration,
-      const DeepCollectionEquality().hash(_resources),
-      methodology,
-      const DeepCollectionEquality().hash(_content),
-      const DeepCollectionEquality().hash(_activities),
-      evaluation,
-      notes,
-      courseId,
-      classId);
-
-  @override
-  String toString() {
-    return 'CreateClassPlanRequest(title: $title, objective: $objective, targetAudience: $targetAudience, duration: $duration, resources: $resources, methodology: $methodology, content: $content, activities: $activities, evaluation: $evaluation, notes: $notes, courseId: $courseId, classId: $classId)';
-  }
-}
-
-/// @nodoc
-abstract mixin class _$CreateClassPlanRequestCopyWith<$Res>
-    implements $CreateClassPlanRequestCopyWith<$Res> {
-  factory _$CreateClassPlanRequestCopyWith(_CreateClassPlanRequest value,
-          $Res Function(_CreateClassPlanRequest) _then) =
-      __$CreateClassPlanRequestCopyWithImpl;
-  @override
-  @useResult
-  $Res call(
-      {String title,
-      String? objective,
-      String? targetAudience,
-      String duration,
-      List<String?>? resources,
-      String? methodology,
-      List<String>? content,
-      List<String>? activities,
-      String? evaluation,
-      String? notes,
-      String courseId,
-      String classId});
-}
-
-/// @nodoc
-class __$CreateClassPlanRequestCopyWithImpl<$Res>
-    implements _$CreateClassPlanRequestCopyWith<$Res> {
-  __$CreateClassPlanRequestCopyWithImpl(this._self, this._then);
-
-  final _CreateClassPlanRequest _self;
-  final $Res Function(_CreateClassPlanRequest) _then;
-
-  /// Create a copy of CreateClassPlanRequest
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? title = null,
-    Object? objective = freezed,
-    Object? targetAudience = freezed,
-    Object? duration = null,
-    Object? resources = freezed,
-    Object? methodology = freezed,
-    Object? content = freezed,
-    Object? activities = freezed,
-    Object? evaluation = freezed,
-    Object? notes = freezed,
-    Object? courseId = null,
-    Object? classId = null,
-  }) {
-    return _then(_CreateClassPlanRequest(
-      title: null == title
-          ? _self.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      objective: freezed == objective
-          ? _self.objective
-          : objective // ignore: cast_nullable_to_non_nullable
-              as String?,
-      targetAudience: freezed == targetAudience
-          ? _self.targetAudience
-          : targetAudience // ignore: cast_nullable_to_non_nullable
-              as String?,
-      duration: null == duration
-          ? _self.duration
-          : duration // ignore: cast_nullable_to_non_nullable
-              as String,
-      resources: freezed == resources
-          ? _self._resources
-          : resources // ignore: cast_nullable_to_non_nullable
-              as List<String?>?,
-      methodology: freezed == methodology
-          ? _self.methodology
-          : methodology // ignore: cast_nullable_to_non_nullable
-              as String?,
-      content: freezed == content
-          ? _self._content
-          : content // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      activities: freezed == activities
-          ? _self._activities
-          : activities // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      evaluation: freezed == evaluation
-          ? _self.evaluation
-          : evaluation // ignore: cast_nullable_to_non_nullable
-              as String?,
-      notes: freezed == notes
-          ? _self.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
-      courseId: null == courseId
-          ? _self.courseId
-          : courseId // ignore: cast_nullable_to_non_nullable
-              as String,
-      classId: null == classId
-          ? _self.classId
-          : classId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<SimpleActivityModel>?,
     ));
   }
 }

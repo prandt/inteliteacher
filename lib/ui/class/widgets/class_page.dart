@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:inteliteacher/config/injector.dart';
 import 'package:inteliteacher/shared/loading_overlay.dart';
 import 'package:inteliteacher/shared/widgets/custom_page_checker.dart';
 import 'package:inteliteacher/ui/class/view_models/class_viewmodel.dart';
 import 'package:inteliteacher/ui/class/widgets/class_plan_card.dart';
-
-import '../../../config/theme.dart';
-import '../../../model/validators/new_activity_validator.dart';
-import '../../../shared/widgets/custom_modal.dart';
-import '../../../shared/widgets/custom_switch.dart';
-import '../../../shared/widgets/custom_text_field.dart';
 import '../../../shared/widgets/screen_layout.dart';
 import 'class_activities_list.dart';
 
@@ -69,11 +62,6 @@ class _ClassPageState extends State<ClassPage> {
                     Text(" Atividades",
                         style: Theme.of(context).textTheme.titleLarge),
                     ClassActivitiesList(_viewmodel.activities),
-                    ElevatedButton.icon(
-                        onPressed: _openNewClassModal,
-                        label: Text('Adicionar atividade'),
-                        icon:
-                            const Icon(Icons.add, color: AppColors.ghostWhite)),
                   ],
                 ),
               ),
@@ -82,51 +70,4 @@ class _ClassPageState extends State<ClassPage> {
     );
   }
 
-  void _openNewClassModal() {
-    final validator = NewActivityValidator(
-        classId: widget.classId, courseId: widget.courseId);
-    final formKey = GlobalKey<FormState>();
-
-    void newActivity() {
-      if (!formKey.currentState!.validate()) return;
-      _viewmodel.createActivityCommand.execute(validator);
-      context.pop();
-    }
-
-    showDialog(
-      context: context,
-      builder: (context) => Form(
-        key: formKey,
-        child: ListenableBuilder(
-            listenable: validator,
-            builder: (context, _) {
-              return CustomModal(
-                  title: 'Adicionar atividade',
-                  onConfirm: validator.isValid ? newActivity : null,
-                  children: [
-                    CustomTextField(
-                        label: 'Nome',
-                        hint: 'Nome da atividade',
-                        validator: validator.field('title'),
-                        onChanged: validator.setTitle),
-                    CustomTextField(
-                        label: 'Descrição',
-                        hint: 'Descrição da atividade',
-                        onChanged: validator.setDescription),
-                    CustomSwitch(
-                      label: 'Atividade com pontos',
-                      value: validator.hasPoints,
-                      onChanged: validator.setHasPoints,
-                    ),
-                    if (validator.hasPoints)
-                      CustomTextField(
-                          label: 'Pontos',
-                          hint: 'Pontos da atividade',
-                          validator: validator.field('points'),
-                          onChanged: validator.setPoints),
-                  ]);
-            }),
-      ),
-    );
-  }
 }

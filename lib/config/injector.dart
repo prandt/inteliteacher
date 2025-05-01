@@ -15,9 +15,6 @@ import 'package:inteliteacher/ui/class/view_models/class_plans_viewmodel.dart';
 import 'package:inteliteacher/ui/courses/view_models/course_page_viewmodel.dart';
 import 'package:inteliteacher/ui/courses/view_models/courses_viewmodel.dart';
 import 'package:inteliteacher/ui/user/view_models/profile_viewmodel.dart';
-
-import '../data/repositories/class_plans/class_plans_repository.dart';
-import '../data/repositories/class_plans/class_plans_repository_remote.dart';
 import '../model/use_cases/class/create_classplan_usecase.dart';
 
 /// Abstract class to be implemented by the injector
@@ -41,7 +38,6 @@ class InjectorImpl implements Injector {
     // Registering repositories as singletons to ensure a single instance is used throughout the app
     getIt.registerSingleton<AuthRepository>(AuthRepositoryRemote());
     getIt.registerSingleton<AiRepository>(AiRepositoryRemote());
-    getIt.registerSingleton<ClassPlansRepository>(ClassPlansRepositoryRemote());
     getIt.registerSingleton<CourseRepository>(CourseRepositoryRemote());
     getIt.registerSingleton<ClassRepository>(ClassRepositoryRemote());
 

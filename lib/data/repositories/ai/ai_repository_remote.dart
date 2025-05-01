@@ -13,7 +13,7 @@ class AiRepositoryRemote implements AiRepository {
   final _vertex = FirebaseVertexAI.instance;
 
   @override
-  AsyncResult<CreateClassPlanRequest> generateClassPlan(
+  AsyncResult<ClassPlanModel> generateClassPlan(
       NewClassPlanValidator validator) async {
     final model = _getModelClassPlan();
     try {
@@ -21,11 +21,8 @@ class AiRepositoryRemote implements AiRepository {
           await model.generateContent([Content.text(validator.prompt)]);
       if (response.text?.isNotEmpty ?? false) {
         final json = jsonDecode(response.text!);
-        final classPlan = CreateClassPlanRequest.fromJson(json);
-        return Success(classPlan.copyWith(
-          classId: validator.classId,
-          courseId: validator.courseId,
-        ));
+        final classPlan = ClassPlanModel.fromJson(json);
+        return Success(classPlan);
       }
       return Failure(AiException('Falha ao gerar o plano de aula'));
     } catch (e, s) {
@@ -48,7 +45,7 @@ class AiRepositoryRemote implements AiRepository {
         'title': Schema.string(),
         'objective': Schema.string(),
         'target_audience': Schema.string(),
-        'duration': Schema.string(),
+        'duration': Schema.integer(),
         'resources': Schema.array(
           items: Schema.string(),
         ),
@@ -57,10 +54,12 @@ class AiRepositoryRemote implements AiRepository {
           items: Schema.string(),
         ),
         'activities': Schema.array(
-          items: Schema.string(),
-        ),
-        'evaluation': Schema.string(),
-        'notes': Schema.string(),
+          items: Schema.object(properties: {
+            'title': Schema.string(),
+            'description': Schema.string(),
+            'points': Schema.integer(),
+          }),
+        )
       },
     );
   }

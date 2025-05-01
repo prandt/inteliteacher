@@ -14,26 +14,22 @@ void main() {
     final mockedValidator =
         NewClassPlanValidator(courseId: 'courseId', classId: 'classId');
 
-    final classPlanRequest = CreateClassPlanRequest(
+    final classPlanRequest = ClassPlanModel(
         title: 'plano de aula',
         objective: 'objective',
         targetAudience: 'targetAudience',
-        duration: 'duration',
+        duration: 45,
         resources: ['resources'],
         methodology: 'methodology',
         content: ['content'],
-        activities: ['activities'],
-        evaluation: 'evaluation',
-        classId: '1',
-        courseId: '1',
-        notes: 'notes');
+        activities: []);
 
     setUp(() {
       mockAiRepository = MockAiRepository();
     });
 
     setUpAll(() {
-      provideDummy<ResultDart<CreateClassPlanRequest, Exception>>(
+      provideDummy<ResultDart<ClassPlanModel, Exception>>(
           Success(classPlanRequest));
     });
 

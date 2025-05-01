@@ -38,6 +38,18 @@ abstract class CreateActivityRequest with _$CreateActivityRequest {
       _$CreateActivityRequestFromJson(json);
 }
 
+@freezed
+abstract class SimpleActivityModel with _$SimpleActivityModel {
+  const factory SimpleActivityModel({
+    required String title,
+    required String description,
+    required int points,
+  }) = _SimpleActivityModel;
+
+  factory SimpleActivityModel.fromJson(Map<String, dynamic> json) =>
+      _$SimpleActivityModelFromJson(json);
+}
+
 extension CreateActivityFactory on CreateActivityRequest {
   ActivityModel toModel() => ActivityModel(
         id: UuidV4().generate(),

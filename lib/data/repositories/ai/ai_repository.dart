@@ -4,6 +4,6 @@ import '../../../model/entities/class_plans/class_plan_model.dart';
 import '../../../model/validators/new_class_plan_validator.dart';
 
 abstract interface class AiRepository {
-  AsyncResult<CreateClassPlanRequest> generateClassPlan(
+  AsyncResult<ClassPlanModel> generateClassPlan(
       NewClassPlanValidator validator);
 }

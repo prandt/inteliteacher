@@ -13,5 +13,6 @@ abstract interface class ClassRepository {
   });
   AsyncResult<List<ActivityModel>> listActivities(ClassModel model);
   AsyncResult<ActivityModel> createActivity(CreateActivityRequest request);
-  AsyncResult<ClassPlanModel> updateClassPlan(CreateClassPlanRequest model);
+  AsyncResult<ClassPlanModel> updateClassPlan(
+      ClassModel classModel, ClassPlanModel classPlan);
 }

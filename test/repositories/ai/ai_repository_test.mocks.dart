@@ -37,17 +37,18 @@ class MockAiRepository extends _i1.Mock implements _i2.AiRepository {
   }
 
   @override
-  _i3.Future<_i4.ResultDart<_i5.CreateClassPlanRequest, Exception>>
-  generateClassPlan(_i6.NewClassPlanValidator? validator) =>
+  _i3.Future<_i4.ResultDart<_i5.ClassPlanModel, Exception>> generateClassPlan(
+    _i6.NewClassPlanValidator? validator,
+  ) =>
       (super.noSuchMethod(
             Invocation.method(#generateClassPlan, [validator]),
-            returnValue: _i3.Future<
-              _i4.ResultDart<_i5.CreateClassPlanRequest, Exception>
-            >.value(
-              _i7.dummyValue<
-                _i4.ResultDart<_i5.CreateClassPlanRequest, Exception>
-              >(this, Invocation.method(#generateClassPlan, [validator])),
-            ),
+            returnValue:
+                _i3.Future<_i4.ResultDart<_i5.ClassPlanModel, Exception>>.value(
+                  _i7.dummyValue<_i4.ResultDart<_i5.ClassPlanModel, Exception>>(
+                    this,
+                    Invocation.method(#generateClassPlan, [validator]),
+                  ),
+                ),
           )
-          as _i3.Future<_i4.ResultDart<_i5.CreateClassPlanRequest, Exception>>);
+          as _i3.Future<_i4.ResultDart<_i5.ClassPlanModel, Exception>>);
 }
