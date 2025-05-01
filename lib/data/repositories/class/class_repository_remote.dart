@@ -133,6 +133,19 @@ class ClassRepositoryRemote implements ClassRepository {
             ))
         .toList();
   }
+
+  @override
+  Stream<List<ActivityModel>> listenActivities(ClassModel model) {
+    try {
+      return _courseClassesCollection(model.courseId)
+          .getActivitiesCollection(model.id)
+          .orderBy('createdAt', descending: true)
+          .snapshots()
+          .map((snapshot) => snapshot.docs.map((e) => e.data()).toList());
+    } catch (_) {
+      throw ClassException('Falha ao escutar atividades');
+    }
+  }
 }
 
 extension on CollectionReference<ClassModel> {

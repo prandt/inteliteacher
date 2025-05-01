@@ -12,8 +12,9 @@ abstract interface class ClassRepository {
     required String classId,
   });
   AsyncResult<List<ActivityModel>> listActivities(ClassModel model);
-  AsyncResult<List<ActivityModel>> addActivities(ClassModel model,
-      List<SimpleActivityModel> request);
+  AsyncResult<List<ActivityModel>> addActivities(
+      ClassModel model, List<SimpleActivityModel> request);
   AsyncResult<ClassPlanModel> updateClassPlan(
       ClassModel classModel, ClassPlanModel classPlan);
+  Stream<List<ActivityModel>> listenActivities(ClassModel model);
 }

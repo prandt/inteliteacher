@@ -30,6 +30,12 @@ class _ClassPageState extends State<ClassPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _viewmodel.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomPageChecker(
       command: _viewmodel.getClassCommand,

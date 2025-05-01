@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:inteliteacher/data/repositories/class/class_repository.dart';
 import 'package:inteliteacher/model/entities/activity/activity_model.dart';
@@ -12,6 +14,8 @@ class ClassViewmodel extends ChangeNotifier {
   List<ActivityModel> _activities = [];
   List<ActivityModel> get activities => _activities;
 
+  StreamSubscription? _activitiesSubscription;
+
   final ClassRepository _classRepository;
 
   ClassViewmodel(this._classRepository);
@@ -23,21 +27,28 @@ class ClassViewmodel extends ChangeNotifier {
       _classRepository
           .get(courseId: courseId, classId: classId)
           .onSuccess(_setClassModel)
-          .flatMap(_listActivities)
           .pure(unit);
 
   void _setClassModel(ClassModel classModel) {
     _classModel = classModel;
+    _listenActivities(classModel);
     notifyListeners();
   }
 
-  AsyncResult<Unit> _listActivities(ClassModel model) => _classRepository
-      .listActivities(model)
-      .onSuccess(_setActivities)
-      .pure(unit);
+  void _listenActivities(ClassModel model) {
+    _activitiesSubscription?.cancel();
+    _activitiesSubscription =
+        _classRepository.listenActivities(model).listen(_setActivities);
+  }
 
   void _setActivities(List<ActivityModel> activities) {
     _activities = activities;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _activitiesSubscription?.cancel();
   }
 }
