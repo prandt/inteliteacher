@@ -7,6 +7,8 @@ import 'dart:async' as _i3;
 
 import 'package:inteliteacher/data/repositories/course/course_repository.dart'
     as _i2;
+import 'package:inteliteacher/model/entities/activity_response/activity_response_model.dart'
+    as _i8;
 import 'package:inteliteacher/model/entities/course/course_model.dart' as _i5;
 import 'package:inteliteacher/model/entities/student/student_model.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
@@ -125,4 +127,14 @@ class MockCourseRepository extends _i1.Mock implements _i2.CourseRepository {
                 ),
           )
           as _i3.Future<_i4.ResultDart<_i7.StudentModel, Exception>>);
+
+  @override
+  _i3.Stream<List<_i8.ActivityResponseModel>> listenActivitiesResponses(
+    _i5.CourseModel? model,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#listenActivitiesResponses, [model]),
+            returnValue: _i3.Stream<List<_i8.ActivityResponseModel>>.empty(),
+          )
+          as _i3.Stream<List<_i8.ActivityResponseModel>>);
 }

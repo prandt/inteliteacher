@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:inteliteacher/data/repositories/class/class_repository.dart';
 import 'package:inteliteacher/data/repositories/course/course_repository.dart';
+import 'package:inteliteacher/model/entities/activity_response/activity_response_model.dart';
 import 'package:inteliteacher/model/entities/class/class_model.dart';
 import 'package:inteliteacher/model/entities/course/course_model.dart';
 import 'package:inteliteacher/model/entities/student/student_model.dart';
@@ -30,6 +33,10 @@ class CoursePageViewmodel extends ChangeNotifier {
 
   ClassFilterEnum _classFilter = ClassFilterEnum.all;
   ClassFilterEnum get classFilter => _classFilter;
+  StreamSubscription? _leaderboardSubscription;
+
+  List<ActivityResponseModel> leaderboard = [];
+  List<ActivityResponseModel> restOfLeaderboard = [];
 
   late final Command1<Unit, String> loadCommand = Command1(_load);
   late final Command1<Unit, CreateStudentValidator> addStudentCommand =
@@ -93,6 +100,7 @@ class CoursePageViewmodel extends ChangeNotifier {
 
   void _setCourse(CourseModel course) {
     this.course = course;
+    _startListenLeaderboard();
     notifyListeners();
   }
 
@@ -111,5 +119,35 @@ class CoursePageViewmodel extends ChangeNotifier {
     return classModel.startAt.year == today.year &&
         classModel.startAt.month == today.month &&
         classModel.startAt.day == today.day;
+  }
+
+  void _startListenLeaderboard() {
+    _leaderboardSubscription?.cancel();
+    _leaderboardSubscription =
+        _courseRepository.listenActivitiesResponses(course!).listen((data) {
+      if (data.isEmpty) return;
+      final mergedData = <String, ActivityResponseModel>{};
+      for (final student in data) {
+        final studentId = student.studentId;
+        if (mergedData.containsKey(studentId)) {
+          final points = mergedData[studentId]!.points! + student.points!;
+          mergedData[studentId] = student.copyWith(points: points);
+        } else {
+          mergedData[studentId] = student;
+        }
+      }
+
+      final sortedData = mergedData.values.toList()
+        ..sort((a, b) => b.points!.compareTo(a.points!));
+      leaderboard = sortedData.take(3).toList();
+      restOfLeaderboard = sortedData.skip(3).toList();
+      notifyListeners();
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _leaderboardSubscription?.cancel();
   }
 }

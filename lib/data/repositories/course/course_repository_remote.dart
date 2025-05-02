@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:inteliteacher/model/entities/activity_response/activity_response_model.dart';
 import 'package:inteliteacher/model/entities/course/course_model.dart';
 import 'package:inteliteacher/model/entities/student/student_model.dart';
 import 'package:result_dart/result_dart.dart';
@@ -114,4 +115,16 @@ class CourseRepositoryRemote implements CourseRepository {
   CollectionReference get _courseCollection =>
       _db.collection('users').doc(_auth.currentUser?.uid).collection('courses');
 
+  @override
+  Stream<List<ActivityResponseModel>> listenActivitiesResponses(
+      CourseModel model) {
+    return _db
+        .collectionGroup('responses')
+        .where('courseId', isEqualTo: model.id)
+        .withConverter<ActivityResponseModel>(
+            fromFirestore: (s, _) => ActivityResponseModel.fromJson(s.data()!),
+            toFirestore: (activityResponse, _) => activityResponse.toJson())
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((e) => e.data()).toList());
+  }
 }
