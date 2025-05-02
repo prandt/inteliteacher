@@ -39,6 +39,27 @@ class LeaderboardTab extends StatelessWidget {
                     response: _viewmodel.leaderboard[2],
                     child: CustomCircleLeader.third()),
               ],
+            )
+          else
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                spacing: 16,
+                children: [
+                  Text(
+                    "Ainda falta algumas coisas...",
+                    style: Theme.of(context).textTheme.titleMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    "Não há alunos suficientes para gerar a classificação",
+                    style: Theme.of(context).textTheme.bodySmall,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
           if (_viewmodel.restOfLeaderboard.isNotEmpty)
             Expanded(
