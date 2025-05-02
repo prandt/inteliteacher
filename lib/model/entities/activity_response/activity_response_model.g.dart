@@ -10,7 +10,8 @@ _ActivityResponseModel _$ActivityResponseModelFromJson(
         Map<String, dynamic> json) =>
     _ActivityResponseModel(
       id: json['id'] as String,
-      student: StudentModel.fromJson(json['student'] as Map<String, dynamic>),
+      studentId: json['studentId'] as String,
+      studentName: json['studentName'] as String,
       courseId: json['courseId'] as String,
       classId: json['classId'] as String,
       points: (json['points'] as num?)?.toInt(),
@@ -22,28 +23,11 @@ Map<String, dynamic> _$ActivityResponseModelToJson(
         _ActivityResponseModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'student': instance.student,
+      'studentId': instance.studentId,
+      'studentName': instance.studentName,
       'courseId': instance.courseId,
       'classId': instance.classId,
       'points': instance.points,
       'createdAt': const JsonTimestamp().toJson(instance.createdAt),
       'updatedAt': const JsonTimestamp().toJson(instance.updatedAt),
-    };
-
-_CreateActivityResponseRequest _$CreateActivityResponseRequestFromJson(
-        Map<String, dynamic> json) =>
-    _CreateActivityResponseRequest(
-      student: StudentModel.fromJson(json['student'] as Map<String, dynamic>),
-      courseId: json['courseId'] as String,
-      classId: json['classId'] as String,
-      points: (json['points'] as num?)?.toInt(),
-    );
-
-Map<String, dynamic> _$CreateActivityResponseRequestToJson(
-        _CreateActivityResponseRequest instance) =>
-    <String, dynamic>{
-      'student': instance.student,
-      'courseId': instance.courseId,
-      'classId': instance.classId,
-      'points': instance.points,
     };

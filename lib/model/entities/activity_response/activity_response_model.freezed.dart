@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ActivityResponseModel {
   String get id;
-  StudentModel get student;
+  String get studentId;
+  String get studentName;
   String get courseId;
   String get classId;
   int? get points;
@@ -42,7 +43,10 @@ mixin _$ActivityResponseModel {
         (other.runtimeType == runtimeType &&
             other is ActivityResponseModel &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.student, student) || other.student == student) &&
+            (identical(other.studentId, studentId) ||
+                other.studentId == studentId) &&
+            (identical(other.studentName, studentName) ||
+                other.studentName == studentName) &&
             (identical(other.courseId, courseId) ||
                 other.courseId == courseId) &&
             (identical(other.classId, classId) || other.classId == classId) &&
@@ -55,12 +59,12 @@ mixin _$ActivityResponseModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, student, courseId, classId,
-      points, createdAt, updatedAt);
+  int get hashCode => Object.hash(runtimeType, id, studentId, studentName,
+      courseId, classId, points, createdAt, updatedAt);
 
   @override
   String toString() {
-    return 'ActivityResponseModel(id: $id, student: $student, courseId: $courseId, classId: $classId, points: $points, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ActivityResponseModel(id: $id, studentId: $studentId, studentName: $studentName, courseId: $courseId, classId: $classId, points: $points, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -72,14 +76,13 @@ abstract mixin class $ActivityResponseModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      StudentModel student,
+      String studentId,
+      String studentName,
       String courseId,
       String classId,
       int? points,
       @JsonTimestamp() DateTime createdAt,
       @JsonTimestamp() DateTime updatedAt});
-
-  $StudentModelCopyWith<$Res> get student;
 }
 
 /// @nodoc
@@ -96,7 +99,8 @@ class _$ActivityResponseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? student = null,
+    Object? studentId = null,
+    Object? studentName = null,
     Object? courseId = null,
     Object? classId = null,
     Object? points = freezed,
@@ -108,10 +112,14 @@ class _$ActivityResponseModelCopyWithImpl<$Res>
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      student: null == student
-          ? _self.student
-          : student // ignore: cast_nullable_to_non_nullable
-              as StudentModel,
+      studentId: null == studentId
+          ? _self.studentId
+          : studentId // ignore: cast_nullable_to_non_nullable
+              as String,
+      studentName: null == studentName
+          ? _self.studentName
+          : studentName // ignore: cast_nullable_to_non_nullable
+              as String,
       courseId: null == courseId
           ? _self.courseId
           : courseId // ignore: cast_nullable_to_non_nullable
@@ -134,16 +142,6 @@ class _$ActivityResponseModelCopyWithImpl<$Res>
               as DateTime,
     ));
   }
-
-  /// Create a copy of ActivityResponseModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $StudentModelCopyWith<$Res> get student {
-    return $StudentModelCopyWith<$Res>(_self.student, (value) {
-      return _then(_self.copyWith(student: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -151,7 +149,8 @@ class _$ActivityResponseModelCopyWithImpl<$Res>
 class _ActivityResponseModel implements ActivityResponseModel {
   const _ActivityResponseModel(
       {required this.id,
-      required this.student,
+      required this.studentId,
+      required this.studentName,
       required this.courseId,
       required this.classId,
       required this.points,
@@ -163,7 +162,9 @@ class _ActivityResponseModel implements ActivityResponseModel {
   @override
   final String id;
   @override
-  final StudentModel student;
+  final String studentId;
+  @override
+  final String studentName;
   @override
   final String courseId;
   @override
@@ -199,7 +200,10 @@ class _ActivityResponseModel implements ActivityResponseModel {
         (other.runtimeType == runtimeType &&
             other is _ActivityResponseModel &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.student, student) || other.student == student) &&
+            (identical(other.studentId, studentId) ||
+                other.studentId == studentId) &&
+            (identical(other.studentName, studentName) ||
+                other.studentName == studentName) &&
             (identical(other.courseId, courseId) ||
                 other.courseId == courseId) &&
             (identical(other.classId, classId) || other.classId == classId) &&
@@ -212,12 +216,12 @@ class _ActivityResponseModel implements ActivityResponseModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, student, courseId, classId,
-      points, createdAt, updatedAt);
+  int get hashCode => Object.hash(runtimeType, id, studentId, studentName,
+      courseId, classId, points, createdAt, updatedAt);
 
   @override
   String toString() {
-    return 'ActivityResponseModel(id: $id, student: $student, courseId: $courseId, classId: $classId, points: $points, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ActivityResponseModel(id: $id, studentId: $studentId, studentName: $studentName, courseId: $courseId, classId: $classId, points: $points, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -231,15 +235,13 @@ abstract mixin class _$ActivityResponseModelCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      StudentModel student,
+      String studentId,
+      String studentName,
       String courseId,
       String classId,
       int? points,
       @JsonTimestamp() DateTime createdAt,
       @JsonTimestamp() DateTime updatedAt});
-
-  @override
-  $StudentModelCopyWith<$Res> get student;
 }
 
 /// @nodoc
@@ -256,7 +258,8 @@ class __$ActivityResponseModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   $Res call({
     Object? id = null,
-    Object? student = null,
+    Object? studentId = null,
+    Object? studentName = null,
     Object? courseId = null,
     Object? classId = null,
     Object? points = freezed,
@@ -268,10 +271,14 @@ class __$ActivityResponseModelCopyWithImpl<$Res>
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      student: null == student
-          ? _self.student
-          : student // ignore: cast_nullable_to_non_nullable
-              as StudentModel,
+      studentId: null == studentId
+          ? _self.studentId
+          : studentId // ignore: cast_nullable_to_non_nullable
+              as String,
+      studentName: null == studentName
+          ? _self.studentName
+          : studentName // ignore: cast_nullable_to_non_nullable
+              as String,
       courseId: null == courseId
           ? _self.courseId
           : courseId // ignore: cast_nullable_to_non_nullable
@@ -294,112 +301,81 @@ class __$ActivityResponseModelCopyWithImpl<$Res>
               as DateTime,
     ));
   }
-
-  /// Create a copy of ActivityResponseModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $StudentModelCopyWith<$Res> get student {
-    return $StudentModelCopyWith<$Res>(_self.student, (value) {
-      return _then(_self.copyWith(student: value));
-    });
-  }
 }
 
 /// @nodoc
-mixin _$CreateActivityResponseRequest {
+mixin _$StudentWithResponse {
   StudentModel get student;
-  String get courseId;
-  String get classId;
-  int? get points;
+  ActivityResponseModel? get activityResponse;
 
-  /// Create a copy of CreateActivityResponseRequest
+  /// Create a copy of StudentWithResponse
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $CreateActivityResponseRequestCopyWith<CreateActivityResponseRequest>
-      get copyWith => _$CreateActivityResponseRequestCopyWithImpl<
-              CreateActivityResponseRequest>(
-          this as CreateActivityResponseRequest, _$identity);
-
-  /// Serializes this CreateActivityResponseRequest to a JSON map.
-  Map<String, dynamic> toJson();
+  $StudentWithResponseCopyWith<StudentWithResponse> get copyWith =>
+      _$StudentWithResponseCopyWithImpl<StudentWithResponse>(
+          this as StudentWithResponse, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is CreateActivityResponseRequest &&
+            other is StudentWithResponse &&
             (identical(other.student, student) || other.student == student) &&
-            (identical(other.courseId, courseId) ||
-                other.courseId == courseId) &&
-            (identical(other.classId, classId) || other.classId == classId) &&
-            (identical(other.points, points) || other.points == points));
+            (identical(other.activityResponse, activityResponse) ||
+                other.activityResponse == activityResponse));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, student, courseId, classId, points);
+  int get hashCode => Object.hash(runtimeType, student, activityResponse);
 
   @override
   String toString() {
-    return 'CreateActivityResponseRequest(student: $student, courseId: $courseId, classId: $classId, points: $points)';
+    return 'StudentWithResponse(student: $student, activityResponse: $activityResponse)';
   }
 }
 
 /// @nodoc
-abstract mixin class $CreateActivityResponseRequestCopyWith<$Res> {
-  factory $CreateActivityResponseRequestCopyWith(
-          CreateActivityResponseRequest value,
-          $Res Function(CreateActivityResponseRequest) _then) =
-      _$CreateActivityResponseRequestCopyWithImpl;
+abstract mixin class $StudentWithResponseCopyWith<$Res> {
+  factory $StudentWithResponseCopyWith(
+          StudentWithResponse value, $Res Function(StudentWithResponse) _then) =
+      _$StudentWithResponseCopyWithImpl;
   @useResult
-  $Res call(
-      {StudentModel student, String courseId, String classId, int? points});
+  $Res call({StudentModel student, ActivityResponseModel? activityResponse});
 
   $StudentModelCopyWith<$Res> get student;
+  $ActivityResponseModelCopyWith<$Res>? get activityResponse;
 }
 
 /// @nodoc
-class _$CreateActivityResponseRequestCopyWithImpl<$Res>
-    implements $CreateActivityResponseRequestCopyWith<$Res> {
-  _$CreateActivityResponseRequestCopyWithImpl(this._self, this._then);
+class _$StudentWithResponseCopyWithImpl<$Res>
+    implements $StudentWithResponseCopyWith<$Res> {
+  _$StudentWithResponseCopyWithImpl(this._self, this._then);
 
-  final CreateActivityResponseRequest _self;
-  final $Res Function(CreateActivityResponseRequest) _then;
+  final StudentWithResponse _self;
+  final $Res Function(StudentWithResponse) _then;
 
-  /// Create a copy of CreateActivityResponseRequest
+  /// Create a copy of StudentWithResponse
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? student = null,
-    Object? courseId = null,
-    Object? classId = null,
-    Object? points = freezed,
+    Object? activityResponse = freezed,
   }) {
     return _then(_self.copyWith(
       student: null == student
           ? _self.student
           : student // ignore: cast_nullable_to_non_nullable
               as StudentModel,
-      courseId: null == courseId
-          ? _self.courseId
-          : courseId // ignore: cast_nullable_to_non_nullable
-              as String,
-      classId: null == classId
-          ? _self.classId
-          : classId // ignore: cast_nullable_to_non_nullable
-              as String,
-      points: freezed == points
-          ? _self.points
-          : points // ignore: cast_nullable_to_non_nullable
-              as int?,
+      activityResponse: freezed == activityResponse
+          ? _self.activityResponse
+          : activityResponse // ignore: cast_nullable_to_non_nullable
+              as ActivityResponseModel?,
     ));
   }
 
-  /// Create a copy of CreateActivityResponseRequest
+  /// Create a copy of StudentWithResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -408,128 +384,128 @@ class _$CreateActivityResponseRequestCopyWithImpl<$Res>
       return _then(_self.copyWith(student: value));
     });
   }
+
+  /// Create a copy of StudentWithResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ActivityResponseModelCopyWith<$Res>? get activityResponse {
+    if (_self.activityResponse == null) {
+      return null;
+    }
+
+    return $ActivityResponseModelCopyWith<$Res>(_self.activityResponse!,
+        (value) {
+      return _then(_self.copyWith(activityResponse: value));
+    });
+  }
 }
 
 /// @nodoc
-@JsonSerializable()
-class _CreateActivityResponseRequest implements CreateActivityResponseRequest {
-  const _CreateActivityResponseRequest(
-      {required this.student,
-      required this.courseId,
-      required this.classId,
-      required this.points});
-  factory _CreateActivityResponseRequest.fromJson(Map<String, dynamic> json) =>
-      _$CreateActivityResponseRequestFromJson(json);
+
+class _StudentWithResponse implements StudentWithResponse {
+  const _StudentWithResponse(
+      {required this.student, required this.activityResponse});
 
   @override
   final StudentModel student;
   @override
-  final String courseId;
-  @override
-  final String classId;
-  @override
-  final int? points;
+  final ActivityResponseModel? activityResponse;
 
-  /// Create a copy of CreateActivityResponseRequest
+  /// Create a copy of StudentWithResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$CreateActivityResponseRequestCopyWith<_CreateActivityResponseRequest>
-      get copyWith => __$CreateActivityResponseRequestCopyWithImpl<
-          _CreateActivityResponseRequest>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$CreateActivityResponseRequestToJson(
-      this,
-    );
-  }
+  _$StudentWithResponseCopyWith<_StudentWithResponse> get copyWith =>
+      __$StudentWithResponseCopyWithImpl<_StudentWithResponse>(
+          this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _CreateActivityResponseRequest &&
+            other is _StudentWithResponse &&
             (identical(other.student, student) || other.student == student) &&
-            (identical(other.courseId, courseId) ||
-                other.courseId == courseId) &&
-            (identical(other.classId, classId) || other.classId == classId) &&
-            (identical(other.points, points) || other.points == points));
+            (identical(other.activityResponse, activityResponse) ||
+                other.activityResponse == activityResponse));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, student, courseId, classId, points);
+  int get hashCode => Object.hash(runtimeType, student, activityResponse);
 
   @override
   String toString() {
-    return 'CreateActivityResponseRequest(student: $student, courseId: $courseId, classId: $classId, points: $points)';
+    return 'StudentWithResponse(student: $student, activityResponse: $activityResponse)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$CreateActivityResponseRequestCopyWith<$Res>
-    implements $CreateActivityResponseRequestCopyWith<$Res> {
-  factory _$CreateActivityResponseRequestCopyWith(
-          _CreateActivityResponseRequest value,
-          $Res Function(_CreateActivityResponseRequest) _then) =
-      __$CreateActivityResponseRequestCopyWithImpl;
+abstract mixin class _$StudentWithResponseCopyWith<$Res>
+    implements $StudentWithResponseCopyWith<$Res> {
+  factory _$StudentWithResponseCopyWith(_StudentWithResponse value,
+          $Res Function(_StudentWithResponse) _then) =
+      __$StudentWithResponseCopyWithImpl;
   @override
   @useResult
-  $Res call(
-      {StudentModel student, String courseId, String classId, int? points});
+  $Res call({StudentModel student, ActivityResponseModel? activityResponse});
 
   @override
   $StudentModelCopyWith<$Res> get student;
+  @override
+  $ActivityResponseModelCopyWith<$Res>? get activityResponse;
 }
 
 /// @nodoc
-class __$CreateActivityResponseRequestCopyWithImpl<$Res>
-    implements _$CreateActivityResponseRequestCopyWith<$Res> {
-  __$CreateActivityResponseRequestCopyWithImpl(this._self, this._then);
+class __$StudentWithResponseCopyWithImpl<$Res>
+    implements _$StudentWithResponseCopyWith<$Res> {
+  __$StudentWithResponseCopyWithImpl(this._self, this._then);
 
-  final _CreateActivityResponseRequest _self;
-  final $Res Function(_CreateActivityResponseRequest) _then;
+  final _StudentWithResponse _self;
+  final $Res Function(_StudentWithResponse) _then;
 
-  /// Create a copy of CreateActivityResponseRequest
+  /// Create a copy of StudentWithResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $Res call({
     Object? student = null,
-    Object? courseId = null,
-    Object? classId = null,
-    Object? points = freezed,
+    Object? activityResponse = freezed,
   }) {
-    return _then(_CreateActivityResponseRequest(
+    return _then(_StudentWithResponse(
       student: null == student
           ? _self.student
           : student // ignore: cast_nullable_to_non_nullable
               as StudentModel,
-      courseId: null == courseId
-          ? _self.courseId
-          : courseId // ignore: cast_nullable_to_non_nullable
-              as String,
-      classId: null == classId
-          ? _self.classId
-          : classId // ignore: cast_nullable_to_non_nullable
-              as String,
-      points: freezed == points
-          ? _self.points
-          : points // ignore: cast_nullable_to_non_nullable
-              as int?,
+      activityResponse: freezed == activityResponse
+          ? _self.activityResponse
+          : activityResponse // ignore: cast_nullable_to_non_nullable
+              as ActivityResponseModel?,
     ));
   }
 
-  /// Create a copy of CreateActivityResponseRequest
+  /// Create a copy of StudentWithResponse
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $StudentModelCopyWith<$Res> get student {
     return $StudentModelCopyWith<$Res>(_self.student, (value) {
       return _then(_self.copyWith(student: value));
+    });
+  }
+
+  /// Create a copy of StudentWithResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ActivityResponseModelCopyWith<$Res>? get activityResponse {
+    if (_self.activityResponse == null) {
+      return null;
+    }
+
+    return $ActivityResponseModelCopyWith<$Res>(_self.activityResponse!,
+        (value) {
+      return _then(_self.copyWith(activityResponse: value));
     });
   }
 }

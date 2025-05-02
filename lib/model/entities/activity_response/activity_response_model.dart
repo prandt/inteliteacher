@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -12,7 +11,8 @@ part 'activity_response_model.g.dart';
 abstract class ActivityResponseModel with _$ActivityResponseModel {
   const factory ActivityResponseModel({
     required String id,
-    required StudentModel student,
+    required String studentId,
+    required String studentName,
     required String courseId,
     required String classId,
     required int? points,
@@ -25,14 +25,9 @@ abstract class ActivityResponseModel with _$ActivityResponseModel {
 }
 
 @freezed
-abstract class CreateActivityResponseRequest with _$CreateActivityResponseRequest {
-  const factory CreateActivityResponseRequest({
+abstract class StudentWithResponse with _$StudentWithResponse {
+  const factory StudentWithResponse({
     required StudentModel student,
-    required String courseId,
-    required String classId,
-    required int? points,
-  }) = _CreateActivityResponseRequest;
-
-  factory CreateActivityResponseRequest.fromJson(Map<String, dynamic> json) =>
-      _$CreateActivityResponseRequestFromJson(json);
+    required ActivityResponseModel? activityResponse,
+  }) = _StudentWithResponse;
 }

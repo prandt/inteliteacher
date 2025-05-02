@@ -6,6 +6,7 @@ import 'package:inteliteacher/data/repositories/class/class_repository.dart';
 import 'package:inteliteacher/data/repositories/class/class_repository_remote.dart';
 import 'package:inteliteacher/data/repositories/course/course_repository.dart';
 import 'package:inteliteacher/data/repositories/course/course_repository_remote.dart';
+import 'package:inteliteacher/model/use_cases/class/load_students_usecase.dart';
 import 'package:inteliteacher/ui/auth/view_models/finalize_registration_viewmodel.dart';
 import 'package:inteliteacher/ui/auth/view_models/login_viewmodel.dart';
 import 'package:inteliteacher/ui/auth/view_models/logout_viewmodel.dart';
@@ -44,6 +45,7 @@ class InjectorImpl implements Injector {
     //UseCases
     // Registering use cases as factories to ensure a new instance is created each time
     getIt.registerFactory(() => CreateClassPlanUseCase(get(), get()));
+    getIt.registerFactory(() => LoadStudentsUseCase(get(), get()));
 
     // ViewModels
     // Registering view models as factories to ensure a new instance is created each time
@@ -55,7 +57,7 @@ class InjectorImpl implements Injector {
     getIt.registerFactory(() => ClassPlansViewmodel(get(), get()));
     getIt.registerSingleton(CoursesViewmodel(get()));
     getIt.registerFactory(() => CoursePageViewmodel(get(), get()));
-    getIt.registerFactory(() => ClassViewmodel(get()));
+    getIt.registerFactory(() => ClassViewmodel(get(), get()));
   }
 }
 

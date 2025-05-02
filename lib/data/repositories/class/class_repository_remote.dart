@@ -2,11 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:inteliteacher/data/repositories/class/class_repository.dart';
 import 'package:inteliteacher/model/entities/activity/activity_model.dart';
+import 'package:inteliteacher/model/entities/activity_response/activity_response_model.dart';
 import 'package:inteliteacher/model/entities/class/class_model.dart';
 import 'package:inteliteacher/model/entities/class_plans/class_plan_model.dart';
 import 'package:result_dart/result_dart.dart';
 import 'package:uuid/v4.dart';
 
+import '../../../model/validators/new_response_validator.dart';
 import '../../execptions/app_exceptions.dart';
 
 class ClassRepositoryRemote implements ClassRepository {
@@ -146,11 +148,59 @@ class ClassRepositoryRemote implements ClassRepository {
       throw ClassException('Falha ao escutar atividades');
     }
   }
+
+  @override
+  AsyncResult<ActivityResponseModel> addStudentResponse(
+      NewResponseValidator validator) async {
+    try {
+      final response = ActivityResponseModel(
+        id: UuidV4().generate(),
+        points: validator.points,
+        studentId: validator.student.id,
+        studentName: validator.student.name,
+        classId: validator.activity.classId,
+        courseId: validator.activity.courseId,
+        createdAt: Timestamp.now().toDate(),
+        updatedAt: Timestamp.now().toDate(),
+      );
+      await _courseClassesCollection(validator.activity.courseId)
+          .getActivitiesCollection(validator.activity.classId)
+          .doc(validator.activity.id)
+          .collection('responses')
+          .doc(response.id)
+          .set(response.toJson());
+      return Success(response);
+    } catch (exception) {
+      return Failure(ClassException('Falha ao adicionar resposta'));
+    }
+  }
+
+  @override
+  AsyncResult<List<ActivityResponseModel>> listResponses(
+      ActivityModel activityModel) async {
+    try {
+      final querySnapshot =
+          await _courseClassesCollection(activityModel.courseId)
+              .getActivitiesCollection(activityModel.classId)
+              .doc(activityModel.id)
+              .collection('responses')
+              .withConverter<ActivityResponseModel>(
+                fromFirestore: (s, _) =>
+                    ActivityResponseModel.fromJson(s.data()!),
+                toFirestore: (activity, _) => activity.toJson(),
+              )
+              .get();
+      final responses = querySnapshot.docs.map((e) => e.data()).toList();
+      return Success(responses);
+    } catch (_) {
+      return Failure(ClassException('Falha ao listar respostas'));
+    }
+  }
 }
 
 extension on CollectionReference<ClassModel> {
-  CollectionReference<ActivityModel> getActivitiesCollection(String id) =>
-      doc(id).collection('activities').withConverter<ActivityModel>(
+  CollectionReference<ActivityModel> getActivitiesCollection(String classId) =>
+      doc(classId).collection('activities').withConverter<ActivityModel>(
           fromFirestore: (s, _) => ActivityModel.fromJson(s.data()!),
           toFirestore: (activity, _) => activity.toJson());
 }

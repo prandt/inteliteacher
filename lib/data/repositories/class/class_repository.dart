@@ -1,3 +1,5 @@
+import 'package:inteliteacher/model/entities/activity_response/activity_response_model.dart';
+import 'package:inteliteacher/model/validators/new_response_validator.dart';
 import 'package:result_dart/result_dart.dart';
 
 import '../../../model/entities/activity/activity_model.dart';
@@ -17,4 +19,8 @@ abstract interface class ClassRepository {
   AsyncResult<ClassPlanModel> updateClassPlan(
       ClassModel classModel, ClassPlanModel classPlan);
   Stream<List<ActivityModel>> listenActivities(ClassModel model);
+  AsyncResult<List<ActivityResponseModel>> listResponses(
+      ActivityModel activityModel);
+  AsyncResult<ActivityResponseModel> addStudentResponse(
+      NewResponseValidator validator);
 }

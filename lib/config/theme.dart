@@ -133,6 +133,13 @@ final themeData = ThemeData(
     trackColor: WidgetStateProperty.all(AppColors.tropicalIndigo),
     trackOutlineColor: WidgetStateProperty.all(AppColors.tropicalIndigo),
   ),
+  expansionTileTheme: ExpansionTileThemeData(
+    backgroundColor: AppColors.ghostWhite,
+    iconColor: AppColors.tropicalIndigo,
+    collapsedIconColor: AppColors.tropicalIndigo,
+    textColor: AppColors.tropicalIndigo,
+    collapsedTextColor: AppColors.tropicalIndigo,
+  ),
 );
 
 abstract final class AppColors {
