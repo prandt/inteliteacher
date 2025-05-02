@@ -77,7 +77,9 @@ class _ClassPlanCardState extends State<ClassPlanCard> {
                       style: Theme.of(context).textTheme.titleSmall),
                   Text(viewModel.classPlan!.title,
                       style: Theme.of(context).textTheme.bodySmall),
-                  ElevatedButton(onPressed: () {}, child: Text("Visualizar")),
+                  ElevatedButton(
+                      onPressed: _openClassPlanModal,
+                      child: Text("Visualizar")),
                 ],
               );
             }
@@ -172,6 +174,93 @@ class _ClassPlanCardState extends State<ClassPlanCard> {
         });
   }
 
+  void _openClassPlanModal() {
+    showModalBottomSheet(
+        context: context,
+        enableDrag: true,
+        showDragHandle: true,
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.8,
+        ),
+        isScrollControlled: true,
+        backgroundColor: AppColors.ghostWhite,
+        builder: (context) {
+          return SingleChildScrollView(
+            child: Material(
+              color: AppColors.ghostWhite,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  spacing: 16,
+                  children: [
+                    Text(
+                      viewModel.classPlan!.title,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    Text(
+                      'Essa aula terá uma duração de ${viewModel.classPlan!.duration} minutos.',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    ClassPlanExpansion(title: "Objetivo", children: [
+                      Text(
+                        viewModel.classPlan!.objective!,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ]),
+                    ClassPlanExpansion(title: "Metodologia", children: [
+                      Text(
+                        viewModel.classPlan!.methodology!,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ]),
+                    ClassPlanExpansion(
+                        title: "Recursos",
+                        children: viewModel.classPlan!.resources!
+                            .map((re) => Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  spacing: 8,
+                                  children: [
+                                    const Icon(Icons.check, size: 16),
+                                    Expanded(
+                                      child: Text(re!,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall),
+                                    ),
+                                  ],
+                                ))
+                            .toList()),
+                    ClassPlanExpansion(
+                        title: "Conteúdos",
+                        children: viewModel.classPlan!.content!
+                            .map((re) => Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  spacing: 8,
+                                  children: [
+                                    const Icon(Icons.check, size: 16),
+                                    Expanded(
+                                      child: Text(re,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall),
+                                    ),
+                                  ],
+                                ))
+                            .toList()),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
   InputBorder _customInputBorder({bool focused = false}) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
@@ -179,6 +268,30 @@ class _ClassPlanCardState extends State<ClassPlanCard> {
         color: focused ? AppColors.tropicalIndigo : AppColors.periwinkle,
         width: 1,
       ),
+    );
+  }
+}
+
+class ClassPlanExpansion extends StatelessWidget {
+  const ClassPlanExpansion(
+      {super.key, required this.title, required this.children});
+
+  final String title;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      tilePadding: const EdgeInsets.all(0),
+      title: Text(title),
+      childrenPadding: const EdgeInsets.all(16),
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 4,
+          children: children,
+        )
+      ],
     );
   }
 }
